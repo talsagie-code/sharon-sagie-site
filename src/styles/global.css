@@ -41,10 +41,10 @@ a{color:inherit;text-decoration:none}
 .nav::before{content:"";position:absolute;inset:0;bottom:auto;height:130px;z-index:-1;background:linear-gradient(180deg,rgba(247,244,239,.96),rgba(247,244,239,.6) 45%,rgba(247,244,239,0));transition:.45s}
 .nav.solid{background:rgba(247,244,239,.95);backdrop-filter:blur(12px);color:var(--ink);border-bottom:1px solid var(--line)}
 .nav.solid::before{opacity:0}
-.nav__logo img{height:58px;width:auto;transition:.4s}
-.nav__logo .logo-dark{display:block}
-.nav__logo .logo-light{display:none}
-.nav.solid .nav__logo img{height:50px}
+.nav__logo{display:flex;flex-direction:column;align-items:center;gap:5px;line-height:1;text-decoration:none}
+.nav__logo .logo-img{height:48px;width:auto;transition:.4s;display:block}
+.nav.solid .nav__logo .logo-img{height:42px}
+.nav__tag{font-family:var(--sans);font-weight:300;font-size:11px;letter-spacing:.08em;color:var(--accent);text-transform:lowercase;white-space:nowrap;transition:.4s}
 .nav__links{display:flex;gap:30px;list-style:none;font-size:.95rem;font-weight:300}
 .nav__links a{position:relative;padding-bottom:4px}
 .nav__links a::after{content:"";position:absolute;inset-inline-end:0;bottom:0;height:1px;width:0;background:currentColor;transition:.4s}
@@ -84,7 +84,7 @@ a{color:inherit;text-decoration:none}
 }
 
 /* inner pages: nav is solid + static, push content below it */
-.has-solid-nav main{padding-top:74px}
+.has-solid-nav main{padding-top:92px}
 .page-head{padding:8vh var(--pad) 2vh;max-width:var(--maxw);margin:0 auto}
 .page-head .eyebrow{display:block;margin-bottom:10px}
 .page-head h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.4rem,6vw,4.4rem);line-height:1.02;letter-spacing:-.01em}
