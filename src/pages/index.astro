@@ -50,6 +50,7 @@ const nl = (t) => t.replace(/\n/g, '<br/>');
           <div class="proj__media">
             <img src={p.cover} alt={p.title} loading="lazy" />
             <div class="proj__overlay">
+              <img class="proj__mark" src="/assets/mark.png" alt="" />
               <span class="proj__cap">{p.title}</span>
               {p.comingSoon && <span class="proj__soon">coming soon…</span>}
             </div>
@@ -127,9 +128,14 @@ const nl = (t) => t.replace(/\n/g, '<br/>');
   .proj__media{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--bg-2);border-radius:3px}
   .proj__media>img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s cubic-bezier(.2,.7,.2,1)}
   .proj__card:hover .proj__media>img{transform:scale(1.05)}
-  .proj__overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;gap:3px;padding:22px 24px;background:linear-gradient(to top,rgba(26,20,15,.62),rgba(26,20,15,.12) 42%,rgba(26,20,15,0) 70%)}
-  .proj__cap{font-family:var(--serif);font-weight:500;font-size:clamp(1.3rem,2vw,1.7rem);color:#fff;text-shadow:0 1px 14px rgba(0,0,0,.35)}
-  .proj__soon{font-size:.82rem;letter-spacing:.14em;color:rgba(255,255,255,.92);text-shadow:0 1px 10px rgba(0,0,0,.4)}
+  .proj__overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:20px;background:rgba(247,244,239,.72);opacity:0;transition:opacity .45s ease}
+  .proj__card.is-open .proj__overlay{opacity:1}
+  .proj__mark{width:54px;height:auto;transform:translateY(8px);transition:transform .6s}
+  .proj__cap{font-family:var(--serif);font-weight:500;font-size:clamp(1.3rem,2vw,1.7rem);color:var(--ink);transform:translateY(12px);transition:transform .6s .05s}
+  .proj__soon{font-size:.82rem;letter-spacing:.14em;color:var(--accent-deep);transform:translateY(12px);transition:transform .6s .08s}
+  .proj__card.is-open .proj__mark{transform:translateY(0)}
+  .proj__card.is-open .proj__cap{transform:translateY(0)}
+  .proj__card.is-open .proj__soon{transform:translateY(0)}
 
   .svc-prev{background:var(--band);color:var(--ink)}
   .svc-prev__in{padding:11vh 0;text-align:center;max-width:880px}

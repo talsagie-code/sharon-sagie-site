@@ -15,6 +15,7 @@ import { projects } from '../../data/projects.js';
         <div class="pcard__media">
           <img src={p.cover} alt={p.title} loading="lazy" />
           <div class="pcard__overlay">
+            <img class="pcard__mark" src="/assets/mark.png" alt="" />
             <span class="pcard__cap">{p.title}</span>
             {p.comingSoon && <span class="pcard__soon">coming soon…</span>}
           </div>
@@ -30,8 +31,13 @@ import { projects } from '../../data/projects.js';
   .pcard__media{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--bg-2);border-radius:3px}
   .pcard__media>img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s cubic-bezier(.2,.7,.2,1)}
   .pcard:hover .pcard__media>img{transform:scale(1.05)}
-  .pcard__overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;gap:3px;padding:22px 24px;background:linear-gradient(to top,rgba(26,20,15,.62),rgba(26,20,15,.12) 42%,rgba(26,20,15,0) 70%)}
-  .pcard__cap{font-family:var(--serif);font-weight:500;font-size:clamp(1.3rem,2vw,1.7rem);color:#fff;text-shadow:0 1px 14px rgba(0,0,0,.35)}
-  .pcard__soon{font-size:.82rem;letter-spacing:.14em;color:rgba(255,255,255,.92);text-shadow:0 1px 10px rgba(0,0,0,.4)}
+  .pcard__overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:20px;background:rgba(247,244,239,.72);opacity:0;transition:opacity .45s ease}
+  .pcard.is-open .pcard__overlay{opacity:1}
+  .pcard__mark{width:56px;height:auto;transform:translateY(8px);transition:transform .6s}
+  .pcard__cap{font-family:var(--serif);font-weight:500;font-size:clamp(1.3rem,2vw,1.7rem);color:var(--ink);transform:translateY(12px);transition:transform .6s .05s}
+  .pcard__soon{font-size:.82rem;letter-spacing:.14em;color:var(--accent-deep);transform:translateY(12px);transition:transform .6s .08s}
+  .pcard.is-open .pcard__mark{transform:translateY(0)}
+  .pcard.is-open .pcard__cap{transform:translateY(0)}
+  .pcard.is-open .pcard__soon{transform:translateY(0)}
   @media(max-width:780px){.plist{grid-template-columns:1fr}}
 </style>

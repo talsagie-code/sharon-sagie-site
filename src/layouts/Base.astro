@@ -55,6 +55,27 @@ const ogImage = 'https://images.cdn-files-a.com/uploads/7076259/2000_650408d1277
     links?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => links.classList.remove('open')));
     const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.15 });
     document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+    // Project cards: image is clean; hover (desktop) reveals title+house mark,
+    // on touch the first tap reveals and the second tap opens the project.
+    const cards = document.querySelectorAll('.proj__card, .pcard');
+    if (cards.length) {
+      const hoverable = window.matchMedia('(hover: hover)').matches;
+      cards.forEach((card) => {
+        if (hoverable) {
+          card.addEventListener('mouseenter', () => card.classList.add('is-open'));
+          card.addEventListener('mouseleave', () => card.classList.remove('is-open'));
+        } else {
+          card.addEventListener('click', (e) => {
+            if (!card.classList.contains('is-open')) {
+              e.preventDefault();
+              cards.forEach((c) => { if (c !== card) c.classList.remove('is-open'); });
+              card.classList.add('is-open');
+            }
+          });
+        }
+      });
+    }
   </script>
 </body>
 </html>
