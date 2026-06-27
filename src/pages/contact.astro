@@ -4,7 +4,6 @@ import site from '../data/site.json';
 const c = site.contact;
 const methods = c.methods;
 const nl = (t) => t.replace(/\n/g, '<br/>');
-const waGlyph = 'M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.8 14.18c-.25.69-1.45 1.32-1.99 1.36-.51.04-1.16.06-1.87-.12-.43-.11-.99-.3-1.7-.61-2.99-1.29-4.95-4.3-5.1-4.5-.15-.2-1.22-1.62-1.22-3.1 0-1.48.78-2.2 1.05-2.5.27-.3.59-.37.79-.37.2 0 .39 0 .56.01.18.01.42-.07.66.5.25.59.84 2.04.91 2.19.07.15.12.32.02.52-.1.2-.15.32-.3.5-.15.18-.31.4-.44.53-.15.15-.3.31-.13.6.17.29.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.35 1.46.29.15.46.12.63-.07.17-.2.73-.85.92-1.14.2-.29.39-.24.66-.15.27.1 1.71.81 2 .96.29.15.49.22.56.34.07.12.07.69-.18 1.38z';
 ---
 <Base active="contact" solidNav={true} slimFooter={true} title="צרו קשר · שרון שגיא">
   <header class="page-head reveal">
@@ -24,7 +23,7 @@ const waGlyph = 'M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2
         return (
           <Tag class={`cx__row reveal${href ? ' is-link' : ''}`} href={href || undefined}>
             <span class="cx__ic">
-              {wa && (<svg class="cx-wa" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d={waGlyph}></path></svg>)}
+              {wa && (<svg class="cx-wa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9l-5.05 .9"></path><path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1"></path></svg>)}
               {mail && (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3.6 6.6l8.4 5.9 8.4-5.9"></path></svg>)}
               {loc && (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6-5-6-9.5A6 6 0 0 1 18 11.5C18 16 12 21 12 21z"></path><circle cx="12" cy="11" r="2.2"></circle></svg>)}
               {!wa && !mail && !loc && (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.4"></circle><path d="M12 7.6V12l3 1.8"></path></svg>)}
@@ -39,8 +38,8 @@ const waGlyph = 'M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2
     </div>
 
     <div class="c-social reveal">
-      <a href="https://instagram.com/two_studio_interior_design" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
-      <a href="https://www.facebook.com/profile.php?id=100076946022571" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+      <a href="https://instagram.com/two_studio_interior_design" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+      <a href="https://www.facebook.com/profile.php?id=100076946022571" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
     </div>
   </section>
 </Base>
@@ -52,7 +51,6 @@ const waGlyph = 'M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2
   .cx__row + .cx__row{border-top:1px solid var(--line)}
   .cx__ic{flex:0 0 auto;width:54px;height:54px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;color:var(--accent-deep);background:#fff;transition:.35s}
   .cx__ic svg{width:23px;height:23px}
-  .cx-wa{width:24px !important;height:24px !important}
   a.cx__row{text-decoration:none}
   a.cx__row:hover .cx__ic{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 10px 24px rgba(38,32,25,.08)}
   .cx__txt{display:flex;flex-direction:column;gap:6px;min-width:0}
