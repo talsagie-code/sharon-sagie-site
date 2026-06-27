@@ -1,23 +1,44 @@
 ---
+const { slim = false } = Astro.props;
 const year = new Date().getFullYear();
+const waGlyph = 'M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.8 14.18c-.25.69-1.45 1.32-1.99 1.36-.51.04-1.16.06-1.87-.12-.43-.11-.99-.3-1.7-.61-2.99-1.29-4.95-4.3-5.1-4.5-.15-.2-1.22-1.62-1.22-3.1 0-1.48.78-2.2 1.05-2.5.27-.3.59-.37.79-.37.2 0 .39 0 .56.01.18.01.42-.07.66.5.25.59.84 2.04.91 2.19.07.15.12.32.02.52-.1.2-.15.32-.3.5-.15.18-.31.4-.44.53-.15.15-.3.31-.13.6.17.29.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.35 1.46.29.15.46.12.63-.07.17-.2.73-.85.92-1.14.2-.29.39-.24.66-.15.27.1 1.71.81 2 .96.29.15.49.22.56.34.07.12.07.69-.18 1.38z';
 ---
-<footer class="foot">
-  <div class="foot__top">
-    <div class="foot__col">
-      <h5>עקבו אחריי</h5>
+<footer class={`foot${slim ? ' foot--slim' : ''}`}>
+  {slim ? (
+    <div class="foot__slim">
+      <a class="foot__logo" href="/"><img src="/assets/logo.png" alt="שרון שגיא" /></a>
       <div class="social">
         <a href="https://instagram.com/two_studio_interior_design" target="_blank" rel="noopener">Instagram</a>
         <a href="https://www.facebook.com/profile.php?id=100076946022571" target="_blank" rel="noopener">Facebook</a>
       </div>
     </div>
-    <div class="foot__logo"><img src="/assets/logo.png" alt="שרון שגיא" /></div>
-    <div class="foot__col">
-      <h5>בואו נדבר</h5>
-      <a href="https://wa.me/9720523724032">052-372-4032</a>
-      <a href="mailto:sharonsa.design@gmail.com">sharonsa.design@gmail.com</a>
-      <a>נופית, ישראל</a>
+  ) : (
+    <div class="foot__top">
+      <div class="foot__col">
+        <h5>עקבו אחריי</h5>
+        <div class="social">
+          <a href="https://instagram.com/two_studio_interior_design" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.facebook.com/profile.php?id=100076946022571" target="_blank" rel="noopener">Facebook</a>
+        </div>
+      </div>
+      <div class="foot__logo"><img src="/assets/logo.png" alt="שרון שגיא" /></div>
+      <div class="foot__col foot__contact">
+        <h5>בואו נדבר</h5>
+        <a class="fc-line fc-link" href="https://wa.me/9720523724032" aria-label="וואטסאפ 052-372-4032">
+          <svg class="fc-ic fc-wa" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d={waGlyph}></path></svg>
+          <span class="fc-val">052-372-4032</span>
+        </a>
+        <a class="fc-line fc-link" href="mailto:sharonsa.design@gmail.com">
+          <svg class="fc-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3.6 6.6l8.4 5.9 8.4-5.9"></path></svg>
+          <span class="fc-val">sharonsa.design@gmail.com</span>
+        </a>
+        <span class="fc-line">
+          <svg class="fc-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6-5-6-9.5A6 6 0 0 1 18 11.5C18 16 12 21 12 21z"></path><circle cx="12" cy="11" r="2.2"></circle></svg>
+          <span class="fc-val">נופית, ישראל</span>
+        </span>
+      </div>
     </div>
-  </div>
+  )}
   <div class="foot__bottom">
     <span>© {year} שרון שגיא · תכנון ועיצוב פנים</span>
     <span>עיצוב פנים ותכנון הבית · נופית והצפון</span>
