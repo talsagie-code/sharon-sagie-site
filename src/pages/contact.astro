@@ -1,0 +1,44 @@
+---
+import Base from '../layouts/Base.astro';
+import site from '../data/site.json';
+const c = site.contact;
+const methods = c.methods;
+const nl = (t) => t.replace(/\n/g, '<br/>');
+---
+<Base active="contact" solidNav={true} title="צרו קשר · שרון שגיא">
+  <header class="page-head reveal">
+    <span class="eyebrow">{c.eyebrow}</span>
+    <h1 set:html={nl(c.title)}></h1>
+    <p>{c.lead}</p>
+  </header>
+
+  <section class="wrap contact">
+    <div class="c-methods">
+      {methods.map((m) => (
+        <a class="c-method reveal" href={m.href || undefined}>
+          <span class="c-line"></span>
+          <div class="c-label">{m.label}</div>
+          <div class="c-value">{m.value}</div>
+        </a>
+      ))}
+    </div>
+    <div class="c-social reveal">
+      <a href="https://instagram.com/two_studio_interior_design" target="_blank" rel="noopener">Instagram</a>
+      <span class="dot">·</span>
+      <a href="https://www.facebook.com/profile.php?id=100076946022571" target="_blank" rel="noopener">Facebook</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .contact{padding:4vh 0 14vh}
+  .c-methods{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;max-width:780px;margin:0 auto}
+  .c-method{display:block;background:#fff;border:1px solid var(--line);border-radius:6px;padding:38px 28px;text-align:center;transition:.4s}
+  a.c-method:hover{transform:translateY(-3px);box-shadow:0 18px 44px rgba(38,32,25,.1);border-color:var(--accent)}
+  .c-line{display:block;width:30px;height:2px;background:var(--accent);opacity:.85;margin:0 auto 20px}
+  .c-label{font-size:.78rem;letter-spacing:.22em;color:var(--ink-soft)}
+  .c-value{font-family:var(--serif);font-size:1.3rem;margin-top:12px;font-weight:500;line-height:1.5}
+  .c-social{display:flex;gap:14px;justify-content:center;align-items:center;margin-top:42px;color:var(--accent-deep);font-size:1rem;letter-spacing:.04em}
+  .c-social .dot{opacity:.5}
+  @media(max-width:680px){.c-methods{grid-template-columns:1fr}}
+</style>

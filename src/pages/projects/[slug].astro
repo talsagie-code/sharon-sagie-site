@@ -1,0 +1,90 @@
+---
+import Base from '../../layouts/Base.astro';
+import { projects } from '../../data/projects.js';
+export function getStaticPaths() {
+  return projects.map((p, i) => ({
+    params: { slug: p.slug },
+    props: { project: p, prev: projects[(i - 1 + projects.length) % projects.length], next: projects[(i + 1) % projects.length] },
+  }));
+}
+const { project, prev, next } = Astro.props;
+---
+<Base active="projects" solidNav={true} title={`${project.title} · שרון שגיא`} description={project.summary}>
+  <header class="page-head reveal">
+    <span class="eyebrow">{project.tag} · {project.location} · {project.year}</span>
+    <h1>{project.title}</h1>
+    <p>{project.summary}</p>
+  </header>
+
+  <section class="wrap p-intro reveal">
+    <div class="p-challenge">{project.challenge}</div>
+    <p class="p-body">{project.body}</p>
+  </section>
+
+  <section class="wrap gallery" id="gallery">
+    {project.images.map((src, i) => (
+      <button class="g-item reveal" data-i={i} aria-label="הגדל תמונה"><img src={src} alt={project.title} loading="lazy" /></button>
+    ))}
+  </section>
+
+  <nav class="p-nav wrap">
+    <a href={`/projects/${next.slug}`} class="p-nav__a">‹ {next.title}</a>
+    <a href="/projects" class="p-nav__all">לכל הפרויקטים</a>
+    <a href={`/projects/${prev.slug}`} class="p-nav__a">{prev.title} ›</a>
+  </nav>
+
+  <div id="lightbox" aria-hidden="true">
+    <button class="lb-btn lb-close" aria-label="סגור">&times;</button>
+    <button class="lb-btn lb-prev" aria-label="הקודם">&#8250;</button>
+    <button class="lb-btn lb-next" aria-label="הבא">&#8249;</button>
+    <div class="lb-load"><svg class="lh" viewBox="0 0 104 90" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M58 84 V22 L96 10 V84" pathLength="100"/><path d="M16 84 V44 H58" pathLength="100"/><path d="M37 44 V84" pathLength="100"/><path d="M37 44 V32 H47 V44" pathLength="100"/></svg></div>
+    <img src="" alt="" />
+    <div class="lb-count"></div>
+  </div>
+</Base>
+
+<style>
+  .p-intro{display:grid;grid-template-columns:1fr 1.4fr;gap:clamp(24px,4vw,64px);padding:2vh 0 8vh;align-items:start}
+  .p-challenge{font-family:var(--lat);font-style:italic;color:var(--accent-deep);font-size:1.3rem;line-height:1.6;border-inline-start:2px solid var(--accent);padding-inline-start:20px}
+  .p-body{color:var(--ink-soft);font-size:1.08rem;line-height:1.95}
+  .gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(14px,2vw,26px);padding-bottom:10vh}
+  .g-item{border:none;padding:0;background:var(--bg-2);cursor:zoom-in;overflow:hidden;aspect-ratio:4/3;display:block}
+  .g-item img{width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.2,.7,.2,1)}
+  .g-item:hover img{transform:scale(1.05)}
+  .p-nav{display:flex;align-items:center;justify-content:space-between;gap:18px;border-top:1px solid var(--line);padding:34px var(--pad);max-width:var(--maxw);margin:0 auto 12vh;font-family:var(--serif);font-size:1.05rem}
+  .p-nav__all{font-family:var(--sans);color:var(--accent);font-size:.95rem}
+  .p-nav__a:hover{color:var(--accent)}
+  #lightbox{position:fixed;inset:0;z-index:100;background:rgba(18,15,12,.94);display:none;align-items:center;justify-content:center}
+  #lightbox.open{display:flex}
+  #lightbox img{max-width:90vw;max-height:86vh;width:auto;height:auto;object-fit:contain;border-radius:2px;box-shadow:0 30px 90px rgba(0,0,0,.6)}
+  .lb-btn{position:absolute;background:rgba(255,255,255,.12);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.3s;backdrop-filter:blur(4px)}
+  .lb-btn:hover{background:rgba(255,255,255,.25)}
+  .lb-close{top:24px;inset-inline-start:28px;width:46px;height:46px;border-radius:50%;font-size:1.4rem}
+  .lb-prev,.lb-next{top:50%;transform:translateY(-50%);width:54px;height:54px;border-radius:50%;font-size:2rem}
+  .lb-prev{inset-inline-end:28px}
+  .lb-next{inset-inline-start:28px}
+  .lb-count{position:absolute;bottom:26px;inset-inline-start:50%;transform:translateX(-50%);color:rgba(255,255,255,.8);font-size:.85rem;letter-spacing:.18em;direction:ltr}
+  .lb-load{position:absolute;inset:0;display:none;align-items:center;justify-content:center;color:#fff}
+  #lightbox.loading .lb-load{display:flex}
+  #lightbox.loading img{opacity:0}
+  .lb-load .lh{width:72px;height:auto}
+  @media(max-width:780px){.p-intro{grid-template-columns:1fr}.gallery{grid-template-columns:1fr}}
+</style>
+
+<script define:vars={{ imgs: project.images }}>
+  const lb = document.getElementById('lightbox');
+  const lbImg = lb.querySelector('img');
+  const lbCount = lb.querySelector('.lb-count');
+  let i = 0;
+  const render = () => { lb.classList.add('loading'); lbImg.src = imgs[i]; lbCount.textContent = (i + 1) + ' / ' + imgs.length; };
+  lbImg.addEventListener('load', () => lb.classList.remove('loading'));
+  const open = (n) => { i = n; render(); lb.classList.add('open'); document.body.style.overflow = 'hidden'; };
+  const close = () => { lb.classList.remove('open'); document.body.style.overflow = ''; };
+  const show = (n) => { i = (n + imgs.length) % imgs.length; render(); };
+  document.querySelectorAll('.g-item').forEach((b) => b.addEventListener('click', () => open(+b.dataset.i)));
+  lb.querySelector('.lb-next').addEventListener('click', (e) => { e.stopPropagation(); show(i + 1); });
+  lb.querySelector('.lb-prev').addEventListener('click', (e) => { e.stopPropagation(); show(i - 1); });
+  lb.querySelector('.lb-close').addEventListener('click', close);
+  lb.addEventListener('click', (e) => { if (e.target === lb) close(); });
+  addEventListener('keydown', (e) => { if (!lb.classList.contains('open')) return; if (e.key === 'Escape') close(); else if (e.key === 'ArrowLeft') show(i + 1); else if (e.key === 'ArrowRight') show(i - 1); });
+</script>

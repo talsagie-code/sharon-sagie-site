@@ -1,0 +1,64 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+const {
+  title = 'שרון שגיא · עיצוב פנים ותכנון הבית',
+  description = 'שרון שגיא — סטודיו אישי לעיצוב פנים ותכנון הבית בנופית. הקשבה, התבוננות ותכנון מדויק.',
+  active = '',
+  solidNav = false,
+} = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
+</head>
+<body class={solidNav ? 'has-solid-nav' : ''}>
+  <div id="loader" aria-hidden="true">
+    <svg class="lh" viewBox="0 0 104 90" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M58 84 V22 L96 10 V84" pathLength="100" />
+      <path d="M16 84 V44 H58" pathLength="100" />
+      <path d="M37 44 V84" pathLength="100" />
+      <path d="M37 44 V32 H47 V44" pathLength="100" />
+    </svg>
+  </div>
+  <Nav active={active} solid={solidNav} />
+  <main>
+    <slot />
+  </main>
+  <Footer />
+  <script>
+    const nav = document.getElementById('nav');
+    const isStatic = nav.classList.contains('is-static');
+    if (!isStatic) {
+      const onScroll = () => nav.classList.toggle('solid', window.scrollY > window.innerHeight * 0.7);
+      addEventListener('scroll', onScroll); onScroll();
+    }
+    const toggle = document.getElementById('navToggle');
+    const links = document.getElementById('navLinks');
+    toggle?.addEventListener('click', () => links.classList.toggle('open'));
+    links?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => links.classList.remove('open')));
+    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+    // page loader (house draws itself); hide once DOM is ready (min 420ms), show again on internal navigation
+    const start = performance.now();
+    const hide = () => document.body.classList.add('loaded');
+    const ready = () => setTimeout(hide, Math.max(0, 420 - (performance.now() - start)));
+    if (document.readyState !== 'loading') ready(); else addEventListener('DOMContentLoaded', ready);
+    addEventListener('pageshow', (e) => { if (e.persisted) hide(); });
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('a');
+      if (a && a.href && a.origin === location.origin && a.getAttribute('href') && !a.getAttribute('href').startsWith('#') && !a.target && !a.hasAttribute('download')) {
+        document.body.classList.remove('loaded');
+      }
+    });
+  </script>
+</body>
+</html>

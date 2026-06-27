@@ -1,0 +1,68 @@
+---
+import Base from '../layouts/Base.astro';
+import site from '../data/site.json';
+const sv = site.services;
+const modes = sv.modes;
+const tracks = sv.tracks;
+const why = sv.why;
+const nl = (t) => t.replace(/\n/g, '<br/>');
+---
+<Base active="services" solidNav={true} title="ייעוץ ומסלולים · שרון שגיא">
+  <header class="page-head reveal">
+    <span class="eyebrow">{sv.eyebrow}</span>
+    <h1 set:html={nl(sv.title)}></h1>
+    <p>{sv.lead}</p>
+  </header>
+
+  <section class="wrap modes">
+    {modes.map((m) => (
+      <div class="mode reveal"><h3>{m.t}</h3><p>{m.p}</p></div>
+    ))}
+  </section>
+
+  <section class="tracks-sec">
+    <div class="wrap">
+      <div class="tr-head reveal"><span class="eyebrow">{sv.tracksEyebrow}</span><h2 class="h-sec">{sv.tracksTitle}</h2></div>
+      <div class="tracks">
+        {tracks.map((t) => (
+          <div class={`track reveal${t.featured ? ' featured' : ''}`}>
+            {t.featured && <span class="badge">הכי משתלם</span>}
+            <h4>{t.name}</h4>
+            <div class="price">{t.price}{t.strike && <span class="strike">{t.strike}</span>}</div>
+            <p>{t.body}</p>
+            <div class="note">{t.note}</div>
+          </div>
+        ))}
+      </div>
+      <div class="why">
+        {why.map((w) => (<div class="reveal"><div class="wn">{w.n}</div><div class="wt">{w.t}</div></div>))}
+      </div>
+      <div class="tr-cta reveal"><a href="https://wa.me/9720523724032" class="btn btn-solid">{sv.cta}</a></div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .modes{display:grid;grid-template-columns:repeat(3,1fr);gap:34px;padding:4vh 0 12vh}
+  .mode{border-top:2px solid var(--accent);padding-top:22px}
+  .mode h3{font-family:var(--serif);font-weight:500;font-size:1.5rem;margin-bottom:.5em}
+  .mode p{color:var(--ink-soft);line-height:1.85}
+  .tracks-sec{background:var(--band);padding:12vh 0}
+  .tr-head{text-align:center;max-width:760px;margin:0 auto 56px}
+  .tr-head .eyebrow{display:block;margin-bottom:12px;color:var(--accent-deep)}
+  .tracks{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-bottom:60px}
+  .track{position:relative;background:#fff;border:1px solid #E8D7CD;border-radius:4px;padding:38px 30px;display:flex;flex-direction:column}
+  .track.featured{box-shadow:0 22px 55px rgba(140,70,48,.2)}
+  .track .badge{position:absolute;top:-12px;inset-inline-end:24px;background:var(--accent);color:#fff;font-size:.72rem;letter-spacing:.1em;padding:5px 14px;border-radius:30px}
+  .track h4{font-family:var(--serif);font-weight:500;font-size:1.4rem;margin-bottom:.35em;line-height:1.25}
+  .track .price{font-family:var(--lat);font-style:italic;color:var(--accent-deep);font-size:1.9rem;margin-bottom:.3em}
+  .track .price .strike{color:var(--ink-soft);text-decoration:line-through;font-size:1.05rem;margin-inline-start:10px;font-style:normal}
+  .track p{color:var(--ink-soft);line-height:1.8;font-size:.97rem;margin:.4em 0 1.3em}
+  .track .note{font-size:.85rem;color:var(--ink-soft);border-top:1px solid var(--line);padding-top:14px;margin-top:auto;line-height:1.7}
+  .why{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:1100px;margin:0 auto 50px}
+  .why div{text-align:center}
+  .why .wn{font-family:var(--lat);font-style:italic;color:var(--accent-deep);font-size:1.9rem;opacity:.55}
+  .why .wt{font-family:var(--serif);font-size:1.12rem;margin-top:6px}
+  .tr-cta{text-align:center}
+  @media(max-width:880px){.modes{grid-template-columns:1fr;gap:26px}.tracks{grid-template-columns:1fr}.why{grid-template-columns:repeat(2,1fr)}}
+</style>

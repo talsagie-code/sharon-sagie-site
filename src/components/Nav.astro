@@ -1,0 +1,23 @@
+---
+const { active = '', solid = false } = Astro.props;
+const links = [
+  { href: '/', label: 'בית', key: 'home' },
+  { href: '/about', label: 'אודות', key: 'about' },
+  { href: '/services', label: 'ייעוץ', key: 'services' },
+  { href: '/projects', label: 'פרויקטים', key: 'projects' },
+  { href: '/testimonials', label: 'המלצות', key: 'testimonials' },
+  { href: '/contact', label: 'צרו קשר', key: 'contact' },
+];
+---
+<nav class={`nav${solid ? ' solid is-static' : ''}`} id="nav">
+  <a class="nav__logo" href="/" aria-label="שרון שגיא">
+    <img class="logo-dark" src="/assets/logo.png" alt="שרון שגיא · עיצוב פנים" />
+    <img class="logo-light" src="/assets/logo-light.png" alt="שרון שגיא · עיצוב פנים" />
+  </a>
+  <button class="nav__toggle" id="navToggle" aria-label="תפריט">☰</button>
+  <ul class="nav__links" id="navLinks">
+    {links.map((l) => (
+      <li><a href={l.href} class={active === l.key ? 'active' : ''}>{l.label}</a></li>
+    ))}
+  </ul>
+</nav>

@@ -1,0 +1,41 @@
+---
+import Base from '../layouts/Base.astro';
+import { testimonials } from '../data/projects.js';
+---
+<Base active="testimonials" solidNav={true} title="המלצות · שרון שגיא">
+  <header class="page-head reveal">
+    <span class="eyebrow">לקוחות מספרים</span>
+    <h1>המלצות</h1>
+    <p>כמה מילים מאנשים שכבר גרים בבית שתכננו יחד.</p>
+  </header>
+
+  <section class="wrap tst-list">
+    {testimonials.map((t) => (
+      <figure class="tcard reveal">
+        <div class="tcard__mark">״</div>
+        <blockquote>{t.quote}</blockquote>
+        <figcaption><span class="who">{t.who}</span><span class="where">{t.where}</span></figcaption>
+      </figure>
+    ))}
+  </section>
+
+  <section class="endcta">
+    <div class="wrap reveal">
+      <h2 class="h-sec">רוצים להיות ההמלצה הבאה?</h2>
+      <a href="/contact" class="btn btn-solid">בואו נדבר</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .tst-list{columns:2;column-gap:34px;padding:4vh 0 10vh}
+  .tcard{break-inside:avoid;margin-bottom:34px;background:#fff;border:1px solid var(--line);border-radius:4px;padding:34px 32px;position:relative}
+  .tcard__mark{font-family:var(--serif);font-size:3.4rem;line-height:.4;color:var(--accent);opacity:.4;height:30px}
+  .tcard blockquote{font-family:var(--serif);font-weight:300;font-size:1.22rem;line-height:1.7;color:var(--ink);margin-bottom:20px}
+  .tcard figcaption{display:flex;flex-direction:column;gap:2px}
+  .tcard .who{font-weight:600;letter-spacing:.03em}
+  .tcard .where{font-family:var(--lat);font-style:italic;color:var(--accent-deep);font-size:1.05rem}
+  .endcta{text-align:center;padding:12vh 0;background:var(--band)}
+  .endcta h2{margin-bottom:1em}
+  @media(max-width:880px){.tst-list{columns:1}}
+</style>
