@@ -1,0 +1,42 @@
+---
+import Base from '../layouts/Base.astro';
+import content from '../data/content.json';
+const press = content.press || [];
+---
+<Base active="press" solidNav={true} title="כתבו עלינו · שרון שגיא">
+  <header class="page-head reveal">
+    <span class="eyebrow">בעיתונות</span>
+    <h1>כתבו עלינו</h1>
+    <p>כתבות נבחרות שהתפרסמו על הפרויקטים והעבודות שלנו במגזיני העיצוב המובילים.</p>
+  </header>
+
+  <section class="wrap press">
+    <div class="press-grid">
+      {press.map((a) => (
+        <a class="press-card reveal" href={a.url} target="_blank" rel="noopener" aria-label={`${a.title} — ${a.publication}`}>
+          <div class="press-badge"><img src={`/assets/press/${a.logo}.png`} alt={a.publication} loading="lazy" /></div>
+          <div class="press-body">
+            <span class="press-date">{a.date}</span>
+            <h3 class="press-title">{a.title}</h3>
+            <span class="press-cta">לכתבה המלאה ←</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .press{padding:2vh 0 14vh}
+  .press-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(20px,2.4vw,30px);max-width:900px;margin:0 auto}
+  .press-card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden;text-decoration:none;transition:.4s cubic-bezier(.2,.7,.2,1)}
+  .press-card:hover{transform:translateY(-4px);box-shadow:0 22px 50px rgba(38,32,25,.12);border-color:var(--accent)}
+  .press-badge{background:#262019;display:flex;align-items:center;justify-content:center;padding:30px 24px;min-height:104px}
+  .press-badge img{height:40px;width:auto;max-width:170px;object-fit:contain}
+  .press-body{padding:24px 26px 28px;display:flex;flex-direction:column;gap:11px;flex:1}
+  .press-date{font-size:.74rem;letter-spacing:.16em;color:var(--ink-soft)}
+  .press-title{font-family:var(--serif);font-weight:500;font-size:1.22rem;line-height:1.45;color:var(--ink)}
+  .press-cta{margin-top:auto;color:var(--accent-deep);font-size:.95rem;letter-spacing:.02em;transition:.3s}
+  .press-card:hover .press-cta{color:var(--accent)}
+  @media(max-width:680px){.press-grid{grid-template-columns:1fr;max-width:420px}}
+</style>

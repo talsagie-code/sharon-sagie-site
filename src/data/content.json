@@ -259,5 +259,28 @@
       "who": "משפחת ברנט",
       "where": "חיפה"
     }
+  ],
+  "press": [
+    {
+      "publication": "וואלה בית ועיצוב",
+      "logo": "walla",
+      "date": "6 בדצמבר 2023",
+      "title": "יפה בחיפה: בית פרקטי ונעים על הכרמל",
+      "url": "https://home.walla.co.il/item/3626985"
+    },
+    {
+      "publication": "וואלה בית ועיצוב",
+      "logo": "walla",
+      "date": "22 בפברואר 2024",
+      "title": "אם, שני מתבגרים — ודירה אחת מהממת",
+      "url": "https://home.walla.co.il/item/3645806"
+    },
+    {
+      "publication": "mako · עיצוב הבית",
+      "logo": "mako",
+      "date": "9 באוגוסט 2024",
+      "title": "במקלחון ובאמבטיה: המקלחות שישדרגו לכם את חדר הרחצה",
+      "url": "https://www.mako.co.il/living-rooms/bathroom-and-toilet/Article-1a3425a00613191027.htm"
+    }
   ]
 }
