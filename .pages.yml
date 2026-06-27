@@ -1,0 +1,152 @@
+media:
+  input: public/uploads
+  output: /uploads
+  extensions: [jpg, jpeg, png, webp, gif, svg, mp4]
+
+content:
+  - name: projects_data
+    label: "פרויקטים · המלצות · תמונות ראש הדף"
+    type: file
+    path: src/data/content.json
+    fields:
+      - name: projects
+        label: "פרויקטים"
+        type: object
+        list: true
+        fields:
+          - { name: slug, label: "מזהה (אנגלית)", type: string }
+          - { name: title, label: "שם הפרויקט", type: string }
+          - { name: tag, label: "סוג", type: string }
+          - { name: location, label: "מיקום", type: string }
+          - { name: year, label: "שנה", type: string }
+          - { name: summary, label: "תקציר", type: text }
+          - { name: challenge, label: "האתגר", type: text }
+          - { name: body, label: "תיאור", type: text }
+          - { name: images, label: "תמונות (הראשונה = שער; אפשר לגרור לשינוי סדר)", type: image, list: true }
+      - name: heroImages
+        label: "תמונות מתחלפות בראש עמוד הבית"
+        type: image
+        list: true
+      - name: testimonials
+        label: "המלצות"
+        type: object
+        list: true
+        fields:
+          - { name: quote, label: "ההמלצה", type: text }
+          - { name: who, label: "שם", type: string }
+          - { name: where, label: "מיקום / פרויקט", type: string }
+
+  - name: site_copy
+    label: "טקסטים באתר"
+    type: file
+    path: src/data/site.json
+    fields:
+      - name: hero
+        label: "ראש עמוד הבית"
+        type: object
+        fields:
+          - { name: eyebrow, label: "כותרת קטנה", type: string }
+          - { name: title, label: "כותרת (Enter = שורה חדשה)", type: text }
+          - { name: cta, label: "כפתור", type: string }
+      - { name: philosophy, label: "ציטוט הפילוסופיה", type: text }
+      - name: homeAbout
+        label: "מקטע 'קצת עליי'"
+        type: object
+        fields:
+          - { name: eyebrow, label: "כותרת קטנה", type: string }
+          - { name: title, label: "כותרת", type: text }
+          - { name: lead, label: "טקסט", type: text }
+          - { name: cta, label: "כפתור", type: string }
+      - name: homeServices
+        label: "מקטע 'איך עובדים יחד'"
+        type: object
+        fields:
+          - { name: eyebrow, label: "כותרת קטנה", type: string }
+          - { name: title, label: "כותרת", type: text }
+          - { name: lead, label: "טקסט", type: text }
+          - { name: cta, label: "כפתור", type: string }
+      - name: homeContact
+        label: "מקטע צור קשר (בית)"
+        type: object
+        fields:
+          - { name: eyebrow, label: "כותרת קטנה", type: string }
+          - { name: title, label: "כותרת", type: text }
+          - { name: lead, label: "טקסט", type: text }
+          - { name: cta, label: "כפתור", type: string }
+      - name: about
+        label: "עמוד אודות"
+        type: object
+        fields:
+          - { name: eyebrow, label: "כותרת קטנה", type: string }
+          - { name: title, label: "כותרת", type: text }
+          - { name: lead, label: "פתיח", type: text }
+          - { name: paragraphs, label: "פסקאות", type: text, list: true }
+          - name: values
+            label: "ערכים"
+            type: object
+            list: true
+            fields:
+              - { name: n, label: "ערך", type: string }
+              - { name: t, label: "תיאור", type: string }
+          - { name: processEyebrow, label: "כותרת קטנה - תהליך", type: string }
+          - { name: processTitle, label: "כותרת התהליך", type: string }
+          - name: steps
+            label: "שלבי התהליך"
+            type: object
+            list: true
+            fields:
+              - { name: n, label: "מספר", type: string }
+              - { name: h, label: "כותרת", type: string }
+              - { name: p, label: "תיאור", type: text }
+          - { name: endTitle, label: "כותרת סיום", type: string }
+          - { name: endCta, label: "כפתור סיום", type: string }
+      - name: services
+        label: "עמוד ייעוץ"
+        type: object
+        fields:
+          - { name: eyebrow, label: "כותרת קטנה", type: string }
+          - { name: title, label: "כותרת", type: text }
+          - { name: lead, label: "פתיח", type: text }
+          - name: modes
+            label: "מסלולי ליווי"
+            type: object
+            list: true
+            fields:
+              - { name: t, label: "כותרת", type: string }
+              - { name: p, label: "תיאור", type: text }
+          - { name: tracksEyebrow, label: "כותרת קטנה - מסלולים", type: string }
+          - { name: tracksTitle, label: "כותרת המסלולים", type: string }
+          - name: tracks
+            label: "מסלולי ייעוץ + מחירים"
+            type: object
+            list: true
+            fields:
+              - { name: name, label: "שם המסלול", type: string }
+              - { name: price, label: "מחיר", type: string }
+              - { name: strike, label: "מחיר לפני הנחה", type: string, required: false }
+              - { name: body, label: "תיאור", type: text }
+              - { name: note, label: "הערה", type: text }
+              - { name: featured, label: "להדגיש?", type: boolean }
+          - name: why
+            label: "למה כדאי"
+            type: object
+            list: true
+            fields:
+              - { name: n, label: "מספר", type: string }
+              - { name: t, label: "טקסט", type: string }
+          - { name: cta, label: "כפתור", type: string }
+      - name: contact
+        label: "עמוד צור קשר"
+        type: object
+        fields:
+          - { name: eyebrow, label: "כותרת קטנה", type: string }
+          - { name: title, label: "כותרת", type: text }
+          - { name: lead, label: "טקסט", type: text }
+          - name: methods
+            label: "דרכי יצירת קשר"
+            type: object
+            list: true
+            fields:
+              - { name: label, label: "כותרת", type: string }
+              - { name: value, label: "ערך", type: string }
+              - { name: href, label: "קישור", type: string, required: false }
