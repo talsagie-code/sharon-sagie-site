@@ -39,9 +39,8 @@ const waGlyph = 'M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2
     </div>
 
     <div class="c-social reveal">
-      <a href="https://instagram.com/two_studio_interior_design" target="_blank" rel="noopener">Instagram</a>
-      <span class="dot">·</span>
-      <a href="https://www.facebook.com/profile.php?id=100076946022571" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://instagram.com/two_studio_interior_design" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+      <a href="https://www.facebook.com/profile.php?id=100076946022571" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
     </div>
   </section>
 </Base>
@@ -58,10 +57,12 @@ const waGlyph = 'M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2
   a.cx__row:hover .cx__ic{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 10px 24px rgba(38,32,25,.08)}
   .cx__txt{display:flex;flex-direction:column;gap:6px;min-width:0}
   .cx__label{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft)}
-  .cx__val{font-family:var(--serif);font-size:1.18rem;font-weight:500;line-height:1.4;overflow-wrap:anywhere}
+  .cx__val{font-family:var(--serif);font-size:1.18rem;font-weight:300;line-height:1.4;overflow-wrap:anywhere}
   a.cx__row .cx__val{color:var(--accent-deep);text-decoration:underline;text-decoration-color:rgba(174,90,60,.4);text-underline-offset:5px;transition:.3s}
   a.cx__row:hover .cx__val{text-decoration-color:var(--accent)}
-  .c-social{display:flex;gap:14px;justify-content:center;align-items:center;margin-top:48px;color:var(--accent-deep);font-size:1rem;letter-spacing:.04em}
-  .c-social .dot{opacity:.5}
+  .c-social{display:flex;gap:20px;justify-content:center;align-items:center;margin-top:48px;color:var(--accent-deep)}
+  .c-social a{display:inline-flex;opacity:.85;transition:.3s}
+  .c-social a:hover{opacity:1;transform:translateY(-2px)}
+  .c-social svg{width:26px;height:26px}
   @media(max-width:560px){.cx__row{gap:16px;padding:22px 2px}.cx__ic{width:48px;height:48px}}
 </style>

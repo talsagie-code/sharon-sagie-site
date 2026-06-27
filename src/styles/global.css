@@ -64,14 +64,15 @@ a{color:inherit;text-decoration:none}
 .foot__contact a.fc-line{opacity:1}
 .fc-ic{width:19px;height:19px;flex:0 0 auto;color:#7A5A44}
 .fc-wa{color:#7A5A44}
-.fc-val{font-size:.98rem}
+.fc-val{font-size:.98rem;font-weight:300}
 .fc-link .fc-val{text-decoration:underline;text-decoration-color:rgba(90,66,51,.45);text-underline-offset:4px;transition:.3s}
 .fc-link:hover .fc-val{text-decoration-color:#2A1B10;color:#2A1B10}
 .foot__slim{max-width:var(--maxw);margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;border-bottom:1px solid rgba(60,40,28,.18);padding-bottom:30px}
 .foot__slim .foot__logo img{height:58px;margin:0 auto}
 .foot__slim .social{display:flex;gap:20px}
 .social{display:flex;gap:16px;justify-content:center;margin-top:6px}
-.social a{opacity:.8}.social a:hover{opacity:1}
+.social a{opacity:.85;display:inline-flex;color:var(--accent-deep)}.social a:hover{opacity:1}
+.social svg{width:24px;height:24px}
 
 @media(max-width:880px){
   .nav__links{position:fixed;inset:0;flex-direction:column;align-items:center;justify-content:center;gap:28px;background:var(--bg);color:var(--ink);font-size:1.35rem;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .4s ease,visibility .4s ease}
