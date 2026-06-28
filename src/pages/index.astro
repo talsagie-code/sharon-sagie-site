@@ -156,10 +156,10 @@ const nl = (t) => t.replace(/\n/g, '<br/>');
 
   .tst{padding:11vh 0;text-align:center;max-width:980px}
   .tst__mark{font-family:var(--serif);font-size:5rem;line-height:.4;color:var(--accent);opacity:.45;height:46px}
-  .tst__viewport{position:relative}
-  .tst__track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;-ms-overflow-style:none}
+  .tst__viewport{position:relative;overflow:hidden}
+  .tst__track{display:flex;direction:ltr;transition:transform .55s cubic-bezier(.2,.7,.2,1);will-change:transform}
   .tst__track::-webkit-scrollbar{display:none}
-  .tst__q{flex:0 0 100%;scroll-snap-align:center;min-height:230px;display:flex;flex-direction:column;justify-content:center;padding:0 clamp(56px,8vw,92px);box-sizing:border-box}
+  .tst__q{flex:0 0 100%;direction:rtl;align-self:flex-start;padding:0 clamp(56px,8vw,92px);box-sizing:border-box}
   .tst__q blockquote{font-family:var(--serif);font-weight:300;font-size:clamp(1.3rem,2.6vw,2rem);line-height:1.6;margin-bottom:26px}
   .tst__q figcaption{font-size:.92rem;letter-spacing:.1em;color:var(--accent-deep);font-weight:500}
   .tst__arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.65);color:var(--accent-deep);display:grid;place-items:center;cursor:pointer;transition:.3s}
@@ -190,24 +190,25 @@ const nl = (t) => t.replace(/\n/g, '<br/>');
   const imgs = [...document.querySelectorAll('.hero__img')];
   let hi = 0;
   if (imgs.length > 1) setInterval(() => { imgs[hi].classList.remove('on'); hi = (hi + 1) % imgs.length; imgs[hi].classList.add('on'); }, 4500);
-  // testimonials carousel: horizontal swipe + arrows, slow auto-advance
+  // testimonials slider: CSS transform only (never scrolls the page) + touch swipe + slow auto-advance
   const track = document.getElementById('tstTrack');
   if (track) {
     const slides = [...track.querySelectorAll('.tst__q')];
     const dotsWrap = document.getElementById('tstDots');
-    let idx = 0, timer;
-    slides.forEach((_, i) => { const b = document.createElement('button'); b.type = 'button'; if (!i) b.classList.add('on'); b.addEventListener('click', () => goTo(i, true)); dotsWrap.appendChild(b); });
+    let idx = 0, timer, w = () => track.clientWidth;
+    slides.forEach((_, i) => { const b = document.createElement('button'); b.type = 'button'; if (!i) b.classList.add('on'); b.addEventListener('click', (e) => { e.preventDefault(); goTo(i, true); }); dotsWrap.appendChild(b); });
     function setActive(i){ idx = i; [...dotsWrap.children].forEach((d, j) => d.classList.toggle('on', j === i)); }
-    function goTo(i, user){ i = (i + slides.length) % slides.length; slides[i].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); setActive(i); if (user) restart(); }
+    function place(off){ track.style.transform = 'translateX(' + (-idx * w() + (off || 0)) + 'px)'; }
+    function goTo(i, user){ idx = (i + slides.length) % slides.length; track.style.transition = ''; place(0); setActive(idx); if (user) restart(); }
     function restart(){ clearInterval(timer); if (slides.length > 1) timer = setInterval(() => goTo(idx + 1, false), 9000); }
     const prev = document.getElementById('tstPrev'), next = document.getElementById('tstNext');
-    if (next) next.addEventListener('click', () => goTo(idx + 1, true));
-    if (prev) prev.addEventListener('click', () => goTo(idx - 1, true));
-    let st; track.addEventListener('scroll', () => { clearTimeout(st); st = setTimeout(() => {
-      const tc = track.getBoundingClientRect().left + track.clientWidth / 2; let best = 0, bd = 1e9;
-      slides.forEach((s, i) => { const r = s.getBoundingClientRect(); const d = Math.abs(r.left + r.width / 2 - tc); if (d < bd) { bd = d; best = i; } });
-      setActive(best);
-    }, 120); });
-    restart();
+    if (next) next.addEventListener('click', (e) => { e.preventDefault(); goTo(idx + 1, true); });
+    if (prev) prev.addEventListener('click', (e) => { e.preventDefault(); goTo(idx - 1, true); });
+    let x0 = null;
+    track.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; track.style.transition = 'none'; clearInterval(timer); }, { passive: true });
+    track.addEventListener('touchmove', (e) => { if (x0 === null) return; place(e.touches[0].clientX - x0); }, { passive: true });
+    track.addEventListener('touchend', (e) => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null; track.style.transition = ''; if (dx < -45) goTo(idx + 1, true); else if (dx > 45) goTo(idx - 1, true); else { place(0); restart(); } });
+    addEventListener('resize', () => { track.style.transition = 'none'; place(0); requestAnimationFrame(() => track.style.transition = ''); });
+    place(0); restart();
   }
 </script>
