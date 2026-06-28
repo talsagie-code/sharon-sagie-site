@@ -35,6 +35,16 @@ content:
           - { name: quote, label: "ההמלצה", type: text }
           - { name: who, label: "שם", type: string }
           - { name: where, label: "מיקום / פרויקט", type: string }
+      - name: press
+        label: "כתבו עלינו (כתבות בעיתונות)"
+        type: object
+        list: true
+        fields:
+          - { name: publication, label: "שם העיתון", type: string }
+          - { name: logo, label: "לוגו (walla או mako)", type: string }
+          - { name: date, label: "תאריך", type: string }
+          - { name: title, label: "כותרת הכתבה", type: string }
+          - { name: url, label: "קישור לכתבה", type: string }
 
   - name: site_copy
     label: "טקסטים באתר"

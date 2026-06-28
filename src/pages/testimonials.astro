@@ -4,9 +4,9 @@ import { testimonials } from '../data/projects.js';
 ---
 <Base active="testimonials" solidNav={true} title="המלצות · שרון שגיא">
   <header class="page-head reveal">
-    <span class="eyebrow">לקוחות מספרים</span>
-    <h1>המלצות</h1>
+    <h1>לקוחות מספרים</h1>
     <p>כמה מילים מאנשים שכבר גרים בבית שתכננו יחד.</p>
+    <p class="tst-note">חלק מההמלצות הן מלקוחות פרוייקטים משותפים עם קרן לוטם בתקופת ״two studio״.</p>
   </header>
 
   <section class="wrap tst-list">
@@ -28,6 +28,7 @@ import { testimonials } from '../data/projects.js';
 </Base>
 
 <style>
+  .tst-note{font-size:.92rem;line-height:1.7;color:var(--ink-soft);margin-top:14px;font-style:italic;max-width:62ch}
   .tst-list{columns:2;column-gap:34px;padding:4vh 0 10vh}
   .tcard{break-inside:avoid;margin-bottom:34px;background:#fff;border:1px solid var(--line);border-radius:4px;padding:34px 32px;position:relative}
   .tcard__mark{font-family:var(--serif);font-size:3.4rem;line-height:.4;color:var(--accent);opacity:.4;height:30px}
