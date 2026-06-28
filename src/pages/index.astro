@@ -35,7 +35,12 @@ const nl = (t) => t.replace(/\n/g, '<br/>');
 
   <!-- PHILOSOPHY QUOTE -->
   <section class="quote-band">
-    <p class="reveal">{site.philosophy}</p>
+    <div class="qb reveal">
+      <span class="qb__mark" aria-hidden="true">״</span>
+      <blockquote class="qb__quote">{site.philosophyQuote}</blockquote>
+      <cite class="qb__author">{site.philosophyAuthor}</cite>
+      <p class="qb__note">{site.philosophyNote}</p>
+    </div>
   </section>
 
   <!-- PROJECTS PREVIEW -->
@@ -103,7 +108,7 @@ const nl = (t) => t.replace(/\n/g, '<br/>');
   .hero__veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,16,12,.4) 0%,rgba(20,16,12,.05) 35%,rgba(20,16,12,.66) 100%)}
   .hero__inner{position:relative;z-index:2;color:#fff;max-width:var(--maxw);width:100%;margin:0 auto;padding:0 var(--pad) 11vh}
   .hero__eyebrow{font-family:var(--lat);font-style:italic;font-size:1.45rem;letter-spacing:.05em}
-  .hero h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.8rem,7.5vw,6.6rem);line-height:1;letter-spacing:-.01em;margin:.15em 0 .55em}
+  .hero h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.5rem,6.8vw,5.8rem);line-height:1.04;letter-spacing:-.01em;margin:.15em 0 .55em}
   .hero__cta{display:inline-block;border:1px solid rgba(255,255,255,.7);color:#fff;padding:13px 30px;border-radius:50px;font-size:.95rem;letter-spacing:.04em;transition:.4s}
   .hero__cta:hover{background:#fff;color:var(--ink)}
   .hero__scroll{position:absolute;bottom:26px;inset-inline-start:50%;transform:translateX(-50%);z-index:2;color:#fff;font-size:.72rem;letter-spacing:.3em;writing-mode:vertical-rl;opacity:.85}
@@ -118,7 +123,11 @@ const nl = (t) => t.replace(/\n/g, '<br/>');
   .about-teaser__txt .lead{margin-bottom:2em;max-width:52ch}
 
   .quote-band{background:var(--band);padding:11vh var(--pad);text-align:center}
-  .quote-band p{max-width:1000px;margin:0 auto;font-family:var(--serif);font-weight:300;font-size:clamp(1.5rem,3.4vw,2.7rem);line-height:1.5;color:var(--ink)}
+  .qb{max-width:900px;margin:0 auto;display:flex;flex-direction:column;align-items:center}
+  .qb__mark{font-family:var(--serif);font-size:4.2rem;line-height:.5;color:var(--accent);opacity:.55;margin-bottom:14px}
+  .qb__quote{font-family:var(--serif);font-weight:300;font-style:italic;font-size:clamp(1.35rem,2.9vw,2.2rem);line-height:1.5;color:var(--ink);direction:ltr;max-width:780px;margin:0}
+  .qb__author{display:block;margin-top:16px;font-family:var(--lat);font-style:normal;font-size:1.02rem;letter-spacing:.1em;color:var(--accent-deep);direction:ltr}
+  .qb__note{margin-top:42px;font-family:var(--serif);font-weight:300;font-size:clamp(1.05rem,1.7vw,1.3rem);line-height:1.7;color:var(--ink-soft);max-width:620px}
 
   .proj{padding:10vh 0}
   .proj__head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;border-bottom:1px solid var(--line);padding-bottom:24px;margin-bottom:46px}

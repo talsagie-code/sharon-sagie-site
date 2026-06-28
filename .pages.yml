@@ -58,7 +58,9 @@ content:
           - { name: eyebrow, label: "כותרת קטנה", type: string }
           - { name: title, label: "כותרת (Enter = שורה חדשה)", type: text }
           - { name: cta, label: "כפתור", type: string }
-      - { name: philosophy, label: "ציטוט הפילוסופיה", type: text }
+      - { name: philosophyQuote, label: "ציטוט (אנגלית)", type: text }
+      - { name: philosophyAuthor, label: "שם המצוטט", type: string }
+      - { name: philosophyNote, label: "משפט פילוסופיה (עברית)", type: text }
       - name: homeAbout
         label: "מקטע 'קצת עליי'"
         type: object
