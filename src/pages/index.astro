@@ -198,21 +198,23 @@ const nl = (t) => t.replace(/\n/g, '<br/>');
   const imgs = [...document.querySelectorAll('.hero__img')];
   let hi = 0;
   if (imgs.length > 1) setInterval(() => { imgs[hi].classList.remove('on'); hi = (hi + 1) % imgs.length; imgs[hi].classList.add('on'); }, 4500);
-  // testimonials slider: CSS transform only (never scrolls the page) + touch swipe + slow auto-advance
+  // testimonials slider: transform only (never scrolls the page) + touch swipe + CONSTANT height during rotation (no page jump)
   const track = document.getElementById('tstTrack');
   if (track) {
     const slides = [...track.querySelectorAll('.tst__q')];
     const dotsWrap = document.getElementById('tstDots');
     const vp = track.parentElement;
-    let idx = 0, timer, w = () => track.clientWidth;
+    let idx = 0, timer, baseH = 0, w = () => track.clientWidth;
     slides.forEach((_, i) => { const b = document.createElement('button'); b.type = 'button'; if (!i) b.classList.add('on'); b.addEventListener('click', (e) => { e.preventDefault(); goTo(i, true); }); dotsWrap.appendChild(b); });
     const moreBtns = slides.map((s) => s.querySelector('.tst__more'));
     function checkTrunc(){ slides.forEach((s, i) => { if (!moreBtns[i] || s.classList.contains('expanded')) return; const bq = s.querySelector('blockquote'); moreBtns[i].classList.toggle('hidden', bq.scrollHeight <= bq.clientHeight + 2); }); }
-    moreBtns.forEach((btn, i) => { if (!btn) return; btn.addEventListener('click', (e) => { e.preventDefault(); const exp = slides[i].classList.toggle('expanded'); btn.textContent = exp ? 'הצג פחות' : 'קרא עוד'; if (exp) clearInterval(timer); else restart(); fit(); }); });
+    function setBase(){ baseH = 0; slides.forEach((s) => { if (!s.classList.contains('expanded')) baseH = Math.max(baseH, s.offsetHeight); }); }
+    function applyH(){ const s = slides[idx]; vp.style.height = (s.classList.contains('expanded') ? s.offsetHeight : baseH) + 'px'; }
+    function collapseAll(){ slides.forEach((s, j) => { if (s.classList.contains('expanded')) { s.classList.remove('expanded'); if (moreBtns[j]) moreBtns[j].textContent = 'קרא עוד'; } }); }
+    moreBtns.forEach((btn, i) => { if (!btn) return; btn.addEventListener('click', (e) => { e.preventDefault(); const exp = slides[i].classList.toggle('expanded'); btn.textContent = exp ? 'הצג פחות' : 'קרא עוד'; if (exp) clearInterval(timer); else restart(); applyH(); }); });
     function setActive(i){ idx = i; [...dotsWrap.children].forEach((d, j) => d.classList.toggle('on', j === i)); }
     function place(off){ track.style.transform = 'translateX(' + (-idx * w() + (off || 0)) + 'px)'; }
-    function fit(){ if (slides[idx]) vp.style.height = slides[idx].offsetHeight + 'px'; }
-    function goTo(i, user){ idx = (i + slides.length) % slides.length; track.style.transition = ''; place(0); setActive(idx); fit(); if (user) restart(); }
+    function goTo(i, user){ collapseAll(); idx = (i + slides.length) % slides.length; track.style.transition = ''; place(0); setActive(idx); applyH(); if (user) restart(); }
     function restart(){ clearInterval(timer); if (slides.length > 1) timer = setInterval(() => goTo(idx + 1, false), 9000); }
     const prev = document.getElementById('tstPrev'), next = document.getElementById('tstNext');
     if (next) next.addEventListener('click', (e) => { e.preventDefault(); goTo(idx + 1, true); });
@@ -221,8 +223,9 @@ const nl = (t) => t.replace(/\n/g, '<br/>');
     track.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; track.style.transition = 'none'; clearInterval(timer); }, { passive: true });
     track.addEventListener('touchmove', (e) => { if (x0 === null) return; place(e.touches[0].clientX - x0); }, { passive: true });
     track.addEventListener('touchend', (e) => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null; track.style.transition = ''; if (dx < -45) goTo(idx + 1, true); else if (dx > 45) goTo(idx - 1, true); else { place(0); restart(); } });
-    addEventListener('resize', () => { track.style.transition = 'none'; place(0); checkTrunc(); fit(); requestAnimationFrame(() => track.style.transition = ''); });
-    addEventListener('load', () => { checkTrunc(); fit(); }); setTimeout(() => { checkTrunc(); fit(); }, 300);
-    checkTrunc(); place(0); fit(); restart();
+    function relayout(){ checkTrunc(); setBase(); applyH(); }
+    addEventListener('resize', () => { track.style.transition = 'none'; place(0); relayout(); requestAnimationFrame(() => track.style.transition = ''); });
+    addEventListener('load', relayout); setTimeout(relayout, 300);
+    checkTrunc(); setBase(); place(0); applyH(); restart();
   }
 </script>
