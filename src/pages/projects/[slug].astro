@@ -22,7 +22,7 @@ const { project, prev, next } = Astro.props;
   </section>
 
   <section class="wrap gallery" id="gallery">
-    {project.images.map((src, i) => (
+    {(project.images || []).map((src, i) => (
       <button class="g-item reveal" data-i={i} aria-label="הגדל תמונה"><img src={src} alt={project.title} loading="lazy" /></button>
     ))}
   </section>
@@ -71,7 +71,7 @@ const { project, prev, next } = Astro.props;
   @media(max-width:780px){.p-intro{grid-template-columns:1fr}.gallery{grid-template-columns:1fr}}
 </style>
 
-<script define:vars={{ imgs: project.images }}>
+<script define:vars={{ imgs: project.images || [] }}>
   const lb = document.getElementById('lightbox');
   const lbImg = lb.querySelector('img');
   const lbCount = lb.querySelector('.lb-count');
