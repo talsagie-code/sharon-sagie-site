@@ -2,8 +2,8 @@
 import Base from '../layouts/Base.astro';
 import site from '../data/site.json';
 const a = site.about;
-const values = a.values;
-const steps = a.steps;
+const values = a.values || [];
+const steps = a.steps || [];
 const nl = (t) => t.replace(/\n/g, '<br/>');
 ---
 <Base active="about" solidNav={true} title="אודות · שרון שגיא">
@@ -16,7 +16,7 @@ const nl = (t) => t.replace(/\n/g, '<br/>');
   <section class="about wrap">
     <div class="about__img reveal"><img src="/assets/profile.jpg" alt="שרון שגיא" /></div>
     <div class="about__txt reveal">
-      {a.paragraphs.map((t) => (<p>{t}</p>))}
+      {(a.paragraphs || []).map((t) => (<p>{t}</p>))}
       <div class="values">
         {values.map((v) => (<div><div class="v-n">{v.n}</div><div class="v-t">{v.t}</div></div>))}
       </div>

@@ -2,9 +2,9 @@
 import Base from '../layouts/Base.astro';
 import site from '../data/site.json';
 const sv = site.services;
-const modes = sv.modes;
-const tracks = sv.tracks;
-const why = sv.why;
+const modes = sv.modes || [];
+const tracks = sv.tracks || [];
+const why = sv.why || [];
 const nl = (t) => t.replace(/\n/g, '<br/>');
 ---
 <Base active="services" solidNav={true} title="ייעוץ ומסלולים · שרון שגיא">

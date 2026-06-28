@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import site from '../data/site.json';
 const c = site.contact;
-const methods = c.methods;
+const methods = c.methods || [];
 const nl = (t) => t.replace(/\n/g, '<br/>');
 ---
 <Base active="contact" solidNav={true} slimFooter={true} title="צרו קשר · שרון שגיא">

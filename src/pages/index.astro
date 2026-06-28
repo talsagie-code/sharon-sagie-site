@@ -9,7 +9,7 @@ const nl = (t) => t.replace(/\n/g, '<br/>');
   <!-- HERO -->
   <header class="hero">
     <div class="hero__imgs">
-      {heroImages.map((src, i) => (
+      {(heroImages || []).map((src, i) => (
         <div class={`hero__img${i === 0 ? ' on' : ''}`} style={`background-image:url('${src}')`}></div>
       ))}
     </div>
@@ -45,7 +45,7 @@ const nl = (t) => t.replace(/\n/g, '<br/>');
       <a href="/projects" class="proj__all">לכל הפרויקטים →</a>
     </div>
     <div class="proj__grid">
-      {featured.map((p) => (
+      {(featured || []).map((p) => (
         <a class="proj__card reveal" href={`/projects/${p.slug}`}>
           <div class="proj__media">
             <img src={p.cover} alt={p.title} loading="lazy" />
@@ -74,7 +74,7 @@ const nl = (t) => t.replace(/\n/g, '<br/>');
   <section class="tst wrap">
     <div class="tst__mark">״</div>
     <div class="tst__track" id="tstTrack">
-      {testimonials.slice(0,3).map((t, i) => (
+      {(testimonials || []).slice(0,3).map((t, i) => (
         <figure class={`tst__q${i === 0 ? ' on' : ''}`}>
           <blockquote>{t.quote}</blockquote>
           <figcaption>{t.who} · {t.where}</figcaption>
