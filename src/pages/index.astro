@@ -78,13 +78,17 @@ const nl = (t) => t.replace(/\n/g, '<br/>');
   <!-- TESTIMONIALS -->
   <section class="tst wrap">
     <div class="tst__mark">״</div>
-    <div class="tst__track" id="tstTrack">
-      {(testimonials || []).slice(0,3).map((t, i) => (
-        <figure class={`tst__q${i === 0 ? ' on' : ''}`}>
-          <blockquote>{t.quote}</blockquote>
-          <figcaption>{t.who} · {t.where}</figcaption>
-        </figure>
-      ))}
+    <div class="tst__viewport">
+      <button class="tst__arrow tst__prev" id="tstPrev" type="button" aria-label="הקודמת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+      <div class="tst__track" id="tstTrack">
+        {(testimonials || []).slice(0,3).map((t) => (
+          <figure class="tst__q">
+            <blockquote>{t.quote}</blockquote>
+            <figcaption>{t.who} · {t.where}</figcaption>
+          </figure>
+        ))}
+      </div>
+      <button class="tst__arrow tst__next" id="tstNext" type="button" aria-label="הבאה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></button>
     </div>
     <div class="tst__dots" id="tstDots"></div>
   </section>
@@ -93,9 +97,7 @@ const nl = (t) => t.replace(/\n/g, '<br/>');
   <section class="cta">
     <div class="wrap cta__in reveal">
       <span class="eyebrow">{site.homeContact.eyebrow}</span>
-      <h2 class="h-sec">{site.homeContact.title}</h2>
-      <p class="lead">{site.homeContact.lead}</p>
-      <a href="https://wa.me/9720523724032" class="btn btn-solid">{site.homeContact.cta}</a>
+      <a href="https://wa.me/9720523724032" class="btn btn-solid cta__btn">{site.homeContact.cta}</a>
     </div>
   </section>
 </Base>
@@ -127,7 +129,7 @@ const nl = (t) => t.replace(/\n/g, '<br/>');
   .qb__mark{font-family:var(--serif);font-size:4.2rem;line-height:.5;color:var(--accent);opacity:.55;margin-bottom:14px}
   .qb__quote{font-family:var(--serif);font-weight:300;font-style:italic;font-size:clamp(1.35rem,2.9vw,2.2rem);line-height:1.5;color:var(--ink);direction:ltr;max-width:780px;margin:0}
   .qb__author{display:block;margin-top:16px;font-family:var(--lat);font-style:normal;font-size:1.02rem;letter-spacing:.1em;color:var(--accent-deep);direction:ltr}
-  .qb__note{margin-top:42px;font-family:var(--serif);font-weight:300;font-size:clamp(1.05rem,1.7vw,1.3rem);line-height:1.7;color:var(--ink-soft);max-width:620px}
+  .qb__note{margin-top:42px;font-family:var(--serif);font-weight:300;font-size:clamp(1.2rem,2vw,1.55rem);line-height:1.7;color:var(--ink-soft);max-width:660px}
 
   .proj{padding:10vh 0}
   .proj__head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;border-bottom:1px solid var(--line);padding-bottom:24px;margin-bottom:46px}
@@ -154,14 +156,21 @@ const nl = (t) => t.replace(/\n/g, '<br/>');
 
   .tst{padding:11vh 0;text-align:center;max-width:980px}
   .tst__mark{font-family:var(--serif);font-size:5rem;line-height:.4;color:var(--accent);opacity:.45;height:46px}
-  .tst__track{position:relative;min-height:240px}
-  .tst__q{position:absolute;inset:0;opacity:0;transform:translateY(16px);transition:opacity .9s,transform .9s;display:flex;flex-direction:column;justify-content:center}
-  .tst__q.on{opacity:1;transform:none;position:relative}
+  .tst__viewport{position:relative}
+  .tst__track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;-ms-overflow-style:none}
+  .tst__track::-webkit-scrollbar{display:none}
+  .tst__q{flex:0 0 100%;scroll-snap-align:center;min-height:230px;display:flex;flex-direction:column;justify-content:center;padding:0 clamp(56px,8vw,92px);box-sizing:border-box}
   .tst__q blockquote{font-family:var(--serif);font-weight:300;font-size:clamp(1.3rem,2.6vw,2rem);line-height:1.6;margin-bottom:26px}
   .tst__q figcaption{font-size:.92rem;letter-spacing:.1em;color:var(--accent-deep);font-weight:500}
-  .tst__dots{display:flex;gap:9px;justify-content:center;margin-top:38px}
+  .tst__arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.65);color:var(--accent-deep);display:grid;place-items:center;cursor:pointer;transition:.3s}
+  .tst__arrow:hover{border-color:var(--accent);background:#fff}
+  .tst__arrow svg{width:20px;height:20px}
+  .tst__prev{inset-inline-start:-4px}
+  .tst__next{inset-inline-end:-4px}
+  .tst__dots{display:flex;gap:9px;justify-content:center;margin-top:34px}
   .tst__dots button{width:8px;height:8px;border-radius:50%;border:none;background:var(--line);cursor:pointer;padding:0;transition:.4s}
   .tst__dots button.on{background:var(--accent);width:24px;border-radius:5px}
+  @media(max-width:680px){.tst__q{padding:0 46px}.tst__arrow{width:38px;height:38px}.tst__arrow svg{width:17px;height:17px}}
 
   .cta{background:var(--band)}
   .cta__in{padding:11vh 0;text-align:center;max-width:760px}
@@ -181,11 +190,24 @@ const nl = (t) => t.replace(/\n/g, '<br/>');
   const imgs = [...document.querySelectorAll('.hero__img')];
   let hi = 0;
   if (imgs.length > 1) setInterval(() => { imgs[hi].classList.remove('on'); hi = (hi + 1) % imgs.length; imgs[hi].classList.add('on'); }, 4500);
-  // testimonials
-  const qs = [...document.querySelectorAll('.tst__q')];
-  const dotsWrap = document.getElementById('tstDots');
-  let ti = 0;
-  qs.forEach((_, i) => { const b = document.createElement('button'); if (!i) b.classList.add('on'); b.addEventListener('click', () => go(i)); dotsWrap.appendChild(b); });
-  function go(i){ qs[ti].classList.remove('on'); dotsWrap.children[ti].classList.remove('on'); ti = i; qs[ti].classList.add('on'); dotsWrap.children[ti].classList.add('on'); }
-  if (qs.length > 1) setInterval(() => go((ti + 1) % qs.length), 5500);
+  // testimonials carousel: horizontal swipe + arrows, slow auto-advance
+  const track = document.getElementById('tstTrack');
+  if (track) {
+    const slides = [...track.querySelectorAll('.tst__q')];
+    const dotsWrap = document.getElementById('tstDots');
+    let idx = 0, timer;
+    slides.forEach((_, i) => { const b = document.createElement('button'); b.type = 'button'; if (!i) b.classList.add('on'); b.addEventListener('click', () => goTo(i, true)); dotsWrap.appendChild(b); });
+    function setActive(i){ idx = i; [...dotsWrap.children].forEach((d, j) => d.classList.toggle('on', j === i)); }
+    function goTo(i, user){ i = (i + slides.length) % slides.length; slides[i].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); setActive(i); if (user) restart(); }
+    function restart(){ clearInterval(timer); if (slides.length > 1) timer = setInterval(() => goTo(idx + 1, false), 9000); }
+    const prev = document.getElementById('tstPrev'), next = document.getElementById('tstNext');
+    if (next) next.addEventListener('click', () => goTo(idx + 1, true));
+    if (prev) prev.addEventListener('click', () => goTo(idx - 1, true));
+    let st; track.addEventListener('scroll', () => { clearTimeout(st); st = setTimeout(() => {
+      const tc = track.getBoundingClientRect().left + track.clientWidth / 2; let best = 0, bd = 1e9;
+      slides.forEach((s, i) => { const r = s.getBoundingClientRect(); const d = Math.abs(r.left + r.width / 2 - tc); if (d < bd) { bd = d; best = i; } });
+      setActive(best);
+    }, 120); });
+    restart();
+  }
 </script>
