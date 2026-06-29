@@ -4,6 +4,7 @@ import site from '../data/site.json';
 const a = site.about;
 const values = a.values || [];
 const steps = a.steps || [];
+const hasProcess = steps.length > 0 || (a.processTitle && a.processTitle.trim()) || (a.processEyebrow && a.processEyebrow.trim());
 const nl = (t) => t.replace(/\n/g, '<br/>');
 ---
 <Base active="about" solidNav={true} title="אודות · שרון שגיא">
@@ -23,6 +24,7 @@ const nl = (t) => t.replace(/\n/g, '<br/>');
     </div>
   </section>
 
+  {hasProcess && (
   <section class="process">
     <div class="wrap">
       <div class="proc-head reveal"><span class="eyebrow">{a.processEyebrow}</span><h2 class="h-sec">{a.processTitle}</h2></div>
@@ -33,6 +35,7 @@ const nl = (t) => t.replace(/\n/g, '<br/>');
       </div>
     </div>
   </section>
+  )}
 
   <section class="endcta">
     <div class="wrap reveal">
