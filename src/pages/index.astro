@@ -117,8 +117,7 @@ const philosophyNote = site.philosophyNote || "זו הדרך שבה אני ני�
   .hero__inner{position:relative;z-index:2;color:#fff;max-width:var(--maxw);width:100%;margin:0 auto;padding:0 var(--pad) 11vh}
   .hero__eyebrow{font-family:var(--lat);font-style:italic;font-size:1.45rem;letter-spacing:.05em}
   .hero h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.5rem,6.8vw,5.8rem);line-height:1.04;letter-spacing:-.01em;margin:.15em 0 .55em}
-  .hero__cta{display:inline-block;border:1px solid rgba(255,255,255,.7);color:#fff;padding:13px 30px;border-radius:50px;font-size:.95rem;letter-spacing:.04em;transition:.4s}
-  .hero__cta:hover{background:#fff;color:var(--ink)}
+  .hero__cta{display:inline-block;border:1px solid rgba(255,255,255,.7);color:#fff;padding:13px 30px;border-radius:50px;font-size:.95rem;letter-spacing:.04em;transition:.4s}@media (hover:hover){.hero__cta:hover{background:#fff;color:var(--ink)}}
   .hero__scroll{position:absolute;bottom:26px;inset-inline-start:50%;transform:translateX(-50%);z-index:2;color:#fff;font-size:.72rem;letter-spacing:.3em;writing-mode:vertical-rl;opacity:.85}
   .hero__scroll::after{content:"";display:block;width:1px;height:46px;background:#fff;margin:10px auto 0;animation:cue 1.8s ease-in-out infinite}
   @keyframes cue{0%,100%{transform:scaleY(.4);opacity:.4;transform-origin:top}50%{transform:scaleY(1);opacity:1;transform-origin:top}}
@@ -143,8 +142,7 @@ const philosophyNote = site.philosophyNote || "זו הדרך שבה אני ני�
   .proj__grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,2.4vw,34px)}
   .proj__card{display:block}
   .proj__media{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--bg-2);border-radius:3px}
-  .proj__media>img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s cubic-bezier(.2,.7,.2,1)}
-  .proj__card:hover .proj__media>img{transform:scale(1.05)}
+  .proj__media>img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s cubic-bezier(.2,.7,.2,1)}@media (hover:hover){.proj__card:hover .proj__media>img{transform:scale(1.05)}}
   .proj__overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:20px;background:rgba(247,244,239,.72);opacity:0;transition:opacity .45s ease}
   .proj__card.is-open .proj__overlay{opacity:1}
   .proj__mark{width:54px;height:auto;transform:translateY(8px);transition:transform .6s}
@@ -153,6 +151,7 @@ const philosophyNote = site.philosophyNote || "זו הדרך שבה אני ני�
   .proj__card.is-open .proj__mark{transform:translateY(0)}
   .proj__card.is-open .proj__cap{transform:translateY(0)}
   .proj__card.is-open .proj__soon{transform:translateY(0)}
+  @media (hover:none){.proj__card .proj__overlay{opacity:1}.proj__card .proj__mark,.proj__card .proj__cap,.proj__card .proj__soon{transform:translateY(0)}}
 
   .svc-prev{background:var(--band);color:var(--ink)}
   .svc-prev__in{padding:11vh 0;text-align:center;max-width:880px}
@@ -168,20 +167,17 @@ const philosophyNote = site.philosophyNote || "זו הדרך שבה אני ני�
   .tst__q{flex:0 0 100%;direction:rtl;align-self:flex-start;padding:0 clamp(56px,8vw,92px);box-sizing:border-box}
   .tst__q blockquote{font-family:var(--serif);font-weight:300;font-size:clamp(1.3rem,2.6vw,2rem);line-height:1.6;margin-bottom:18px;display:-webkit-box;-webkit-line-clamp:4;line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
   .tst__q.expanded blockquote{-webkit-line-clamp:unset;line-clamp:unset;-webkit-box-orient:initial;display:block;overflow:visible}
-  .tst__more{margin-top:14px;background:none;border:none;font-family:inherit;color:var(--accent-deep);font-size:.92rem;letter-spacing:.04em;cursor:pointer;padding:0;text-decoration:underline;text-decoration-color:rgba(174,90,60,.4);text-underline-offset:4px;transition:.3s}
-  .tst__more:hover{text-decoration-color:var(--accent)}
+  .tst__more{margin-top:14px;background:none;border:none;font-family:inherit;color:var(--accent-deep);font-size:.92rem;letter-spacing:.04em;cursor:pointer;padding:0;text-decoration:underline;text-decoration-color:rgba(174,90,60,.4);text-underline-offset:4px;transition:.3s}@media (hover:hover){.tst__more:hover{text-decoration-color:var(--accent)}}
   .tst__more.hidden{display:none}
   .tst__q figcaption{font-size:.92rem;letter-spacing:.1em;color:var(--accent-deep);font-weight:500}
-  .tst__arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.65);color:var(--accent-deep);display:grid;place-items:center;cursor:pointer;transition:.3s}
-  .tst__arrow:hover{border-color:var(--accent);background:#fff}
+  .tst__arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.65);color:var(--accent-deep);display:grid;place-items:center;cursor:pointer;transition:.3s}@media (hover:hover){.tst__arrow:hover{border-color:var(--accent);background:#fff}}
   .tst__arrow svg{width:20px;height:20px}
   .tst__prev{inset-inline-start:-4px}
   .tst__next{inset-inline-end:-4px}
   .tst__dots{display:flex;gap:9px;justify-content:center;margin-top:34px}
   .tst__dots button{width:8px;height:8px;border-radius:50%;border:none;background:var(--line);cursor:pointer;padding:0;transition:.4s}
   .tst__dots button.on{background:var(--accent);width:24px;border-radius:5px}
-  .tst__all{display:inline-block;margin-top:26px;color:var(--accent-deep);font-size:1rem;letter-spacing:.03em;transition:.3s}
-  .tst__all:hover{color:var(--accent)}
+  .tst__all{display:inline-block;margin-top:26px;color:var(--accent-deep);font-size:1rem;letter-spacing:.03em;transition:.3s}@media (hover:hover){.tst__all:hover{color:var(--accent)}}
   @media(max-width:680px){.tst__q{padding:0 46px}.tst__arrow{width:38px;height:38px}.tst__arrow svg{width:17px;height:17px}}
 
   .cta{background:var(--band)}

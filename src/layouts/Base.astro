@@ -65,15 +65,9 @@ const ogImage = 'https://images.cdn-files-a.com/uploads/7076259/2000_650408d1277
         if (hoverable) {
           card.addEventListener('mouseenter', () => card.classList.add('is-open'));
           card.addEventListener('mouseleave', () => card.classList.remove('is-open'));
-        } else {
-          card.addEventListener('click', (e) => {
-            if (!card.classList.contains('is-open')) {
-              e.preventDefault();
-              cards.forEach((c) => { if (c !== card) c.classList.remove('is-open'); });
-              card.classList.add('is-open');
-            }
-          });
         }
+        // On touch devices the card is a plain link: a single tap opens the project
+        // (the title overlay is shown by default via CSS @media (hover:none)).
       });
     }
   </script>
