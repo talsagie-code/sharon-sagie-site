@@ -4,6 +4,10 @@ import { projects, heroImages, testimonials } from '../data/projects.js';
 import site from '../data/site.json';
 const featured = projects;
 const nl = (t) => t.replace(/\n/g, '<br/>');
+// Philosophy quote — hardcoded source of truth so a CMS save can never wipe it.
+const philosophyQuote = site.philosophyQuote || "Design is not just what it looks like and feels like. Design is how it works.";
+const philosophyAuthor = site.philosophyAuthor || "Steve Jobs";
+const philosophyNote = site.philosophyNote || "זו הדרך שבה אני ניגשת לתכנון - קודם חושבת על החיים בבית, ורק אחר כך איך הוא ייראה.";
 ---
 <Base active="home">
   <!-- HERO -->
@@ -37,9 +41,9 @@ const nl = (t) => t.replace(/\n/g, '<br/>');
   <section class="quote-band">
     <div class="qb reveal">
       <span class="qb__mark" aria-hidden="true">״</span>
-      <blockquote class="qb__quote">{site.philosophyQuote}</blockquote>
-      <cite class="qb__author">{site.philosophyAuthor}</cite>
-      <p class="qb__note">{site.philosophyNote}</p>
+      <blockquote class="qb__quote">{philosophyQuote}</blockquote>
+      <cite class="qb__author">{philosophyAuthor}</cite>
+      <p class="qb__note">{philosophyNote}</p>
     </div>
   </section>
 
