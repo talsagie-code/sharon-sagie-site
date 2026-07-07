@@ -7,15 +7,17 @@ import Base from '../layouts/Base.astro';
 // friendly message but won't record leads.
 const FORM_ENDPOINT = 'PASTE_APPS_SCRIPT_URL_HERE';
 
-const CDN = 'https://content.vp4.me/sharon1976/Content';
+// The smoove landing tool blocks its images from loading on other domains,
+// so these are self-hosted site photos as placeholders. Swap to the exact
+// originals (before/afters + Sharon's landing portrait) once provided.
 const img = {
-  materials: `${CDN}/IMG_7936.jpeg`,
-  collage: `${CDN}/Gray%20dancer%20photo%20collage.png`,
-  ba1: `${CDN}/18_900x450-r.jpg`,
-  ba2: `${CDN}/before_after_smoove_optimized.jpg`,
-  ba3: `${CDN}/before_after2_smoove_optimized.jpg`,
-  ba4: `${CDN}/before_after3_smoove_optimized.jpg`,
-  profile: `${CDN}/profile_dark_optimized_smoove.jpg`,
+  materials: '/uploads/projects/broshim-apartment/03.webp',
+  collage: '/uploads/projects/kids-kingdom/02.webp',
+  ba1: '/uploads/projects/duplex-nesher/01.webp',
+  ba2: '/uploads/projects/red-meat-offices/01.webp',
+  ba3: '/uploads/projects/kids-kingdom/01.webp',
+  ba4: '/uploads/projects/broshim-apartment/01.webp',
+  profile: '/assets/home-portrait.webp',
 };
 
 const included = [
