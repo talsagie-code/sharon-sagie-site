@@ -14,7 +14,7 @@ const philosophyNote = site.philosophyNote || "זו הדרך שבה אני ני�
   <header class="hero">
     <div class="hero__imgs">
       {(heroImages || []).map((src, i) => (
-        <div class={`hero__img${i === 0 ? ' on' : ''}`} style={`background-image:url('${src}')`}></div>
+        <div class={`hero__img${i === 0 ? ' on' : ''}`} style={i === 0 ? `background-image:url('${src}')` : ''} data-bg={i === 0 ? null : src}></div>
       ))}
     </div>
     <div class="hero__veil"></div>
@@ -28,7 +28,7 @@ const philosophyNote = site.philosophyNote || "זו הדרך שבה אני ני�
 
   <!-- ABOUT TEASER -->
   <section class="about-teaser wrap">
-    <div class="about-teaser__img reveal"><img src="/assets/home-portrait.jpg" alt="שרון שגיא" /></div>
+    <div class="about-teaser__img reveal"><img src="/assets/home-portrait.webp" alt="שרון שגיא" /></div>
     <div class="about-teaser__txt reveal">
       <span class="eyebrow">{site.homeAbout.eyebrow}</span>
       <h2 class="h-sec" set:html={nl(site.homeAbout.title)}></h2>
@@ -196,7 +196,8 @@ const philosophyNote = site.philosophyNote || "זו הדרך שבה אני ני�
   // hero rotator
   const imgs = [...document.querySelectorAll('.hero__img')];
   let hi = 0;
-  if (imgs.length > 1) setInterval(() => { imgs[hi].classList.remove('on'); hi = (hi + 1) % imgs.length; imgs[hi].classList.add('on'); }, 4500);
+  const loadBg = (el) => { if (el && el.dataset.bg) { el.style.backgroundImage = `url('${el.dataset.bg}')`; el.removeAttribute('data-bg'); } };
+    if (imgs.length > 1) setInterval(() => { imgs[hi].classList.remove('on'); hi = (hi + 1) % imgs.length; loadBg(imgs[hi]); imgs[hi].classList.add('on'); }, 4500);
   // testimonials slider: transform only (never scrolls the page) + touch swipe + CONSTANT height during rotation (no page jump)
   const track = document.getElementById('tstTrack');
   if (track) {
