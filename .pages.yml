@@ -136,6 +136,7 @@ content:
               - { name: body, label: "תיאור", type: text }
               - { name: note, label: "הערה", type: text }
               - { name: featured, label: "להדגיש?", type: boolean }
+              - { name: url, label: "קישור לעמוד נחיתה", type: string, required: false }
           - name: why
             label: "למה כדאי"
             type: object
