@@ -31,7 +31,7 @@ const nl = (t) => t.replace(/\n/g, '<br/>');
             <div class="price">{t.price}{t.strike && <span class="strike">{t.strike}</span>}</div>
             <p>{t.body}</p>
             <div class="note">{t.note}</div>
-            {t.url && <a href={t.url} target="_blank" rel="noopener" class="btn btn-solid track__btn">לפרטים נוספים</a>}
+            {t.url && <a href={t.url} class="btn btn-solid track__btn">לפרטים נוספים</a>}
           </div>
         ))}
       </div>
