@@ -150,7 +150,7 @@ const faqs = [
   <section class="me-lead" id="lead">
     <div class="wrap">
       <h2 class="me-h">מלאי כאן את הפרטים ואחזור אלייך לשיחת התאמה</h2>
-      <form class="me-form" id="meForm">
+      <form class="me-form" id="meForm" action={FORM_ENDPOINT} method="POST" target="me_sink">
         <div class="me-row">
           <label>שם פרטי<input type="text" name="first" required autocomplete="given-name" /></label>
           <label>שם משפחה<input type="text" name="last" required autocomplete="family-name" /></label>
@@ -159,9 +159,11 @@ const faqs = [
           <label>מייל<input type="email" name="email" required autocomplete="email" dir="ltr" /></label>
           <label>נייד<input type="tel" name="phone" required autocomplete="tel" dir="ltr" /></label>
         </div>
+        <input type="hidden" name="source" value="Make it Easy" />
         <button type="submit" class="me-btn me-form__btn">אני כבר רוצה להתאהב בבית שלי!</button>
         <p class="me-form__msg" id="meMsg" hidden></p>
       </form>
+      <iframe name="me_sink" title="submit" style="display:none"></iframe>
     </div>
   </section>
 
@@ -286,26 +288,22 @@ const faqs = [
   <script define:vars={{ FORM_ENDPOINT }}>
     const form = document.getElementById('meForm');
     const msg = document.getElementById('meMsg');
-    form?.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const btn = form.querySelector('button[type=submit]');
-      const data = new URLSearchParams(new FormData(form));
-      data.append('source', 'Make it Easy');
-      const show = (t, ok) => { msg.hidden = false; msg.textContent = t; msg.style.color = ok ? 'var(--accent-deep)' : '#b23b3b'; };
-      if (!FORM_ENDPOINT || FORM_ENDPOINT.startsWith('PASTE_')) {
-        show('הטופס עדיין לא חובר לשליחה (צריך להזין את כתובת ה־Apps Script).', false);
-        return;
-      }
-      btn.disabled = true; btn.textContent = 'שולח…';
-      try {
-        await fetch(FORM_ENDPOINT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: data.toString() });
-        form.reset();
-        show('תודה! קיבלתי את הפרטים ואחזור אלייך בהקדם 💜', true);
-      } catch (err) {
-        show('אופס, משהו השתבש. אפשר לנסות שוב או לכתוב לי בוואטסאפ.', false);
-      } finally {
-        btn.disabled = false; btn.textContent = 'אני כבר רוצה להתאהב בבית שלי!';
-      }
+    const btn = form?.querySelector('button[type=submit]');
+    const sink = document.querySelector('iframe[name="me_sink"]');
+    let submitting = false;
+    const show = (t, ok) => { msg.hidden = false; msg.textContent = t; msg.style.color = ok ? 'var(--accent-deep)' : '#b23b3b'; };
+    form?.addEventListener('submit', (e) => {
+      if (!FORM_ENDPOINT || FORM_ENDPOINT.startsWith('PASTE_')) { e.preventDefault(); show('הטופס עדיין לא חובר לשליחה.', false); return; }
+      // Let the native POST submit into the hidden iframe (Apps Script handles this reliably)
+      submitting = true;
+      if (btn) { btn.disabled = true; btn.textContent = 'שולח…'; }
+    });
+    sink?.addEventListener('load', () => {
+      if (!submitting) return; // ignore the initial blank iframe load
+      submitting = false;
+      form.reset();
+      show('תודה! קיבלתי את הפרטים ואחזור אלייך בהקדם 💜', true);
+      if (btn) { btn.disabled = false; btn.textContent = 'אני כבר רוצה להתאהב בבית שלי!'; }
     });
   </script>
 </Base>
