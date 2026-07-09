@@ -212,14 +212,15 @@ const faqs = [
     .me-note{text-align:center;color:var(--ink-soft);opacity:.75;font-size:.85rem;margin-top:22px}
     .me-muted{color:var(--ink-soft)}
     .me-sec{padding:8vh 0}
-    :global(#nav){display:none !important}
+    /* keep the logo, hide only the site menu links + hamburger */
+    :global(#navLinks),:global(#navToggle){display:none !important}
     .me-mie{font-family:var(--lat);font-style:italic;color:var(--accent);font-size:1.3em;font-weight:500}
     .me-q2{margin-top:8px}
     .me-note--top{margin-top:8px;margin-bottom:6px}
     .me-tosite{text-align:center;background:var(--band);padding:7vh var(--pad) 3vh}
     .me-tosite a{color:var(--accent-deep);font-size:1.02rem;letter-spacing:.02em}
 
-    .me-hero{background:var(--band);padding:13vh var(--pad) 13vh;text-align:center}
+    .me-hero{background:var(--band);padding:6vh var(--pad) 12vh;text-align:center}
     .me-hero__in{max-width:900px;margin:0 auto}
     .me-hero h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.1rem,5.4vw,3.7rem);line-height:1.14;margin:16px 0 0;color:var(--ink)}
     .me-hero__lead{font-size:clamp(1.1rem,2.2vw,1.4rem);color:#5a4433;max-width:46ch;margin:22px auto 34px;line-height:1.7}
