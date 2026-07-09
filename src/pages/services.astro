@@ -26,7 +26,6 @@ const nl = (t) => t.replace(/\n/g, '<br/>');
       <div class="tracks">
         {tracks.map((t) => (
           <div class={`track reveal${t.featured ? ' featured' : ''}`}>
-            {t.featured && <span class="badge">הכי משתלם</span>}
             <h4>{t.name}</h4>
             <div class="price">{t.price}{t.strike && <span class="strike">{t.strike}</span>}</div>
             <p>{t.body}</p>
