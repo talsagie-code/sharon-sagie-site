@@ -102,8 +102,9 @@ const faqs = [
   <section class="me-included">
     <div class="wrap">
       <h2 class="me-h">אז מה בעצם אני מציעה?</h2>
+      <div class="me-rule"></div>
       <p class="me-sub"><span class="me-mie">Make it easy</span> – שתי פגישות שיגרמו לך להתאהב בבית שלך, בקלות!</p>
-      <p class="me-sub me-q2">"רק שתי פגישות?" – כן. בואי תראי מה הן כוללות:</p>
+      <div class="me-q2wrap"><span class="me-q2box">"רק שתי פגישות?" – כן. בואי תראי מה הן כוללות:</span></div>
       <div class="me-grid">
         {meetings.map((s, i) => (
           <div class="me-card reveal">
@@ -216,6 +217,9 @@ const faqs = [
     :global(#navLinks),:global(#navToggle){display:none !important}
     .me-mie{font-family:var(--lat);font-style:italic;color:var(--accent);font-size:1.3em;font-weight:500}
     .me-q2{margin-top:8px}
+    .me-rule{width:56px;height:3px;background:var(--accent);border-radius:2px;margin:16px auto 20px}
+    .me-q2wrap{text-align:center;margin-top:22px}
+    .me-q2box{display:inline-block;background:var(--band);color:#5A3620;font-weight:500;padding:11px 24px;border-radius:10px;font-size:1.02rem;line-height:1.55}
     .me-note--top{margin-top:8px;margin-bottom:6px}
     .me-tosite{text-align:center;background:var(--band);padding:7vh var(--pad) 3vh}
     .me-tosite a{color:var(--accent-deep);font-size:1.02rem;letter-spacing:.02em}
