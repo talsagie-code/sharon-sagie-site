@@ -5,23 +5,23 @@ import Base from '../layouts/Base.astro';
 // deploying it (see MAKE-IT-EASY-FORM-SETUP.md).
 const FORM_ENDPOINT = 'https://docs.google.com/forms/d/1ALr3_Zbn9YqXLs1scqyP25l5P8bvXFc6KYg3wvhwEuQ/formResponse';
 
-// Original landing-page images (served from Sharon's smoove CDN – they load fine hotlinked)
-const CDN = 'https://content.vp4.me/sharon1976/Content';
+// Landing-page images — self-hosted locally (no external/CDN dependency)
+const U = '/uploads/make-it-easy';
 const img = {
-  materials: `${CDN}/IMG_7936.jpeg`,
-  collage: `${CDN}/Gray%20dancer%20photo%20collage.png`,
+  materials: `${U}/materials.webp`,
+  collage: `${U}/collage.webp`,
   ba: [
-    `${CDN}/18_900x450-r.jpg`,
-    `${CDN}/before_after_smoove_optimized.jpg`,
-    `${CDN}/before_after2_smoove_optimized.jpg`,
-    `${CDN}/before_after3_smoove_optimized.jpg`,
+    `${U}/ba1.webp`,
+    `${U}/ba2.webp`,
+    `${U}/ba3.webp`,
+    `${U}/ba4.webp`,
   ],
-  board: '/uploads/make-it-easy/mood-board.webp',
-  budget: `${CDN}/5_480x384-r%281%29.jpg`,
-  shopping: `${CDN}/%d7%a8%d7%9b%d7%99%d7%a9%d7%95%d7%aa_480x384-r.jpg`,
-  summary: `${CDN}/%d7%9b%d7%a8%d7%99%d7%9b%d7%94%20%d7%a4%d7%92%d7%99%d7%a9%d7%aa%20%d7%99%d7%a2%d7%95%d7%a5.png`,
-  follow: `${CDN}/Gray%20dancer%20photo%20collage%20%286%29_480x384-r.jpg`,
-  profile: `${CDN}/profile_dark_optimized_smoove.jpg`,
+  board: `${U}/mood-board.webp`,
+  budget: `${U}/budget.webp`,
+  shopping: `${U}/shopping.webp`,
+  summary: `${U}/summary.webp`,
+  follow: `${U}/follow.webp`,
+  profile: `${U}/profile.webp`,
 };
 
 const meetings = [
