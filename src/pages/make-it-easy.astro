@@ -90,7 +90,7 @@ const faqs = [
   </section>
 
   <!-- BEFORE / AFTER -->
-  <section class="me-sec wrap">
+  <section class="me-sec me-sec--tight wrap">
     <h2 class="me-h">ואיך נראה השינוי אצלם?</h2>
     <div class="me-ba">
       {img.ba.map((src) => (<img src={src} alt="לפני ואחרי" loading="lazy" />))}
@@ -127,7 +127,7 @@ const faqs = [
         {after.map((s, i) => (
           <div class="me-card reveal">
             {s.img && <div class={`me-card__img${s.fit === 'contain' ? ' me-card__img--contain' : ''}`}><img src={s.img} alt={s.t} loading="lazy" /></div>}
-            {s.icon === 'gift' && <div class="me-card__img me-card__img--icon" set:html={`<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='9' width='18' height='12' rx='1'/><path d='M3 13h18M12 9v12'/><path d='M12 9S9 3 6.5 4.5 9 9 12 9zM12 9s3-6 5.5-4.5S15 9 12 9z'/></svg>`}></div>}
+            {s.icon === 'gift' && <div class="me-card__img me-card__img--icon"><span class="me-giftwrap" set:html={`<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'><rect x='4' y='9.5' width='16' height='10.5' rx='1.5'/><path d='M4 13.5h16M12 9.5V20'/><path d='M12 9.5C10.9 7.2 9.4 6.4 8.3 7.1 7.3 7.7 7.8 9.5 9.5 9.5zM12 9.5c1.1-2.3 2.6-3.1 3.7-2.4 1 .6 .5 2.4-1.2 2.4z'/></svg>`}></span></div>}
             <div class="me-card__b">
               <span class="me-num">{String(i + 5).padStart(2, '0')}</span>
               <h4>{s.t}</h4>
@@ -145,7 +145,7 @@ const faqs = [
       <span class="me-eyebrow">המחיר ל־Make it easy הוא</span>
       <div class="me-price__num">4,200 <span>₪</span></div>
       <p>אני יכולה להבטיח לך שזו תהיה ההוצאה הכי משתלמת שתעשי!</p>
-      <p class="me-price__note">אני מקבלת רק שני לקוחות בחודש למסלול הזה. אז אם חשוב לך להתחיל כבר בתהליך, מלאי כאן את הפרטים שלך ואחזור אלייך לשיחת התאמה. (שעות הפעילות של הסטודיו: ימים א'–ה', 9:00–18:00.)</p>
+      <p class="me-price__note">אני מקבלת רק שני לקוחות בחודש למסלול הזה. אז אם חשוב לך להתחיל כבר בתהליך, מלאי כאן את הפרטים שלך ואחזור אלייך לשיחת התאמה.</p>
       <a href="#lead" class="me-btn me-btn--light">אני רוצה להשאיר פרטים</a>
     </div>
   </section>
@@ -200,8 +200,6 @@ const faqs = [
     </div>
   </section>
 
-  <div class="me-tosite"><a href="/">‹ לאתר של שרון שגיא</a></div>
-
   <style>
     .me-btn{display:inline-block;background:var(--accent);color:#fff;border:1px solid var(--accent);padding:15px 40px;border-radius:50px;font-size:1.02rem;letter-spacing:.02em;cursor:pointer;transition:.3s}
     @media (hover:hover){.me-btn:hover{background:var(--accent-deep);border-color:var(--accent-deep)}}
@@ -213,6 +211,7 @@ const faqs = [
     .me-note{text-align:center;color:var(--ink-soft);opacity:.75;font-size:.85rem;margin-top:22px}
     .me-muted{color:var(--ink-soft)}
     .me-sec{padding:8vh 0}
+    .me-sec--tight{padding-top:0}
     /* keep the logo, hide only the site menu links + hamburger */
     :global(#navLinks),:global(#navToggle){display:none !important}
     .me-mie{font-family:var(--lat);font-style:italic;color:var(--accent);font-size:1.3em;font-weight:500}
@@ -252,8 +251,9 @@ const faqs = [
     .me-card__img img{width:100%;height:100%;object-fit:cover}
     .me-card__img--contain{background:#fff}
     .me-card__img--contain img{object-fit:contain}
-    .me-card__img--icon{display:grid;place-items:center;color:var(--accent)}
-    .me-card__img--icon svg{width:58px;height:58px}
+    .me-card__img--icon{display:grid;place-items:center;background:#F3EDE4}
+    .me-card__img--icon .me-giftwrap{width:92px;height:92px;border-radius:50%;background:#fff;display:grid;place-items:center;color:#BE7E60;box-shadow:0 0 0 1px #EADBCC}
+    .me-card__img--icon svg{width:40px;height:40px}
     .me-card__b{padding:26px 24px;position:relative}
     .me-num{font-family:var(--lat);font-style:italic;color:var(--accent);opacity:.4;font-size:1.4rem}
     .me-card h4{font-family:var(--serif);font-weight:500;font-size:1.3rem;margin:.2em 0 .5em;color:var(--ink)}
@@ -301,7 +301,7 @@ const faqs = [
       .me-grid,.me-grid--3{grid-template-columns:1fr}
       .me-ba{grid-template-columns:1fr}
       .me-row{grid-template-columns:1fr}
-      .me-hero{padding-top:18vh}
+      .me-hero{padding-top:5vh}
     }
   </style>
 
