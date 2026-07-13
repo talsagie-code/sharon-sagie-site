@@ -8,7 +8,7 @@ const FORM_ENDPOINT = 'https://docs.google.com/forms/d/1ALr3_Zbn9YqXLs1scqyP25l5
 // Landing-page images — self-hosted locally (no external/CDN dependency)
 const U = '/uploads/make-it-easy';
 const img = {
-  materials: `${U}/materials-v2.webp`,
+  materials: `${U}/materials-v3.webp`,
   collage: `${U}/collage.webp`,
   ba: [
     `${U}/ba1.webp`,
@@ -70,7 +70,6 @@ const faqs = [
       <p class="me-muted">אולי גם הזמנת פריטים אונליין או בחרת צבע לבית, ובסוף ראית ששום דבר לא מתחבר ולא מתאים – והרגשת כל כך מתוסכלת מזה שסתם בזבזת זמן וכסף.</p>
       <p class="me-lead-line">את כבר כנראה מבינה שאת צריכה <b>עין מקצועית של מעצבת פנים</b> – אבל ממש לא בא לך להיכנס לתהליך ארוך ויקר.</p>
     </div>
-    <div class="me-pain__img reveal"><img src={img.materials} alt="פגישת ייעוץ עיצובי בבית" loading="lazy" /></div>
   </section>
 
   <!-- PROMISE -->
@@ -229,7 +228,7 @@ const faqs = [
     .me-hero h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.1rem,5.4vw,3.7rem);line-height:1.14;margin:16px 0 0;color:var(--ink)}
     .me-hero__lead{font-size:clamp(1.1rem,2.2vw,1.4rem);color:#5a4433;max-width:46ch;margin:22px auto 34px;line-height:1.7}
 
-    .me-pain{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,70px);align-items:center}
+    .me-pain{max-width:820px;margin:0 auto;text-align:center}
     .me-pain__txt p{font-size:1.12rem;line-height:1.9;margin-bottom:.8em;color:var(--ink)}
     .me-pain__txt b{font-weight:500;color:var(--accent-deep)}
     .me-lead-line{font-family:var(--serif);font-size:1.3rem!important;margin-top:.6em}
