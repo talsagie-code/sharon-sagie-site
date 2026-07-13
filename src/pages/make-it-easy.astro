@@ -8,7 +8,7 @@ const FORM_ENDPOINT = 'https://docs.google.com/forms/d/1ALr3_Zbn9YqXLs1scqyP25l5
 // Landing-page images — self-hosted locally (no external/CDN dependency)
 const U = '/uploads/make-it-easy';
 const img = {
-  materials: `${U}/materials.webp`,
+  materials: `${U}/materials-v2.webp`,
   collage: `${U}/collage.webp`,
   ba: [
     `${U}/ba1.webp`,
@@ -17,10 +17,11 @@ const img = {
     `${U}/ba4.webp`,
   ],
   board: `${U}/mood-board.webp`,
-  budget: `${U}/budget.webp`,
-  shopping: `${U}/shopping.webp`,
+  budget: `${U}/budget-v2.webp`,
+  shopping: `${U}/shopping-v2.webp`,
   summary: `${U}/summary.webp`,
   follow: `${U}/follow.webp`,
+  bonus: `${U}/bonus.webp`,
   profile: `${U}/profile.webp`,
 };
 
@@ -33,7 +34,7 @@ const meetings = [
 const after = [
   { t: 'סיכום מפורט של הפגישות', p: 'לאחר יום הרכישות תקבלי מסמך מפורט המסכם את כל ההמלצות, הרעיונות וההנחיות ליישום, כך שתוכלי בקלות לבצע לבד את כל מה שתכננו יחד.', img: img.summary, fit: 'contain' },
   { t: 'המשך ליווי לשבועיים נוספים', p: 'לאחר יום הרכישות אמשיך לייעץ ולהנחות אותך בוואטסאפ ובמייל, כדי שתרגישי בטוחה ולא תצטרכי להתלבט לבד – גם אם תעשי רכישות נוספות בלעדיי.', img: img.follow },
-  { t: 'ובונוס שווה ממני', p: 'רשימת בעלי מקצוע, ספקים, חנויות ואתרים שיעזרו לך להשלים את המהפך בעצמך.', img: null, icon: 'gift' },
+  { t: 'ובונוס שווה ממני', p: 'רשימת בעלי מקצוע, ספקים, חנויות ואתרים שיעזרו לך להשלים את המהפך בעצמך.', img: img.bonus },
 ];
 
 const faqs = [
