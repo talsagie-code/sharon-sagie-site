@@ -4,8 +4,8 @@ import Base from '../layouts/Base.astro';
 // Landing-page images — self-hosted locally (no external/CDN dependency)
 const U = '/uploads/make-it-right';
 const img = {
-  card1: `${U}/card1-v2.webp`,
-  plan: `${U}/plan-v2.webp`,
+  card1: `${U}/plan-v2.webp`,   // pain section  -> desk + plans image
+  plan: `${U}/card1-v2.webp`,   // "מה כוללת הפגישה" -> consultation image
   testi1: `${U}/testi1.webp`,
   testi2: `${U}/testi2.webp`,
   price: `${U}/price.webp`,
@@ -46,7 +46,7 @@ const faq = [
   ['מה קורה אם נרצה להמשיך?', 'אם תבחרו להמשיך לליווי מלא בתוך 14 יום ממועד הפגישה – עלות פגישת הייעוץ תקוזז ממחיר התהליך.'],
 ];
 ---
-<Base active="" solidNav={true} title="Make it Right · שרון שגיא" description="פגישת ייעוץ תכנוני ממוקדת לפני רכישת דירה או שיפוץ – שעתיים שיעשו לכם סדר בראש וביטחון בקבלת ההחלטה.">
+<Base active="" solidNav={true} ogImage="/assets/og-make-it-right.jpg" title="Make it Right · שרון שגיא" description="פגישת ייעוץ תכנוני ממוקדת לפני רכישת דירה או שיפוץ – שעתיים שיעשו לכם סדר בראש וביטחון בקבלת ההחלטה.">
 
   <!-- HERO -->
   <header class="mr-hero">
