@@ -53,6 +53,7 @@ const philosophyNote = site.philosophyNote || "זו הדרך שבה אני ני�
       <h2 class="h-sec">פרויקטים נבחרים</h2>
       <a href="/projects" class="proj__all">לכל הפרויקטים →</a>
     </div>
+    <p class="proj__note reveal">הפרויקטים המוצגים בוצעו בתקופת ״two studio״, בשיתוף עם המעצבת קרן לוטם.</p>
     <div class="proj__grid">
       {(featured || []).map((p) => (
         <a class="proj__card reveal" href={`/projects/${p.slug}`}>
@@ -138,7 +139,8 @@ const philosophyNote = site.philosophyNote || "זו הדרך שבה אני ני�
   .qb__note{margin-top:42px;font-family:var(--serif);font-weight:300;font-size:clamp(1.2rem,2vw,1.55rem);line-height:1.7;color:var(--ink-soft);max-width:660px}
 
   .proj{padding:10vh 0}
-  .proj__head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;border-bottom:1px solid var(--line);padding-bottom:24px;margin-bottom:46px}
+  .proj__head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;border-bottom:1px solid var(--line);padding-bottom:24px;margin-bottom:16px}
+  .proj__note{margin:0 0 42px;font-size:.85rem;color:var(--ink-soft);opacity:.85;letter-spacing:.02em}
   .proj__all{color:var(--accent);font-size:1rem;white-space:nowrap}
   .proj__grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,2.4vw,34px)}
   .proj__card{display:block}
