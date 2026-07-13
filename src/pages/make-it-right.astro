@@ -25,7 +25,6 @@ const includePrep = [
 const includeMeeting = [
   'סקירת התוכנית האדריכלית – בפגישה אצביע על יתרונות וחסרונות בתוכנית הקיימת, תקבלו כיוון כללי על האפשרויות התכנוניות האופציונליות בהתאם לצרכים שלכם, ואם מדובר בדירת קבלן – אילו שדרוגים כדאי לדרוש ואיך למקסם את הפוטנציאל שלה.',
   'הערכת תקציב לעבודת קבלן, מטבח, נגרויות, ריצופים וכלים סניטריים, תאורה ועוד – כדי שתדעו למה לצפות וכיצד להיערך עם פחות הפתעות בדרך.',
-  'אם מדובר בדירת קבלן – אמליץ על שדרוגים שכדאי לבקש מראש בעת החתימה כדי לחסוך זמן וכסף בעת הביצוע.',
   'הסבר על לו"ז וסדר העבודה בשיפוץ.',
 ];
 const forWho = [
@@ -54,7 +53,8 @@ const faq = [
     <div class="mr-hero__in">
       <h1>Make it Right<br>פגישת ייעוץ תכנוני לפני רכישה או שיפוץ</h1>
       <p class="mr-hero__lead">אתם מתרגשים לקראת קניית דירה או שיפוץ גדול, משקיעים זמן, כסף ואנרגיה – אבל עמוק בפנים יש סימן שאלה קטן: האם התכנון באמת מתאים לחיים שלנו? האם השינויים שאנחנו רוצים לעשות בכלל אפשריים ונכונים?</p>
-      <p class="mr-hero__sub">כי טעויות תכנוניות לא תמיד רואים על הנייר, אבל מרגישים אותן כל יום אח"כ. רגע לפני שאתם מתחייבים להחלטה גדולה ומשמעותית כזו – תנו לעין מקצועית לבחון את התוכנית שלכם לעומק, כדי שתוכלו להתקדם בביטחון ובשקט נפשי.</p>
+      <p class="mr-hero__sub">כי טעויות תכנוניות לא תמיד רואים על הנייר, אבל מרגישים אותן כל יום אח"כ.</p>
+      <p class="mr-hero__sub mr-hero__sub--2"><b>רגע לפני שאתם מתחייבים להחלטה גדולה ומשמעותית כזו</b> – תנו לעין מקצועית לבחון את התוכנית שלכם לעומק, כדי שתוכלו להתקדם בביטחון ובשקט נפשי.</p>
       <a href="#lead" class="mr-btn">מרגישים שזה השלב לעצור ולבדוק? אשמח לדבר</a>
     </div>
   </header>
@@ -82,7 +82,7 @@ const faq = [
   <section class="mr-sec wrap">
     <div class="mr-pain">
       <div class="mr-pain__txt reveal">
-        <p>אם אתם לא מצליחים לדמיין איך הקווים בתכנית מתורגמים למציאות,</p>
+        <p>אתם לא מצליחים לדמיין איך הקווים בתכנית מתורגמים למציאות,</p>
         <p>או שמשהו בתכנית לא יושב לכם בול – המטבח נראה קטן מדי, הסלון צפוף, ואיפה שמים פינת אוכל?</p>
         <p>אתם רוצים להיכנס לתהליך הזה בביטחון ולדעת שבחרתם נכון.</p>
         <p class="mr-muted">אז אתם מעלים את תכנית הדירה לקבוצות עיצוב בפייסבוק ומקבלים 20 תגובות ו-15 דעות שונות… חלקן אפילו לא מאנשי מקצוע.</p>
@@ -149,10 +149,11 @@ const faq = [
   <!-- PRICE -->
   <section class="mr-price">
     <div class="wrap reveal">
-      <h2 class="mr-h mr-h--light">המחיר ל-Make it Right – פגישת ייעוץ תכנוני הוא</h2>
-      <div class="mr-price__imgs">
-        <img src={img.price} alt="מחיר" loading="lazy" />
-        <img src={img.priceDiscount} alt="מחיר מבצע" loading="lazy" />
+      <h2 class="mr-h">המחיר ל-Make it Right – פגישת ייעוץ תכנוני הוא</h2>
+      <div class="mr-price__box">
+        <span class="mr-price__old">1,500 ₪</span>
+        <div class="mr-price__num">1,200 <span>₪</span></div>
+        <p class="mr-price__tag">מחיר השקה – ל-5 הראשונים בלבד!</p>
       </div>
       <p class="mr-big">השקעה קטנה לפני החלטה גדולה ומשמעותית!</p>
       <p>אני מקבלת רק 4 לקוחות בחודש במסלול הזה, כדי שאוכל לעשות הכנה רצינית ומעמיקה לפני כל פגישה. לכן אם חשוב לכם לא לבזבז זמן יקר ולקבל החלטה חכמה – השאירו פרטים לתיאום שיחת היכרות קצרה.</p>
@@ -209,7 +210,7 @@ const faq = [
   <section class="mr-final">
     <div class="wrap reveal">
       <h2 class="mr-h mr-h--light">אז אם אתם רוצים לעשות החלטה נכונה, בואו נעשה אותה יחד</h2>
-      <p class="mr-lets">let's Make it Right</p>
+      <p class="mr-lets">let's <span class="mr-lets__name">Make it Right</span></p>
       <p>השאירו פרטים ונקבע שיחה קצרה כדי להבין באיזה שלב אתם ומה הכי נכון עבורכם.</p>
       <form class="mr-form mr-form--light" action={FORM} method="POST" target="mir_sink">
         <div class="mr-row">
@@ -233,7 +234,8 @@ const faq = [
       <div class="mr-about__txt reveal">
         <p class="mr-eyebrow">אם אתם עדיין לא מכירים אותי – זה הזמן :)</p>
         <h2 class="mr-h">נעים להכיר</h2>
-        <p>אני שרון שגיא, מעצבת פנים המתמחה בתכנון וליווי שיפוצים ובתים בבנייה. עוד כילדה נמשכתי לעולם הזה – הייתי משנה שוב ושוב את סידור ועיצוב החדר שלי :)</p>
+        <p>אני שרון שגיא, מעצבת פנים המתמחה בתכנון וליווי שיפוצים ובתים בבנייה.</p>
+        <p>עוד כילדה נמשכתי לעולם הזה – הייתי משנה שוב ושוב את סידור ועיצוב החדר שלי :)</p>
         <p>לפני שהגעתי לעיצוב פנים עסקתי בכלל בייעוץ גנטי – תחום שלימד אותי להקשיב, לחשוב לעומק, לראות את התמונה המלאה ולשים לב לכל פרט קטן. היום אני מביאה בדיוק את אותה גישה גם לתכנון בתים.</p>
         <p>אני מאמינה שבית טוב מתחיל הרבה לפני בחירת צבעים וחומרים – הוא מתחיל בתכנון מדויק, בהבנת הצרכים וההרגלים של המשפחה וביצירת פתרונות חכמים שמאפשרים לבית לעבוד באמת ביום-יום.</p>
         <p>אני אוהבת את החיבור בין חשיבה תכנונית ופתרון בעיות לבין החלק היצירתי של בחירת חומרים, צבעים והלבשת הבית – וכך נוצרים בתים שהם גם פונקציונליים ונוחים לחיים, וגם מעוצבים ומלאי אופי.</p>
@@ -248,9 +250,11 @@ const faq = [
     /* keep the logo, hide only the site menu links + hamburger */
     :global(#navLinks),:global(#navToggle){display:none !important}
 
-    .mr-btn{display:inline-block;background:var(--accent);color:#fff;padding:15px 30px;border-radius:8px;font-size:1.05rem;font-weight:500;transition:.2s;border:none;cursor:pointer;line-height:1.4}
-    .mr-btn:hover{background:var(--accent-deep)}
-    .mr-btn--light{background:#fff;color:var(--accent-deep)}
+    .mr-btn{display:inline-block;background:var(--accent);color:#fff;padding:16px 34px;border-radius:8px;font-size:1.08rem;font-weight:500;transition:.2s;border:none;cursor:pointer;line-height:1.4;box-shadow:0 8px 20px rgba(140,70,48,.28)}
+    @media(hover:hover){.mr-btn:hover{background:var(--accent-deep);transform:translateY(-2px);box-shadow:0 12px 26px rgba(140,70,48,.34)}}
+    .mr-btn:active{transform:translateY(0)}
+    .mr-btn--light{background:#fff;color:var(--accent-deep);box-shadow:0 8px 20px rgba(40,25,15,.18)}
+    @media(hover:hover){.mr-btn--light:hover{background:#fff;color:var(--accent);transform:translateY(-2px)}}
     .mr-h{font-family:var(--serif);font-weight:300;font-size:clamp(1.8rem,4.3vw,2.8rem);line-height:1.14;color:var(--ink);text-align:center}
     .mr-h--light{color:#fff}
     .mr-sub{text-align:center;color:var(--ink-soft);max-width:64ch;margin:14px auto 0;font-size:1.1rem;line-height:1.7}
@@ -264,7 +268,9 @@ const faq = [
     .mr-hero__in{max-width:900px;margin:0 auto}
     .mr-hero h1{font-family:var(--serif);font-weight:300;font-size:clamp(2rem,5vw,3.3rem);line-height:1.16;margin:14px 0 0;color:var(--ink)}
     .mr-hero__lead{font-size:clamp(1.05rem,2.1vw,1.32rem);color:#5a4433;max-width:52ch;margin:22px auto 0;line-height:1.7}
-    .mr-hero__sub{color:#5a4433;max-width:56ch;margin:16px auto 30px;line-height:1.8}
+    .mr-hero__sub{color:#5a4433;max-width:56ch;margin:16px auto 0;line-height:1.8}
+    .mr-hero__sub--2{margin:14px auto 32px}
+    .mr-hero__sub b{color:var(--accent-deep);font-weight:600}
 
     .mr-lead{padding:9vh 0;background:var(--bg)}
     .mr-form{max-width:620px;margin:28px auto 0}
@@ -274,7 +280,9 @@ const faq = [
     .mr-form--light label{color:#f4e6de}
     .mr-form input{border:1px solid #d9c8bb;background:#fff;border-radius:6px;padding:13px 15px;font-family:inherit;font-size:1rem;color:var(--ink);transition:.2s}
     .mr-form input:focus{outline:none;border-color:var(--accent)}
-    .mr-form__btn{width:100%;margin-top:8px;border:none;font-size:1.05rem}
+    .mr-form__btn{width:100%;margin-top:10px;border:none;font-size:1.1rem;font-weight:500;letter-spacing:.01em}
+    .mr-form--light .mr-form__btn{background:#fff;color:var(--accent-deep);box-shadow:0 8px 20px rgba(40,25,15,.22)}
+    @media(hover:hover){.mr-form--light .mr-form__btn:hover{background:#fff;color:var(--accent)}}
     .mr-form__msg{text-align:center;margin-top:18px;font-size:1.05rem;color:var(--accent-deep)}
     .mr-form--light .mr-form__msg{color:#fff}
 
@@ -298,7 +306,9 @@ const faq = [
     .mr-plan{margin:40px auto 0;max-width:560px}
     .mr-plan img{width:100%;border-radius:6px;display:block}
 
-    .mr-after p{max-width:70ch;margin:0 auto 1em;color:var(--ink-soft);line-height:1.9;font-size:1.06rem;text-align:center}
+    .mr-after{background:#fff;border:1px solid #E8D7CD;border-radius:10px;padding:34px 32px;margin:36px auto 0;max-width:900px}
+    .mr-after p{margin:0 0 1em;color:var(--ink-soft);line-height:1.9;font-size:1.06rem}
+    .mr-after p:last-child{margin-bottom:0}
 
     .mr-testi{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:32px}
     .mr-testi img{width:100%;border-radius:6px;display:block}
@@ -307,9 +317,12 @@ const faq = [
     .mr-gallery img{width:100%;border-radius:6px;display:block;aspect-ratio:1/1;object-fit:cover}
 
     .mr-price{background:var(--band);text-align:center;padding:11vh var(--pad)}
-    .mr-price__imgs{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin:26px 0}
-    .mr-price__imgs img{max-width:340px;width:100%;border-radius:8px}
-    .mr-big{font-family:var(--serif);font-size:clamp(1.5rem,3.4vw,2.1rem);color:var(--accent-deep);margin:.3em 0}
+    .mr-price__box{margin:26px auto 10px}
+    .mr-price__old{display:inline-block;font-size:1.5rem;color:#7d6552;text-decoration:line-through;text-decoration-color:var(--accent);text-decoration-thickness:2px;opacity:.75}
+    .mr-price__num{font-family:var(--serif);font-size:clamp(3.2rem,8.5vw,5.2rem);line-height:1;color:var(--accent-deep);margin:8px 0 14px}
+    .mr-price__num span{font-size:.42em;vertical-align:middle}
+    .mr-price__tag{display:inline-block;background:var(--accent);color:#fff;padding:10px 22px;border-radius:8px;font-weight:500;font-size:1rem;margin:0!important}
+    .mr-big{font-family:var(--serif);font-size:clamp(1.75rem,4.2vw,2.5rem);font-weight:600;color:var(--accent-deep);margin:.55em auto .3em!important}
     .mr-price p{max-width:58ch;margin:0 auto 1em;color:#5a4433;line-height:1.8;font-size:1.08rem}
     .mr-price .mr-btn--light{margin-top:14px}
 
@@ -333,6 +346,7 @@ const faq = [
     .mr-final{background:var(--accent);color:#fff;text-align:center;padding:11vh var(--pad)}
     .mr-final p{max-width:56ch;margin:.6em auto 0;font-size:1.1rem;line-height:1.7;color:#fbeee7}
     .mr-lets{font-family:var(--lat);font-style:italic;font-size:clamp(1.6rem,4vw,2.4rem);color:#fff!important;margin:.2em auto!important}
+    .mr-lets__name{font-weight:600;font-size:1.22em;color:#fff;letter-spacing:.01em}
 
     .mr-about{background:var(--band);padding:11vh 0}
     .mr-about__in{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(30px,5vw,64px);align-items:center}
