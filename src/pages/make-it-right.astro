@@ -4,8 +4,8 @@ import Base from '../layouts/Base.astro';
 // Landing-page images — self-hosted locally (no external/CDN dependency)
 const U = '/uploads/make-it-right';
 const img = {
-  card1: `${U}/plan-v2.webp`,   // pain section  -> desk + plans image
-  plan: `${U}/card1-v2.webp`,   // "מה כוללת הפגישה" -> consultation image
+  card1: `${U}/card1-v2.webp`,  // pain section (top) -> consultation image
+  plan: `${U}/plan-v3.webp`,    // under "מה כוללת הפגישה" -> desk + plans (logo removed)
   testi1: `${U}/testi1.webp`,
   testi2: `${U}/testi2.webp`,
   price: `${U}/price.webp`,
@@ -104,6 +104,7 @@ const faq = [
   <!-- WHAT'S INCLUDED -->
   <section class="mr-included wrap">
     <h2 class="mr-h">מה כוללת הפגישה?</h2>
+    <div class="mr-plan reveal"><img src={img.plan} alt="ניתוח תכנית אדריכלית" loading="lazy" /></div>
     <div class="mr-inc">
       <div class="mr-inc__col reveal">
         <h3>הכנה לפגישה</h3>
@@ -114,7 +115,6 @@ const faq = [
         <ul>{includeMeeting.map((x) => (<li>{x}</li>))}</ul>
       </div>
     </div>
-    <div class="mr-plan reveal"><img src={img.plan} alt="ניתוח תכנית אדריכלית" loading="lazy" /></div>
   </section>
 
   <!-- AFTER -->
@@ -303,7 +303,7 @@ const faq = [
     .mr-inc__col ul{list-style:none;padding:0;margin:0}
     .mr-inc__col li{position:relative;padding-inline-start:22px;margin-bottom:14px;color:var(--ink-soft);line-height:1.8}
     .mr-inc__col li::before{content:'';position:absolute;inset-inline-start:0;top:.7em;width:8px;height:8px;border-radius:50%;background:var(--accent)}
-    .mr-plan{margin:40px auto 0;max-width:560px}
+    .mr-plan{margin:32px auto 6px;max-width:760px}
     .mr-plan img{width:100%;border-radius:6px;display:block}
 
     .mr-after{background:#fff;border:1px solid #E8D7CD;border-radius:10px;padding:34px 32px;margin:36px auto 0;max-width:900px}
