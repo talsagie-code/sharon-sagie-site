@@ -328,9 +328,8 @@ const faqs = [
     sink?.addEventListener('load', () => {
       if (!submitting) return; // ignore the initial blank iframe load
       submitting = false;
-      form.reset();
-      show('תודה! קיבלתי את הפרטים ואחזור אלייך בהקדם 💜', true);
-      if (btn) { btn.disabled = false; btn.textContent = 'אני כבר רוצה להתאהב בבית שלי!'; }
+      // same-tab redirect (href, not replace) so the Back button returns to this page
+      window.location.href = '/thank-you';
     });
   </script>
 </Base>

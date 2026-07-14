@@ -386,11 +386,10 @@ const faq = [
         f.addEventListener('submit', function(){ pending = f; });
       });
       if (iframe) iframe.addEventListener('load', function(){
-        if(!pending) return;
-        var msg = pending.querySelector('.mr-form__msg');
-        pending.querySelectorAll('.mr-row, .mr-form__btn, .mr-form__legal').forEach(function(el){ el.style.display='none'; });
-        if(msg){ msg.hidden=false; msg.textContent='תודה! קיבלתי את הפרטים ואחזור אלייך בהקדם 💜'; }
+        if(!pending) return;   // ignore the initial blank iframe load
         pending = null;
+        // same-tab redirect (href, not replace) so the Back button returns to this page
+        window.location.href = '/thank-you';
       });
       var io = new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('is-in');io.unobserve(e.target);}})},{threshold:.12});
       document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
