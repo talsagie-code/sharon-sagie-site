@@ -265,7 +265,7 @@ const faq = [
     .mr-h{font-family:var(--serif);font-weight:300;font-size:clamp(1.8rem,4.3vw,2.8rem);line-height:1.14;color:var(--ink);text-align:center}
     .mr-h--light{color:#fff}
     .mr-sub{text-align:center;color:var(--ink-soft);max-width:64ch;margin:14px auto 0;font-size:1.1rem;line-height:1.7}
-    .mr-note{text-align:center;color:var(--ink-soft);opacity:.8;font-size:.82rem;margin-top:10px}
+    .mr-note{text-align:center;color:var(--ink-soft);font-size:.82rem;margin-top:10px}
     .mr-note--top{margin-top:8px;margin-bottom:6px}
     .mr-eyebrow{font-family:var(--lat);font-style:italic;color:var(--accent-deep);font-size:1.1rem}
     .mr-sec{padding:8vh 0}
@@ -286,14 +286,15 @@ const faq = [
     .mr-form label{display:flex;flex-direction:column;gap:8px;font-size:.9rem;color:var(--ink-soft)}
     .mr-form--light label{color:#f4e6de}
     .mr-form input{border:1px solid #d9c8bb;background:#fff;border-radius:6px;padding:13px 15px;font-family:inherit;font-size:1rem;color:var(--ink);transition:.2s}
-    .mr-form input:focus{outline:none;border-color:var(--accent)}
+    .mr-form input:focus{border-color:var(--accent)}
+    .mr-form input:focus-visible{outline:3px solid var(--accent-deep);outline-offset:2px}
     .mr-form__btn{width:100%;margin-top:10px;border:none;font-size:1.1rem;font-weight:500;letter-spacing:.01em}
     .mr-form--light .mr-form__btn{background:#fff;color:var(--accent-deep);box-shadow:0 8px 20px rgba(40,25,15,.22)}
     @media(hover:hover){.mr-form--light .mr-form__btn:hover{background:#fff;color:var(--accent)}}
     .mr-form__msg{text-align:center;margin-top:18px;font-size:1.05rem;color:var(--accent-deep)}
     .mr-form--light .mr-form__msg{color:#fff}
     .mr-form__legal{margin-top:16px;font-size:.82rem;line-height:1.7;color:var(--ink-soft);text-align:center}
-    .mr-form__legal a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+    .mr-form__legal a{color:var(--accent-text);text-decoration:underline;text-underline-offset:3px}
     .mr-form--light .mr-form__legal{color:#f3ddcb}
     .mr-form--light .mr-form__legal a{color:#fff}
 

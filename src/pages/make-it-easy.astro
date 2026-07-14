@@ -280,11 +280,12 @@ const faqs = [
     .me-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
     .me-form label{display:flex;flex-direction:column;gap:8px;font-size:.9rem;color:var(--ink-soft)}
     .me-form input{border:1px solid #d9c8bb;background:#fff;border-radius:6px;padding:13px 15px;font-family:inherit;font-size:1rem;color:var(--ink);transition:.2s}
-    .me-form input:focus{outline:none;border-color:var(--accent)}
+    .me-form input:focus{border-color:var(--accent)}
+    .me-form input:focus-visible{outline:3px solid var(--accent-deep);outline-offset:2px}
     .me-form__btn{width:100%;margin-top:8px;border:none;font-size:1.05rem}
     .me-form__msg{text-align:center;margin-top:18px;font-size:1.05rem;color:var(--accent-deep)}
     .me-form__legal{margin-top:16px;font-size:.82rem;line-height:1.7;color:var(--ink-soft);text-align:center}
-    .me-form__legal a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+    .me-form__legal a{color:var(--accent-text);text-decoration:underline;text-underline-offset:3px}
 
     .me-faq{max-width:760px;margin:44px auto 0}
     .me-q{border-bottom:1px solid #e2d3c8}
