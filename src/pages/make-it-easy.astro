@@ -166,6 +166,7 @@ const faqs = [
           <label>נייד<input type="tel" name="entry.732060466" required autocomplete="tel" dir="ltr" /></label>
         </div>
         <button type="submit" class="me-btn me-form__btn">אני כבר רוצה להתאהב בבית שלי!</button>
+        <p class="me-form__legal">מסירת הפרטים היא מרצון ותשמש ליצירת קשר בלבד. הפרטים נשמרים אצל שרון שגיא ואינם מועברים לצדדים שלישיים לצורכי שיווק. פרטים מלאים ב<a href="/privacy">מדיניות הפרטיות</a>.</p>
         <p class="me-form__msg" id="meMsg" hidden></p>
       </form>
       <iframe name="me_sink" title="submit" style="display:none"></iframe>
@@ -282,6 +283,8 @@ const faqs = [
     .me-form input:focus{outline:none;border-color:var(--accent)}
     .me-form__btn{width:100%;margin-top:8px;border:none;font-size:1.05rem}
     .me-form__msg{text-align:center;margin-top:18px;font-size:1.05rem;color:var(--accent-deep)}
+    .me-form__legal{margin-top:16px;font-size:.82rem;line-height:1.7;color:var(--ink-soft);text-align:center}
+    .me-form__legal a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
 
     .me-faq{max-width:760px;margin:44px auto 0}
     .me-q{border-bottom:1px solid #e2d3c8}

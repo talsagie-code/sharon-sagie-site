@@ -73,6 +73,7 @@ const faq = [
           <label>נייד<input type="tel" name={E.phone} required autocomplete="tel" dir="ltr" /></label>
         </div>
         <button type="submit" class="mr-btn mr-form__btn">לתיאום שיחת היכרות</button>
+        <p class="mr-form__legal">מסירת הפרטים היא מרצון ותשמש ליצירת קשר בלבד. הפרטים נשמרים אצל שרון שגיא ואינם מועברים לצדדים שלישיים לצורכי שיווק. פרטים מלאים ב<a href="/privacy">מדיניות הפרטיות</a>.</p>
         <p class="mr-form__msg" hidden></p>
       </form>
     </div>
@@ -178,6 +179,7 @@ const faq = [
           <label>נייד<input type="tel" name={E.phone} required autocomplete="tel" dir="ltr" /></label>
         </div>
         <button type="submit" class="mr-btn mr-form__btn">לתיאום שיחת היכרות</button>
+        <p class="mr-form__legal">מסירת הפרטים היא מרצון ותשמש ליצירת קשר בלבד. הפרטים נשמרים אצל שרון שגיא ואינם מועברים לצדדים שלישיים לצורכי שיווק. פרטים מלאים ב<a href="/privacy">מדיניות הפרטיות</a>.</p>
         <p class="mr-form__msg" hidden></p>
       </form>
     </div>
@@ -226,6 +228,7 @@ const faq = [
           <label>נייד<input type="tel" name={E.phone} required autocomplete="tel" dir="ltr" /></label>
         </div>
         <button type="submit" class="mr-btn mr-form__btn">לתיאום שיחת היכרות</button>
+        <p class="mr-form__legal">מסירת הפרטים היא מרצון ותשמש ליצירת קשר בלבד. הפרטים נשמרים אצל שרון שגיא ואינם מועברים לצדדים שלישיים לצורכי שיווק. פרטים מלאים ב<a href="/privacy">מדיניות הפרטיות</a>.</p>
         <p class="mr-form__msg" hidden></p>
       </form>
     </div>
@@ -289,6 +292,10 @@ const faq = [
     @media(hover:hover){.mr-form--light .mr-form__btn:hover{background:#fff;color:var(--accent)}}
     .mr-form__msg{text-align:center;margin-top:18px;font-size:1.05rem;color:var(--accent-deep)}
     .mr-form--light .mr-form__msg{color:#fff}
+    .mr-form__legal{margin-top:16px;font-size:.82rem;line-height:1.7;color:var(--ink-soft);text-align:center}
+    .mr-form__legal a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+    .mr-form--light .mr-form__legal{color:#f3ddcb}
+    .mr-form--light .mr-form__legal a{color:#fff}
 
     .mr-pain{max-width:800px;margin:0 auto;text-align:center}
     .mr-pain__txt p{color:var(--ink-soft);line-height:1.9;font-size:1.08rem;margin-bottom:.7em}
@@ -381,7 +388,7 @@ const faq = [
       if (iframe) iframe.addEventListener('load', function(){
         if(!pending) return;
         var msg = pending.querySelector('.mr-form__msg');
-        pending.querySelectorAll('.mr-row, .mr-form__btn').forEach(function(el){ el.style.display='none'; });
+        pending.querySelectorAll('.mr-row, .mr-form__btn, .mr-form__legal').forEach(function(el){ el.style.display='none'; });
         if(msg){ msg.hidden=false; msg.textContent='תודה! קיבלתי את הפרטים ואחזור אלייך בהקדם 💜'; }
         pending = null;
       });
