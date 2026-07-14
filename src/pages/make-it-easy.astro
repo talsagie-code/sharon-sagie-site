@@ -9,6 +9,7 @@ const FORM_ENDPOINT = 'https://docs.google.com/forms/d/1ALr3_Zbn9YqXLs1scqyP25l5
 const U = '/uploads/make-it-easy';
 const img = {
   materials: `${U}/materials-v3.webp`,
+  sharon: `${U}/materials.webp`,
   collage: `${U}/collage.webp`,
   ba: [
     `${U}/ba1.webp`,
@@ -75,6 +76,7 @@ const faqs = [
   <!-- PROMISE -->
   <section class="me-promise">
     <div class="wrap reveal">
+      <div class="me-promise__img"><img src={img.sharon} alt="שרון שגיא" loading="lazy" /></div>
       <p>אני מבינה כמה עיצוב הבית משפיע על <b>איכות החיים</b> – מבחינה פיזית ומנטלית. לכן היה חשוב לי ליצור שירות שלא מצריך שבירת קירות: <b>שירות ממוקד ויעיל</b>, שלא כרוך בעלויות גבוהות, ועדיין ישדרג את הבית ואת החיים בו תוך זמן קצר –</p>
       <p class="me-big">בשתי פגישות בלבד!</p>
       <p>פתאום הכל יתחבר, וייראה הרבה יותר פשוט וקל.</p>
@@ -235,6 +237,8 @@ const faqs = [
     .me-pain__img img{width:100%;border-radius:4px;aspect-ratio:4/5;object-fit:cover;box-shadow:0 24px 55px rgba(38,32,25,.16)}
 
     .me-promise{background:var(--accent-deep);color:#f6ece7;text-align:center;padding:12vh 0}
+    .me-promise__img{width:clamp(130px,15vw,168px);aspect-ratio:1/1;margin:0 auto 30px;border-radius:50%;overflow:hidden;border:3px solid rgba(255,255,255,.4);box-shadow:0 14px 34px rgba(30,15,8,.28)}
+    .me-promise__img img{width:100%;height:100%;object-fit:cover;display:block}
     .me-promise p{max-width:64ch;margin:0 auto 1em;font-size:1.2rem;line-height:1.8}
     .me-promise b{color:#fff;font-weight:500}
     .me-big{font-family:var(--serif);font-size:clamp(1.8rem,4vw,2.6rem)!important;color:#fff;margin:.4em auto!important}
