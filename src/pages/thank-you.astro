@@ -4,10 +4,9 @@ import Base from '../layouts/Base.astro';
 <Base active="" solidNav={true} title="תודה! · שרון שגיא" description="קיבלנו את הפרטים שלך – נחזור אלייך בהקדם.">
   <section class="ty">
     <div class="ty__in">
-      <div class="ty__mark" aria-hidden="true">
-        <svg viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="26" cy="26" r="23" opacity=".35"></circle>
-          <path d="M16 27.5l7 7 14-16"></path>
+      <div class="ty__heart" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path class="ty__heart-path" d="M24 41.5C24 41.5 5.5 29.5 5.5 17.8C5.5 11.3 10.4 6.5 16.6 6.5C20.1 6.5 23 8.4 24 11.1C25 8.4 27.9 6.5 31.4 6.5C37.6 6.5 42.5 11.3 42.5 17.8C42.5 29.5 24 41.5 24 41.5Z"></path>
         </svg>
       </div>
 
@@ -27,8 +26,15 @@ import Base from '../layouts/Base.astro';
   <style>
     .ty{background:var(--band);padding:14vh var(--pad) 15vh;text-align:center}
     .ty__in{max-width:640px;margin:0 auto}
-    .ty__mark{width:72px;height:72px;margin:0 auto 26px;color:var(--accent-deep)}
-    .ty__mark svg{width:100%;height:100%}
+    .ty__heart{width:82px;height:82px;margin:0 auto 26px;color:var(--accent-deep);transform-origin:center;animation:tyBeat 2.8s ease-in-out .9s infinite}
+    .ty__heart svg{width:100%;height:100%;overflow:visible}
+    .ty__heart-path{stroke-dasharray:120;stroke-dashoffset:120;animation:tyDraw 1.5s cubic-bezier(.5,.05,.2,1) forwards}
+    @keyframes tyDraw{to{stroke-dashoffset:0}}
+    @keyframes tyBeat{0%,100%{transform:scale(1)}12%{transform:scale(1.07)}24%{transform:scale(1)}36%{transform:scale(1.045)}48%{transform:scale(1)}}
+    @media(prefers-reduced-motion:reduce){
+      .ty__heart{animation:none}
+      .ty__heart-path{animation:none;stroke-dashoffset:0}
+    }
     .ty h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.6rem,7vw,4.2rem);line-height:1.05;color:var(--ink)}
     .ty__lead{font-size:clamp(1.2rem,2.4vw,1.5rem);color:var(--accent-deep);margin-top:12px;font-weight:500}
     .ty__sub{color:#5a4433;line-height:1.9;margin-top:18px;font-size:1.05rem}
