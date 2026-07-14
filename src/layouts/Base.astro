@@ -41,7 +41,8 @@ const ogImageUrl = new URL(ogImage, Astro.site).href;
 </head>
 <body class={solidNav ? 'has-solid-nav' : ''}>
   <Nav active={active} solid={solidNav} />
-  <main>
+  <a href="#main" class="skip-link">דלג לתוכן הראשי</a>
+  <main id="main">
     <slot />
   </main>
   <Footer slim={slimFooter} />
