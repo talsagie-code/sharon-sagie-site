@@ -18,7 +18,10 @@ const { project, prev, next } = Astro.props;
 
   <section class="wrap p-intro reveal">
     <div class="p-challenge">{project.challenge}</div>
-    <p class="p-body">{project.body}</p>
+    <div>
+      <p class="p-body">{project.body}</p>
+      {project.credit && <p class="p-credit">{project.credit}</p>}
+    </div>
   </section>
 
   <section class="wrap gallery" id="gallery">
@@ -47,6 +50,7 @@ const { project, prev, next } = Astro.props;
   .p-intro{display:grid;grid-template-columns:1fr 1.4fr;gap:clamp(24px,4vw,64px);padding:2vh 0 8vh;align-items:start}
   .p-challenge{font-family:var(--lat);font-style:italic;color:var(--accent-deep);font-size:1.3rem;line-height:1.6;border-inline-start:2px solid var(--accent);padding-inline-start:20px}
   .p-body{color:var(--ink-soft);font-size:1.08rem;line-height:1.95}
+  .p-credit{margin-top:18px;color:var(--ink-soft);opacity:.75;font-size:.82rem;letter-spacing:.02em}
   .gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(14px,2vw,26px);padding-bottom:10vh}
   .g-item{border:none;padding:0;background:var(--bg-2);cursor:zoom-in;overflow:hidden;aspect-ratio:4/3;display:block}
   .g-item img{width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.2,.7,.2,1)}@media (hover:hover){.g-item:hover img{transform:scale(1.05)}}

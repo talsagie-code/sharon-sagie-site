@@ -22,6 +22,7 @@ content:
           - { name: summary, label: "תקציר", type: text }
           - { name: challenge, label: "האתגר", type: text }
           - { name: body, label: "תיאור", type: text }
+          - { name: credit, label: "קרדיט צילום/הדמיה", type: string }
           - { name: images, label: "תמונות (הראשונה = שער; אפשר לגרור לשינוי סדר)", type: image, list: true }
       - name: heroImages
         label: "תמונות מתחלפות בראש עמוד הבית"
