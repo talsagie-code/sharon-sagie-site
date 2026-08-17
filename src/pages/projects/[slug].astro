@@ -26,7 +26,15 @@ const { project, prev, next } = Astro.props;
 
   <section class="wrap gallery" id="gallery">
     {(project.images || []).map((src, i) => (
-      <button class="g-item reveal" data-i={i} aria-label="הגדל תמונה"><img src={src} alt={project.title} loading="lazy" /></button>
+      src.endsWith('.mp4') ? (
+        <button class="g-item g-vid reveal" data-i={i} aria-label="נגן וידאו">
+          <img src={src.replace('.mp4', '.webp')} alt={project.title} loading="lazy" />
+          <span class="g-tag">וידאו</span>
+          <span class="g-play" aria-hidden="true"><span class="g-ring"><svg viewBox="0 0 24 24"><path d="M8 5.2v13.6L19 12z"></path></svg></span></span>
+        </button>
+      ) : (
+        <button class="g-item reveal" data-i={i} aria-label="הגדל תמונה"><img src={src} alt={project.title} loading="lazy" /></button>
+      )
     ))}
   </section>
 
@@ -42,6 +50,7 @@ const { project, prev, next } = Astro.props;
     <button class="lb-btn lb-next" aria-label="הבא">&#8249;</button>
     <div class="lb-load"><svg class="lh" viewBox="0 0 104 90" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M58 84 V22 L96 10 V84" pathLength="100"/><path d="M16 84 V44 H58" pathLength="100"/><path d="M37 44 V84" pathLength="100"/><path d="M37 44 V32 H47 V44" pathLength="100"/></svg></div>
     <img src="" alt="" />
+    <video class="lb-vid" playsinline controls loop preload="auto"></video>
     <div class="lb-count"></div>
   </div>
 </Base>
@@ -69,18 +78,47 @@ const { project, prev, next } = Astro.props;
   #lightbox.loading .lb-load{display:flex}
   #lightbox.loading img{opacity:0}
   .lb-load .lh{width:72px;height:auto}
+  .g-item{position:relative}
+  .g-play{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+  .g-ring{width:94px;height:94px;border-radius:50%;background:rgba(174,90,60,.92);display:grid;place-items:center;box-shadow:0 12px 34px rgba(40,25,15,.3);transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+  .g-ring svg{width:34px;height:34px;fill:#fff;margin-inline-start:4px}
+  @media (hover:hover){.g-vid:hover .g-ring{transform:scale(1.09)}}
+  .g-tag{position:absolute;top:14px;inset-inline-start:14px;background:rgba(247,244,239,.94);color:var(--accent-deep);font-size:.76rem;letter-spacing:.14em;padding:6px 15px;border-radius:999px;pointer-events:none}
+  #lightbox .lb-vid{display:none;height:86vh;width:auto;max-width:90vw;object-fit:contain;border-radius:2px;box-shadow:0 30px 90px rgba(0,0,0,.6);background:#000}
+  #lightbox.is-video img{display:none}
+  #lightbox.is-video .lb-vid{display:block}
+  #lightbox.is-video.loading .lb-load{display:none}
+  @media(max-width:780px){.g-ring{width:74px;height:74px}.g-ring svg{width:27px;height:27px}}
   @media(max-width:780px){.p-intro{grid-template-columns:1fr}.gallery{grid-template-columns:1fr}}
 </style>
 
 <script define:vars={{ imgs: project.images || [] }}>
   const lb = document.getElementById('lightbox');
   const lbImg = lb.querySelector('img');
+  const lbVid = lb.querySelector('.lb-vid');
   const lbCount = lb.querySelector('.lb-count');
+  const isVid = (s) => /\.mp4$/i.test(s);
   let i = 0;
-  const render = () => { lb.classList.add('loading'); lbImg.src = imgs[i]; lbCount.textContent = (i + 1) + ' / ' + imgs.length; };
+  const stopVid = () => { lbVid.pause(); lbVid.removeAttribute('src'); lbVid.load(); };
+  const render = () => {
+    lbCount.textContent = (i + 1) + ' / ' + imgs.length;
+    if (isVid(imgs[i])) {
+      lb.classList.remove('loading');
+      lb.classList.add('is-video');
+      lbImg.removeAttribute('src');
+      lbVid.poster = imgs[i].replace('.mp4', '.webp');
+      lbVid.src = imgs[i];
+      lbVid.play().catch(() => {});
+    } else {
+      stopVid();
+      lb.classList.remove('is-video');
+      lb.classList.add('loading');
+      lbImg.src = imgs[i];
+    }
+  };
   lbImg.addEventListener('load', () => lb.classList.remove('loading'));
   const open = (n) => { i = n; render(); lb.classList.add('open'); document.body.style.overflow = 'hidden'; };
-  const close = () => { lb.classList.remove('open'); document.body.style.overflow = ''; };
+  const close = () => { stopVid(); lb.classList.remove('open'); document.body.style.overflow = ''; };
   const show = (n) => { i = (n + imgs.length) % imgs.length; render(); };
   document.querySelectorAll('.g-item').forEach((b) => b.addEventListener('click', () => open(+b.dataset.i)));
   lb.querySelector('.lb-next').addEventListener('click', (e) => { e.stopPropagation(); show(i + 1); });
