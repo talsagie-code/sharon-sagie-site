@@ -277,11 +277,13 @@
     }
   ],
   "heroImages": [
-    "/uploads/hero/02.webp",
-    "/uploads/hero/03.webp",
-    "/uploads/hero/04.webp",
-    "/uploads/hero/05.webp",
-    "/uploads/hero/06.webp"
+    "/uploads/hero/h01.webp",
+    "/uploads/hero/h02.webp",
+    "/uploads/hero/h03.webp",
+    "/uploads/hero/h04.webp",
+    "/uploads/hero/h05.webp",
+    "/uploads/hero/h06.webp",
+    "/uploads/hero/h07.webp"
   ],
   "testimonials": [
     {
