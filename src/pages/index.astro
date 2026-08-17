@@ -151,21 +151,19 @@ const philosophyNote = site.philosophyNote || "זו הדרך שבה אני ני�
   .proj__mark{width:54px;height:auto;transform:translateY(8px);transition:transform .6s}
   .proj__cap{font-family:var(--serif);font-weight:500;font-size:clamp(1.3rem,2vw,1.7rem);color:var(--ink);transform:translateY(12px);transition:transform .6s .05s}
   .proj__soon{font-size:.82rem;letter-spacing:.14em;direction:ltr;color:var(--accent-deep);transform:translateY(12px);transition:transform .6s .08s}
-  /* Pointer devices: reveal on hover / keyboard focus. Touch devices have no
-     hover, so the caption is simply always visible - no first tap wasted on
-     revealing it. Either way one click opens the project. */
+  /* Touch: first tap reveals (adds .is-open), second tap opens the project.
+     Pointer devices reveal on :hover / keyboard focus - CSS rather than a
+     mouseenter listener, so it also fires when the cursor is already over the
+     card as the page loads. */
+  .proj__card.is-open .proj__overlay{opacity:1}
+  .proj__card.is-open .proj__mark{transform:translateY(0)}
+  .proj__card.is-open .proj__cap{transform:translateY(0)}
+  .proj__card.is-open .proj__soon{transform:translateY(0)}
   @media (hover:hover){
     .proj__card:hover .proj__overlay,.proj__card:focus-visible .proj__overlay{opacity:1}
     .proj__card:hover .proj__mark,.proj__card:focus-visible .proj__mark{transform:translateY(0)}
     .proj__card:hover .proj__cap,.proj__card:focus-visible .proj__cap{transform:translateY(0)}
     .proj__card:hover .proj__soon,.proj__card:focus-visible .proj__soon{transform:translateY(0)}
-  }
-  @media (hover:none){
-    .proj__overlay{opacity:1;justify-content:flex-end;gap:2px;padding:16px 18px 18px;
-      background:linear-gradient(to top,rgba(247,244,239,.96) 0%,rgba(247,244,239,.86) 26%,rgba(247,244,239,.42) 52%,rgba(247,244,239,0) 78%)}
-    .proj__mark{display:none}
-    .proj__cap,.proj__soon{transform:translateY(0)}
-    .proj__cap{font-size:1.25rem}
   }
 
   .svc-prev{background:var(--band);color:var(--ink)}

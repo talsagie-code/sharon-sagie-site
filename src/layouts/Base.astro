@@ -60,8 +60,23 @@ const ogImageUrl = new URL(ogImage, Astro.site).href;
     const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.15 });
     document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
 
-    // Project card reveal is pure CSS now (:hover on pointer devices, always-on
-    // for touch), so a tap or click always follows the link on the first try.
+    // Project cards. Hover/focus reveal is pure CSS. On touch there is no hover,
+    // so the first tap reveals the title + house mark and the second tap opens
+    // the project. The decision is made per interaction from the event's own
+    // pointerType, not from a matchMedia check at load time -- that check was
+    // wrong on hybrid and trackpad-equipped touch devices, which is why the
+    // title sometimes failed to appear and it took extra taps to get in.
+    const cards = document.querySelectorAll('.proj__card, .pcard');
+    cards.forEach((card) => {
+      card.addEventListener('pointerdown', (e) => { card.dataset.touch = e.pointerType === 'touch' ? '1' : '0'; });
+      card.addEventListener('click', (e) => {
+        if (card.dataset.touch !== '1') return;          // mouse, pen, keyboard: go straight in
+        if (card.classList.contains('is-open')) return;  // second tap: go straight in
+        e.preventDefault();
+        cards.forEach((c) => { if (c !== card) { c.classList.remove('is-open'); c.dataset.touch = '0'; } });
+        card.classList.add('is-open');
+      });
+    });
   </script>
 </body>
 </html>

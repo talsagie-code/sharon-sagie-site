@@ -34,21 +34,20 @@ import { projects } from '../../data/projects.js';
   .pcard__mark{width:56px;height:auto;transform:translateY(8px);transition:transform .6s}
   .pcard__cap{font-family:var(--serif);font-weight:500;font-size:clamp(1.3rem,2vw,1.7rem);color:var(--ink);transform:translateY(12px);transition:transform .6s .05s}
   .pcard__soon{font-size:.82rem;letter-spacing:.14em;direction:ltr;color:var(--accent-deep);transform:translateY(12px);transition:transform .6s .08s}
-  /* Pointer devices: reveal on hover / keyboard focus. Touch devices have no
-     hover, so the caption is simply always visible - no first tap wasted on
-     revealing it. Either way one click opens the project. */
+  /* Touch: first tap reveals (adds .is-open), second tap opens the project.
+     Pointer devices reveal on :hover / keyboard focus - CSS rather than a
+     mouseenter listener, so it also fires when the cursor is already over the
+     card as the page loads. */
+  .pcard.is-open .pcard__overlay{opacity:1}
+  .pcard.is-open .pcard__mark{transform:translateY(0)}
+  .pcard.is-open .pcard__cap{transform:translateY(0)}
+  .pcard.is-open .pcard__soon{transform:translateY(0)}
   @media (hover:hover){
     .pcard:hover .pcard__overlay,.pcard:focus-visible .pcard__overlay{opacity:1}
     .pcard:hover .pcard__mark,.pcard:focus-visible .pcard__mark{transform:translateY(0)}
     .pcard:hover .pcard__cap,.pcard:focus-visible .pcard__cap{transform:translateY(0)}
     .pcard:hover .pcard__soon,.pcard:focus-visible .pcard__soon{transform:translateY(0)}
   }
-  @media (hover:none){
-    .pcard__overlay{opacity:1;justify-content:flex-end;gap:2px;padding:16px 18px 18px;
-      background:linear-gradient(to top,rgba(247,244,239,.96) 0%,rgba(247,244,239,.86) 26%,rgba(247,244,239,.42) 52%,rgba(247,244,239,0) 78%)}
-    .pcard__mark{display:none}
-    .pcard__cap,.pcard__soon{transform:translateY(0)}
-    .pcard__cap{font-size:1.25rem}
-  }
+
   @media(max-width:780px){.plist{grid-template-columns:1fr}}
 </style>
