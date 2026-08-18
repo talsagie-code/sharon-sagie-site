@@ -19,7 +19,7 @@ const MAX_TOTAL_MB = 60;
   <link rel="icon" type="image/png" href="/assets/mark.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&family=Frank+Ruhl+Libre:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&family=David+Libre:wght@400;500&display=swap" rel="stylesheet" />
 </head>
 <body>
 
@@ -32,7 +32,7 @@ const MAX_TOTAL_MB = 60;
     --moss:#5B6B60; --moss-deep:#44534A; --moss-tint:#EAEFEB;
     --r:14px;
     --sans:'Rubik',system-ui,sans-serif;
-    --display:'Frank Ruhl Libre',Georgia,serif;
+    --display:'David Libre',Georgia,serif;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
@@ -70,13 +70,11 @@ const MAX_TOTAL_MB = 60;
   .step__note{color:var(--ink-soft);font-size:1rem;margin-top:12px;max-width:56ch}
 
   /* ---------- intro ---------- */
-  .intro h1{font-family:var(--display);font-weight:300;font-size:clamp(2rem,6vw,3.1rem);
+  .intro h1{font-family:var(--display);font-weight:400;font-size:clamp(2rem,6vw,3.1rem);
             line-height:1.2;letter-spacing:-.015em;margin:14px 0 0}
   .intro h1 em{font-style:normal;color:var(--clay-deep)}
   .intro p{color:var(--ink-soft);margin-top:20px;font-size:1.05rem;max-width:58ch}
   .intro .rule{width:56px;height:1px;background:var(--clay);opacity:.6;margin:30px 0}
-  .intro__pill{display:inline-flex;align-items:center;gap:9px;background:var(--moss-tint);
-               color:var(--moss-deep);border-radius:99px;padding:8px 16px;font-size:.85rem;margin-top:26px}
 
   /* ---------- questions ---------- */
   .q{margin-top:38px}
@@ -211,12 +209,11 @@ const MAX_TOTAL_MB = 60;
     <!-- ===== INTRO ===== -->
     <section class="step intro on" data-step="0" data-title="לפני שמתחילים">
       <span class="eyebrow">Make it Right</span>
-      <h1>לקראת פגישת הייעוץ<br />התכנוני <em>שלנו</em></h1>
+      <h1>הכנה לפגישת הייעוץ<br />התכנוני <em>שלנו</em></h1>
       <div class="rule"></div>
       <p>המטרה של השאלון היא לאפשר לי להכיר קצת יותר אתכם, את הבית שאתם מתכננים ואת הדברים שחשובים לכם באמת – עוד לפני שניפגש.</p>
       <p>ככל שאכיר טוב יותר את שגרת החיים, הצרכים וההתלבטויות שלכם, נוכל לנצל את הפגישה בצורה מדויקת ויעילה יותר ולבחון את התכנון לא רק על הנייר, אלא דרך החיים שעתידים להתקיים בו.</p>
       <p>אין תשובות נכונות או לא נכונות – פשוט ספרו לי איך אתם מדמיינים את הבית שלכם.</p>
-      <span class="intro__pill">כ־10 דקות · אפשר לעצור ולחזור בהמשך</span>
     </section>
 
     <!-- ===== 1 · נעים להכיר ===== -->
