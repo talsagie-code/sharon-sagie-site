@@ -693,7 +693,9 @@ const MAX_TOTAL_MB = 60;
 
   /* ---------- navigation ---------- */
   function show(n) {
-    steps[i].classList.remove('on');
+    /* clear every step, not just the current one: when a returning visitor is
+       restored to a saved step, the intro still carries its markup .on class */
+    steps.forEach((s) => s.classList.remove('on'));
     i = n;
     steps[i].classList.add('on');
     const p = Math.round((i / last) * 100);
