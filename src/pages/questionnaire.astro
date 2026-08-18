@@ -1,0 +1,800 @@
+---
+// שאלון פגישת ייעוץ תכנוני — Make it Right
+// עמוד עצמאי, לא מקושר מהתפריט ולא נסרק ע"י מנועי חיפוש (noindex).
+// השליחה עוברת ל-Google Apps Script של שרון: תשובות -> Google Sheet,
+// קבצים -> תיקייה ב-Drive, ובנוסף מייל מסודר. ראו QUESTIONNAIRE-SETUP.md
+const ENDPOINT = 'PASTE_APPS_SCRIPT_URL_HERE';
+const MAX_FILE_MB = 18;
+const MAX_TOTAL_MB = 60;
+---
+
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>שאלון לקראת פגישת ייעוץ תכנוני · שרון שגיא</title>
+  <meta name="description" content="שאלון קצר לקראת פגישת הייעוץ התכנוני" />
+  <link rel="icon" type="image/png" href="/assets/mark.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&family=Frank+Ruhl+Libre:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<style is:global>
+  :root{
+    --bg:#F7F4EF; --bg-2:#F1EDE6; --paper:#FFFFFF;
+    --ink:#2A2420; --ink-soft:#6E665B; --ink-faint:#9A9186;
+    --line:#E4DCD1;
+    --clay:#AE5A3C; --clay-deep:#8C4630; --clay-tint:#F6EBE5;
+    --moss:#5B6B60; --moss-deep:#44534A; --moss-tint:#EAEFEB;
+    --r:14px;
+    --sans:'Rubik',system-ui,sans-serif;
+    --display:'Frank Ruhl Libre',Georgia,serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;
+       line-height:1.75;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  img{display:block;max-width:100%}
+  ::selection{background:var(--clay);color:#fff}
+  :focus-visible{outline:3px solid var(--clay-deep);outline-offset:3px;border-radius:6px}
+
+  /* ---------- shell ---------- */
+  .q-top{position:sticky;top:0;z-index:20;background:rgba(247,244,239,.94);
+         backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .q-top__in{max-width:760px;margin:0 auto;padding:14px 22px 0;
+             display:flex;flex-direction:column;align-items:center;gap:10px}
+  .q-logo{width:186px;height:auto}
+  .q-bar{width:100%;height:3px;background:var(--line);border-radius:99px;overflow:hidden}
+  .q-bar__fill{height:100%;width:0;background:var(--moss);border-radius:99px;
+               transition:width .55s cubic-bezier(.2,.7,.2,1)}
+  .q-meta{width:100%;display:flex;justify-content:space-between;align-items:center;
+          padding-bottom:10px;font-size:.72rem;letter-spacing:.1em;color:var(--ink-faint)}
+  .q-meta strong{font-weight:400;color:var(--moss-deep)}
+
+  main{max-width:760px;margin:0 auto;padding:0 22px 140px}
+
+  /* ---------- steps ---------- */
+  .step{display:none;padding:52px 0 8px;animation:rise .5s cubic-bezier(.2,.7,.2,1) both}
+  .step.on{display:block}
+  @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){.step{animation:none}}
+
+  .eyebrow{font-family:var(--sans);font-size:.72rem;letter-spacing:.24em;
+           color:var(--moss-deep);text-transform:uppercase}
+  .step h2{font-family:var(--display);font-weight:400;font-size:clamp(1.65rem,4.4vw,2.3rem);
+           line-height:1.25;letter-spacing:-.01em;margin:12px 0 0}
+  .step__note{color:var(--ink-soft);font-size:1rem;margin-top:12px;max-width:56ch}
+
+  /* ---------- intro ---------- */
+  .intro h1{font-family:var(--display);font-weight:300;font-size:clamp(2rem,6vw,3.1rem);
+            line-height:1.2;letter-spacing:-.015em;margin:14px 0 0}
+  .intro h1 em{font-style:normal;color:var(--clay-deep)}
+  .intro p{color:var(--ink-soft);margin-top:20px;font-size:1.05rem;max-width:58ch}
+  .intro .rule{width:56px;height:1px;background:var(--clay);opacity:.6;margin:30px 0}
+  .intro__pill{display:inline-flex;align-items:center;gap:9px;background:var(--moss-tint);
+               color:var(--moss-deep);border-radius:99px;padding:8px 16px;font-size:.85rem;margin-top:26px}
+
+  /* ---------- questions ---------- */
+  .q{margin-top:38px}
+  .q:first-of-type{margin-top:34px}
+  .q__label{display:block;font-size:1.08rem;font-weight:400;color:var(--ink);line-height:1.6}
+  .q__hint{display:block;color:var(--ink-soft);font-size:.9rem;margin-top:6px;font-weight:300}
+  .req{color:var(--clay);font-size:.85rem;margin-inline-start:4px}
+  .opt{color:var(--ink-faint);font-size:.78rem;margin-inline-start:8px;letter-spacing:.04em}
+
+  input[type=text],input[type=tel],input[type=email],textarea,select{
+    width:100%;margin-top:14px;background:var(--paper);border:1px solid var(--line);
+    border-radius:var(--r);padding:14px 16px;font-family:inherit;font-size:1rem;font-weight:300;
+    color:var(--ink);transition:border-color .25s,box-shadow .25s;line-height:1.6}
+  input::placeholder,textarea::placeholder{color:#BCB3A7}
+  textarea{min-height:118px;resize:vertical}
+  input:focus,textarea:focus,select:focus{border-color:var(--clay);
+    box-shadow:0 0 0 4px rgba(174,90,60,.09);outline:none}
+  .in-short{max-width:280px}
+  .ltr{direction:ltr;text-align:right}
+
+  /* choice chips */
+  .opts{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+  .opts--col{flex-direction:column;align-items:stretch}
+  .opt-item{position:relative}
+  .opt-item input{position:absolute;inset:0;opacity:0;width:100%;height:100%;margin:0;cursor:pointer}
+  .opt-item span{display:block;background:var(--paper);border:1px solid var(--line);
+    border-radius:99px;padding:11px 20px;font-size:.97rem;color:var(--ink);
+    transition:.22s cubic-bezier(.2,.7,.2,1);cursor:pointer;user-select:none}
+  .opts--col .opt-item span{border-radius:var(--r);padding:14px 18px}
+  @media (hover:hover){.opt-item:hover span{border-color:#CDBFB2}}
+  .opt-item input:checked + span{background:var(--clay-tint);border-color:var(--clay);
+    color:var(--clay-deep);font-weight:400}
+  .opt-item input:focus-visible + span{outline:3px solid var(--clay-deep);outline-offset:2px}
+  .opt-item input:disabled + span{opacity:.42;cursor:not-allowed}
+
+  .counter{margin-top:14px;font-size:.85rem;color:var(--ink-soft)}
+  .counter b{font-weight:400;color:var(--clay-deep)}
+  .counter.full b{color:var(--moss-deep)}
+
+  .other-wrap{margin-top:12px;display:none}
+  .other-wrap.on{display:block}
+
+  .err{display:none;margin-top:12px;color:var(--clay-deep);font-size:.9rem}
+  .err.on{display:block}
+  .q.invalid input[type=text],.q.invalid textarea{border-color:var(--clay)}
+
+  /* ---------- files ---------- */
+  .drop{margin-top:22px;border:1.5px dashed #D3C7B9;border-radius:var(--r);background:var(--paper);
+        padding:34px 22px;text-align:center;transition:.25s;cursor:pointer}
+  .drop.over{border-color:var(--clay);background:var(--clay-tint)}
+  .drop__t{font-size:1.02rem;color:var(--ink)}
+  .drop__s{font-size:.86rem;color:var(--ink-soft);margin-top:6px}
+  .drop input{display:none}
+  .flist{margin-top:16px;display:flex;flex-direction:column;gap:8px}
+  .frow{display:flex;align-items:center;gap:12px;background:var(--paper);border:1px solid var(--line);
+        border-radius:12px;padding:11px 14px;font-size:.92rem}
+  .frow__n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .frow__s{color:var(--ink-faint);font-size:.82rem;direction:ltr;flex:0 0 auto}
+  .frow__x{flex:0 0 auto;border:none;background:none;color:var(--ink-faint);cursor:pointer;
+           font-size:1.15rem;line-height:1;padding:2px 4px;font-family:inherit}
+  @media (hover:hover){.frow__x:hover{color:var(--clay-deep)}}
+  .flist ul{list-style:none;margin:10px 0 0;padding:0}
+  .flist-note{margin-top:14px;font-size:.85rem;color:var(--ink-soft)}
+  .doclist{margin-top:16px;padding:0;list-style:none;display:grid;gap:7px}
+  .doclist li{position:relative;padding-inline-start:18px;color:var(--ink-soft);font-size:.96rem}
+  .doclist li::before{content:"";position:absolute;inset-inline-start:0;top:.72em;
+    width:5px;height:5px;border-radius:50%;background:var(--clay);opacity:.65}
+
+  /* ---------- nav ---------- */
+  .q-foot{position:fixed;inset:auto 0 0 0;z-index:20;background:linear-gradient(180deg,rgba(247,244,239,0),rgba(247,244,239,.97) 34%);
+          padding:22px 22px calc(20px + env(safe-area-inset-bottom))}
+  .q-foot__in{max-width:760px;margin:0 auto;display:flex;align-items:center;gap:12px}
+  .btn{border:1px solid var(--ink);background:none;color:var(--ink);border-radius:99px;
+       padding:14px 30px;font-family:inherit;font-size:.98rem;font-weight:300;cursor:pointer;
+       transition:.3s cubic-bezier(.2,.7,.2,1)}
+  .btn--primary{background:var(--clay);border-color:var(--clay);color:#fff;flex:1;font-weight:400}
+  @media (hover:hover){
+    .btn--primary:hover{background:var(--clay-deep);border-color:var(--clay-deep)}
+    .btn--ghost:hover{border-color:var(--ink-soft);color:var(--ink-soft)}
+  }
+  .btn--ghost{border-color:var(--line);color:var(--ink-soft);padding:14px 22px}
+  .btn[disabled]{opacity:.55;cursor:default}
+  .btn--hidden{visibility:hidden;pointer-events:none}
+
+  /* ---------- done ---------- */
+  .done{display:none;padding:12vh 0 10vh;text-align:center}
+  .done.on{display:block;animation:rise .6s cubic-bezier(.2,.7,.2,1) both}
+  .done__mark{width:66px;margin:0 auto 26px}
+  .done h2{font-family:var(--display);font-weight:400;font-size:clamp(1.8rem,5vw,2.5rem);
+           line-height:1.3;margin-bottom:18px}
+  .done p{color:var(--ink-soft);max-width:46ch;margin:0 auto 12px;font-size:1.03rem}
+  .done__sig{margin-top:30px;font-size:.95rem;color:var(--ink);line-height:1.9}
+  .done__sig span{display:block;color:var(--clay-deep);font-size:.82rem;letter-spacing:.1em}
+
+  .sending{display:none;align-items:center;justify-content:center;gap:10px;
+           color:var(--ink-soft);font-size:.92rem}
+  .sending.on{display:flex}
+  .spin{width:15px;height:15px;border:2px solid var(--line);border-top-color:var(--clay);
+        border-radius:50%;animation:sp .8s linear infinite}
+  @keyframes sp{to{transform:rotate(360deg)}}
+
+  .fail{display:none;margin-top:16px;background:var(--clay-tint);border:1px solid #E7CDBF;
+        border-radius:var(--r);padding:16px 18px;font-size:.94rem;color:var(--clay-deep)}
+  .fail.on{display:block}
+  .fail a{color:var(--clay-deep);text-decoration:underline;text-underline-offset:3px}
+
+  @media (max-width:560px){
+    main{padding:0 18px 150px}
+    .q-top__in{padding:12px 18px 0}
+    .q-logo{width:158px}
+    .step{padding:38px 0 8px}
+    .q{margin-top:30px}
+    .btn{padding:15px 22px}
+    .btn--ghost{padding:15px 18px}
+  }
+</style>
+
+<header class="q-top">
+  <div class="q-top__in">
+    <img class="q-logo" src="/assets/logo.png" alt="Sharon Sagie · interior design & home planning" />
+    <div class="q-bar"><div class="q-bar__fill" id="barFill"></div></div>
+    <div class="q-meta">
+      <span id="stepLabel">לפני שמתחילים</span>
+      <span><strong id="pct">0%</strong></span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <form id="qForm" novalidate>
+
+    <!-- ===== INTRO ===== -->
+    <section class="step intro on" data-step="0" data-title="לפני שמתחילים">
+      <span class="eyebrow">Make it Right</span>
+      <h1>לקראת פגישת הייעוץ<br />התכנוני <em>שלנו</em></h1>
+      <div class="rule"></div>
+      <p>המטרה של השאלון היא לאפשר לי להכיר קצת יותר אתכם, את הבית שאתם מתכננים ואת הדברים שחשובים לכם באמת – עוד לפני שניפגש.</p>
+      <p>ככל שאכיר טוב יותר את שגרת החיים, הצרכים וההתלבטויות שלכם, נוכל לנצל את הפגישה בצורה מדויקת ויעילה יותר ולבחון את התכנון לא רק על הנייר, אלא דרך החיים שעתידים להתקיים בו.</p>
+      <p>אין תשובות נכונות או לא נכונות – פשוט ספרו לי איך אתם מדמיינים את הבית שלכם.</p>
+      <span class="intro__pill">כ־10 דקות · אפשר לעצור ולחזור בהמשך</span>
+    </section>
+
+    <!-- ===== 1 · נעים להכיר ===== -->
+    <section class="step" data-step="1" data-part="נעים להכיר" data-title="נעים להכיר">
+      <span class="eyebrow">חלק 1 · נעים להכיר</span>
+      <h2>נעים להכיר</h2>
+
+      <div class="q" data-q="שמות" data-required="1">
+        <label class="q__label" for="f_names">שמות<span class="req">*</span></label>
+        <input type="text" id="f_names" name="שמות" autocomplete="name" placeholder="למשל: דנה ויואב לוי" />
+        <p class="err">נשמח לדעת עם מי אנחנו מדברים</p>
+      </div>
+
+      <div class="q" data-q="יישוב שבו נבנה הבית" data-required="1">
+        <label class="q__label" for="f_city">יישוב שבו נבנה הבית<span class="req">*</span></label>
+        <input type="text" id="f_city" name="יישוב שבו נבנה הבית" placeholder="למשל: זיכרון יעקב" />
+        <p class="err">שדה חובה</p>
+      </div>
+    </section>
+
+    <section class="step" data-step="2" data-part="נעים להכיר" data-title="מי גר בבית">
+      <span class="eyebrow">חלק 1 · נעים להכיר</span>
+      <h2>מי עתיד לגור בבית?</h2>
+
+      <div class="q" data-q="מי עתיד לגור בבית" data-required="1">
+        <label class="q__label" for="f_people">מספר הנפשות וגילאי הילדים<span class="req">*</span>
+          <span class="q__hint">למשל: 2 מבוגרים + 3 ילדים בני 12, 9 ו־4</span>
+        </label>
+        <textarea id="f_people" name="מי עתיד לגור בבית" placeholder="ספרו לי מי גר בבית ובאילו גילאים"></textarea>
+        <p class="err">שדה חובה</p>
+      </div>
+
+      <div class="q" data-q="בעלי חיים">
+        <span class="q__label">האם יש בעלי חיים בבית?<span class="opt">לא חובה</span></span>
+        <div class="opts">
+          <label class="opt-item"><input type="radio" name="בעלי חיים" value="כן" data-reveal="pets_more" /><span>כן</span></label>
+          <label class="opt-item"><input type="radio" name="בעלי חיים" value="לא" /><span>לא</span></label>
+        </div>
+        <div class="other-wrap" id="pets_more">
+          <input type="text" name="פירוט בעלי חיים" placeholder="אילו? יש משהו שחשוב שאדע לגביהם?" />
+        </div>
+      </div>
+    </section>
+
+    <section class="step" data-step="3" data-part="נעים להכיר" data-title="הבית והמגרש">
+      <span class="eyebrow">חלק 1 · נעים להכיר</span>
+      <h2>הבית והמגרש</h2>
+
+      <div class="q" data-q="גודל המגרש">
+        <label class="q__label" for="f_plot">מה גודל המגרש?<span class="opt">לא חובה</span></label>
+        <input type="text" id="f_plot" name="גודל המגרש" class="in-short" placeholder="למשל: 500 מ״ר" />
+      </div>
+
+      <div class="q" data-q="שטח הבית המתוכנן">
+        <label class="q__label" for="f_area">מה שטח הבית המתוכנן?<span class="opt">לא חובה</span></label>
+        <input type="text" id="f_area" name="שטח הבית המתוכנן" class="in-short" placeholder="למשל: 220 מ״ר" />
+      </div>
+
+      <div class="q" data-q="מספר קומות">
+        <span class="q__label">כמה קומות מתוכננות?<span class="opt">לא חובה</span></span>
+        <div class="opts">
+          <label class="opt-item"><input type="radio" name="מספר קומות" value="קומה אחת" /><span>קומה אחת</span></label>
+          <label class="opt-item"><input type="radio" name="מספר קומות" value="שתי קומות" /><span>שתי קומות</span></label>
+          <label class="opt-item"><input type="radio" name="מספר קומות" value="שתי קומות + מרתף" /><span>שתי קומות + מרתף</span></label>
+          <label class="opt-item"><input type="radio" name="מספר קומות" value="שלוש קומות ומעלה" /><span>שלוש ומעלה</span></label>
+          <label class="opt-item"><input type="radio" name="מספר קומות" value="אחר" data-reveal="floors_other" /><span>אחר</span></label>
+        </div>
+        <div class="other-wrap" id="floors_other">
+          <input type="text" name="מספר קומות · אחר" placeholder="פרטו" />
+        </div>
+      </div>
+
+      <div class="q" data-q="שלב התכנון" data-required="1">
+        <span class="q__label">באיזה שלב נמצא התכנון כרגע?<span class="req">*</span></span>
+        <div class="opts opts--col">
+          <label class="opt-item"><input type="radio" name="שלב התכנון" value="סקיצות ראשוניות" /><span>סקיצות ראשוניות</span></label>
+          <label class="opt-item"><input type="radio" name="שלב התכנון" value="תכנון מתקדם" /><span>תכנון מתקדם</span></label>
+          <label class="opt-item"><input type="radio" name="שלב התכנון" value="תכנית כמעט סופית לפני הגשה להיתר" /><span>תכנית כמעט סופית לפני הגשה להיתר</span></label>
+          <label class="opt-item"><input type="radio" name="שלב התכנון" value="אחר" data-reveal="stage_other" /><span>אחר</span></label>
+        </div>
+        <div class="other-wrap" id="stage_other">
+          <input type="text" name="שלב התכנון · אחר" placeholder="פרטו" />
+        </div>
+        <p class="err">בחרו את השלב שהכי מתאים</p>
+      </div>
+    </section>
+
+    <!-- ===== 2 · החיים בבית ===== -->
+    <section class="step" data-step="4" data-part="החיים בבית" data-title="שגרת החיים">
+      <span class="eyebrow">חלק 2 · בואו נדבר על החיים בבית</span>
+      <h2>ספרו לי קצת על שגרת החיים שלכם בבית</h2>
+      <p class="step__note">מי נמצא בבית ובאילו שעות? איפה אתם מבלים יחד? ומה קורה בבית ביום טיפוסי?</p>
+
+      <div class="q" data-q="שגרת החיים בבית">
+        <label class="q__label" for="f_routine">היום שלכם, במילים שלכם<span class="opt">לא חובה</span></label>
+        <textarea id="f_routine" name="שגרת החיים בבית" placeholder="בוקר, צהריים, ערב… מה קורה בבית ואיפה"></textarea>
+      </div>
+    </section>
+
+    <section class="step" data-step="5" data-part="החיים בבית" data-title="אירוח">
+      <span class="eyebrow">חלק 2 · בואו נדבר על החיים בבית</span>
+      <h2>עד כמה אתם מארחים?</h2>
+
+      <div class="q" data-q="תדירות אירוח">
+        <span class="q__label">התדירות שהכי מתאימה<span class="opt">לא חובה</span></span>
+        <div class="opts opts--col">
+          <label class="opt-item"><input type="radio" name="תדירות אירוח" value="כמעט ולא" /><span>כמעט ולא</span></label>
+          <label class="opt-item"><input type="radio" name="תדירות אירוח" value="מדי פעם" /><span>מדי פעם</span></label>
+          <label class="opt-item"><input type="radio" name="תדירות אירוח" value="לעיתים קרובות" /><span>לעיתים קרובות</span></label>
+          <label class="opt-item"><input type="radio" name="תדירות אירוח" value="הבית שלנו הוא מוקד האירוח" /><span>הבית שלנו הוא מוקד האירוח :)</span></label>
+        </div>
+      </div>
+
+      <div class="q" data-q="כמות מתארחים">
+        <label class="q__label" for="f_guests">כשאתם מארחים, כמה אנשים בדרך כלל?<span class="opt">לא חובה</span></label>
+        <input type="text" id="f_guests" name="כמות מתארחים" class="in-short" placeholder="למשל: 8–12" />
+      </div>
+    </section>
+
+    <section class="step" data-step="6" data-part="החיים בבית" data-title="המטבח">
+      <span class="eyebrow">חלק 2 · בואו נדבר על החיים בבית</span>
+      <h2>איך נראה השימוש שלכם במטבח?</h2>
+      <p class="step__note">אפשר לבחור יותר מתשובה אחת</p>
+
+      <div class="q" data-q="שימוש במטבח">
+        <div class="opts opts--col">
+          <label class="opt-item"><input type="checkbox" name="שימוש במטבח" value="מבשלים הרבה" /><span>מבשלים הרבה</span></label>
+          <label class="opt-item"><input type="checkbox" name="שימוש במטבח" value="מבשלים מעט" /><span>מבשלים מעט</span></label>
+          <label class="opt-item"><input type="checkbox" name="שימוש במטבח" value="כמה אנשים מבשלים במקביל" /><span>כמה אנשים מבשלים במקביל</span></label>
+          <label class="opt-item"><input type="checkbox" name="שימוש במטבח" value="אוהבים לארח סביב המטבח" /><span>אוהבים לארח סביב המטבח</span></label>
+          <label class="opt-item"><input type="checkbox" name="שימוש במטבח" value="אוכלים רוב הזמן סביב האי" /><span>אוכלים רוב הזמן סביב האי</span></label>
+          <label class="opt-item"><input type="checkbox" name="שימוש במטבח" value="חשוב לנו שולחן אוכל שמשמש ביום־יום" /><span>חשוב לנו שולחן אוכל שמשמש ביום־יום</span></label>
+          <label class="opt-item"><input type="checkbox" name="שימוש במטבח" value="אחר" data-reveal="kitchen_other" /><span>אחר</span></label>
+        </div>
+        <div class="other-wrap" id="kitchen_other">
+          <input type="text" name="שימוש במטבח · אחר" placeholder="פרטו" />
+        </div>
+      </div>
+    </section>
+
+    <section class="step" data-step="7" data-part="החיים בבית" data-title="עבודה מהבית">
+      <span class="eyebrow">חלק 2 · בואו נדבר על החיים בבית</span>
+      <h2>עבודה מהבית</h2>
+
+      <div class="q" data-q="עבודה מהבית">
+        <span class="q__label">האם מישהו מבני הבית עובד באופן קבוע מהבית?<span class="opt">לא חובה</span></span>
+        <div class="opts">
+          <label class="opt-item"><input type="radio" name="עבודה מהבית" value="כן" data-reveal="work_more" /><span>כן</span></label>
+          <label class="opt-item"><input type="radio" name="עבודה מהבית" value="לא" /><span>לא</span></label>
+          <label class="opt-item"><input type="radio" name="עבודה מהבית" value="לפעמים" data-reveal="work_more" /><span>לפעמים</span></label>
+        </div>
+        <div class="other-wrap" id="work_more">
+          <textarea name="סביבת עבודה נדרשת" placeholder="מה נדרש מבחינת סביבת העבודה? חדר סגור? שקט? פגישות זום? שני עמדות?"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <section class="step" data-step="8" data-part="החיים בבית" data-title="תחביבים וציוד">
+      <span class="eyebrow">חלק 2 · בואו נדבר על החיים בבית</span>
+      <h2>תחביבים, פעילויות וציוד</h2>
+      <p class="step__note">לדוגמה: ספורט, מוזיקה, יצירה, אופניים, ציוד טיולים וכו׳</p>
+
+      <div class="q" data-q="תחביבים וציוד">
+        <label class="q__label" for="f_hobbies">האם יש משהו שדורש מקום מיוחד בבית?<span class="opt">לא חובה</span></label>
+        <textarea id="f_hobbies" name="תחביבים וציוד" placeholder="מה שתופס מקום, או שחשוב שיהיה לו מקום קבוע"></textarea>
+      </div>
+    </section>
+
+    <!-- ===== 3 · מה חשוב לכם ===== -->
+    <section class="step" data-step="9" data-part="מה חשוב לכם" data-title="חמשת הדברים החשובים">
+      <span class="eyebrow">חלק 3 · מה באמת חשוב לכם?</span>
+      <h2>בחרו את 5 הדברים שהכי חשובים לכם בבית החדש</h2>
+
+      <div class="q" data-q="5 הדברים החשובים" data-max="5">
+        <div class="opts">
+          <label class="opt-item"><input type="checkbox" name="5 הדברים החשובים" value="מטבח גדול ונוח" /><span>מטבח גדול ונוח</span></label>
+          <label class="opt-item"><input type="checkbox" name="5 הדברים החשובים" value="אירוח" /><span>אירוח</span></label>
+          <label class="opt-item"><input type="checkbox" name="5 הדברים החשובים" value="קשר ישיר ונוח לגינה" /><span>קשר ישיר ונוח לגינה</span></label>
+          <label class="opt-item"><input type="checkbox" name="5 הדברים החשובים" value="הרבה אור טבעי" /><span>הרבה אור טבעי</span></label>
+          <label class="opt-item"><input type="checkbox" name="5 הדברים החשובים" value="תחושת מרחב" /><span>תחושת מרחב</span></label>
+          <label class="opt-item"><input type="checkbox" name="5 הדברים החשובים" value="פרטיות" /><span>פרטיות</span></label>
+          <label class="opt-item"><input type="checkbox" name="5 הדברים החשובים" value="הרבה אחסון" /><span>הרבה אחסון</span></label>
+          <label class="opt-item"><input type="checkbox" name="5 הדברים החשובים" value="חדרי ילדים מרווחים" /><span>חדרי ילדים מרווחים</span></label>
+          <label class="opt-item"><input type="checkbox" name="5 הדברים החשובים" value="סוויטת הורים מפנקת" /><span>סוויטת הורים מפנקת</span></label>
+          <label class="opt-item"><input type="checkbox" name="5 הדברים החשובים" value="פינת עבודה" /><span>פינת עבודה</span></label>
+          <label class="opt-item"><input type="checkbox" name="5 הדברים החשובים" value="חדר משפחה / טלוויזיה" /><span>חדר משפחה / טלוויזיה</span></label>
+          <label class="opt-item"><input type="checkbox" name="5 הדברים החשובים" value="אזור שירות וכביסה נוח" /><span>אזור שירות וכביסה נוח</span></label>
+          <label class="opt-item"><input type="checkbox" name="5 הדברים החשובים" value="גמישות לשינויים בעתיד" /><span>גמישות לשינויים בעתיד</span></label>
+          <label class="opt-item"><input type="checkbox" name="5 הדברים החשובים" value="אחר" data-reveal="top5_other" /><span>אחר</span></label>
+        </div>
+        <p class="counter" id="top5Counter">נבחרו <b>0</b> מתוך 5</p>
+        <div class="other-wrap" id="top5_other">
+          <input type="text" name="5 הדברים החשובים · אחר" placeholder="פרטו" />
+        </div>
+      </div>
+    </section>
+
+    <section class="step" data-step="10" data-part="מה חשוב לכם" data-title="פשרות">
+      <span class="eyebrow">חלק 3 · מה באמת חשוב לכם?</span>
+      <h2>ואם תצטרכו להתפשר?</h2>
+
+      <div class="q" data-q="לא מתפשרים">
+        <label class="q__label" for="f_nocomp">על מה אתם ממש לא רוצים להתפשר?<span class="opt">לא חובה</span></label>
+        <textarea id="f_nocomp" name="לא מתפשרים" placeholder="הדברים שאסור לוותר עליהם"></textarea>
+      </div>
+
+      <div class="q" data-q="מוכנים להתפשר">
+        <label class="q__label" for="f_comp">ועל מה תהיו מוכנים להתפשר יותר?<span class="opt">לא חובה</span></label>
+        <textarea id="f_comp" name="מוכנים להתפשר" placeholder="מה גמיש יותר מבחינתכם"></textarea>
+      </div>
+    </section>
+
+    <!-- ===== 4 · הבית הנוכחי ===== -->
+    <section class="step" data-step="11" data-part="הבית הנוכחי" data-title="הבית הנוכחי">
+      <span class="eyebrow">חלק 4 · לומדים מהבית שבו אתם גרים היום</span>
+      <h2>מה הבית הנוכחי מלמד אתכם?</h2>
+
+      <div class="q" data-q="מה עובד בבית הנוכחי">
+        <label class="q__label" for="f_like">מה אתם אוהבים בבית הנוכחי והייתם שמחים לקחת אתכם גם לבית החדש?<span class="opt">לא חובה</span></label>
+        <textarea id="f_like" name="מה עובד בבית הנוכחי"></textarea>
+      </div>
+
+      <div class="q" data-q="מה לא עובד בבית הנוכחי">
+        <label class="q__label" for="f_dislike">ומה בבית הנוכחי ממש לא עובד עבורכם ולא הייתם רוצים לחזור עליו?<span class="opt">לא חובה</span></label>
+        <textarea id="f_dislike" name="מה לא עובד בבית הנוכחי"></textarea>
+      </div>
+
+      <div class="q" data-q="משהו שתמיד רציתם">
+        <label class="q__label" for="f_always">יש משהו שתמיד רציתם שיהיה לכם בבית ועד היום לא היה?<span class="opt">לא חובה</span></label>
+        <textarea id="f_always" name="משהו שתמיד רציתם"></textarea>
+      </div>
+    </section>
+
+    <!-- ===== 5 · קדימה ===== -->
+    <section class="step" data-step="12" data-part="שנים קדימה" data-title="שנים קדימה">
+      <span class="eyebrow">חלק 5 · חושבים כמה שנים קדימה</span>
+      <h2>הבית הזה, בעוד כמה שנים</h2>
+
+      <div class="q" data-q="לכמה שנים">
+        <span class="q__label">לכמה שנים אתם מתכננים לגור בבית?<span class="opt">לא חובה</span></span>
+        <div class="opts opts--col">
+          <label class="opt-item"><input type="radio" name="לכמה שנים" value="עד 5 שנים" /><span>עד 5 שנים</span></label>
+          <label class="opt-item"><input type="radio" name="לכמה שנים" value="5–10 שנים" /><span>5–10 שנים</span></label>
+          <label class="opt-item"><input type="radio" name="לכמה שנים" value="10–20 שנים" /><span>10–20 שנים</span></label>
+          <label class="opt-item"><input type="radio" name="לכמה שנים" value="מבחינתנו זה הבית לשנים רבות" /><span>מבחינתנו זה הבית לשנים רבות</span></label>
+        </div>
+      </div>
+
+      <div class="q" data-q="צרכים עתידיים">
+        <label class="q__label" for="f_future">האם יש צרכים עתידיים שכדאי לקחת בחשבון כבר עכשיו?<span class="opt">לא חובה</span>
+          <span class="q__hint">לדוגמה: ילדים שמתבגרים, עבודה מהבית, יחידת אירוח, קליניקה, חדר נוסף, נגישות עתידית</span>
+        </label>
+        <textarea id="f_future" name="צרכים עתידיים"></textarea>
+      </div>
+    </section>
+
+    <!-- ===== 6 · התכנית ===== -->
+    <section class="step" data-step="13" data-part="התכנית" data-title="התכנית הנוכחית">
+      <span class="eyebrow">חלק 6 · ועכשיו לתכנית עצמה</span>
+      <h2>התכנון שעל השולחן</h2>
+
+      <div class="q" data-q="מה אוהבים בתכנון">
+        <label class="q__label" for="f_planlike">מה אתם הכי אוהבים בתכנון הנוכחי?<span class="opt">לא חובה</span></label>
+        <textarea id="f_planlike" name="מה אוהבים בתכנון"></textarea>
+      </div>
+
+      <div class="q" data-q="מה פחות פתור">
+        <label class="q__label" for="f_unsolved">מה כרגע מרגיש לכם פחות פתור?<span class="opt">לא חובה</span></label>
+        <textarea id="f_unsolved" name="מה פחות פתור"></textarea>
+      </div>
+
+      <div class="q" data-q="אזור שמתלבטים לגביו">
+        <label class="q__label" for="f_area_doubt">האם יש אזור מסוים בבית שאתם מתלבטים לגביו?<span class="opt">לא חובה</span></label>
+        <textarea id="f_area_doubt" name="אזור שמתלבטים לגביו"></textarea>
+      </div>
+    </section>
+
+    <section class="step" data-step="14" data-part="התכנית" data-title="הפגישה">
+      <span class="eyebrow">חלק 6 · ועכשיו לתכנית עצמה</span>
+      <h2>ועל הפגישה עצמה</h2>
+
+      <div class="q" data-q="למה דווקא עכשיו">
+        <label class="q__label" for="f_why">מה גרם לכם לפנות לייעוץ דווקא בשלב הזה?<span class="opt">לא חובה</span></label>
+        <textarea id="f_why" name="למה דווקא עכשיו"></textarea>
+      </div>
+
+      <div class="q" data-q="מה תרצו לקבל מהפגישה">
+        <label class="q__label" for="f_want">בסוף הפגישה, מה הייתם רוצים להרגיש שקיבלתם ממנה?<span class="opt">לא חובה</span></label>
+        <textarea id="f_want" name="מה תרצו לקבל מהפגישה"></textarea>
+      </div>
+    </section>
+
+    <!-- ===== 7 · תכניות ===== -->
+    <section class="step" data-step="15" data-part="התכניות" data-title="התכניות">
+      <span class="eyebrow">חלק 7 · התכניות</span>
+      <h2>חומרי התכנון</h2>
+      <p class="step__note">כדי שאוכל להגיע לפגישה מוכנה ולעבור על התכנון מראש, אשמח לקבל את חומרי התכנון העדכניים ביותר שיש ברשותכם.</p>
+
+      <ul class="doclist">
+        <li>תכניות כל הקומות כולל מידות</li>
+        <li>תכנית העמדה / מגרש</li>
+        <li>חזיתות</li>
+        <li>חתכים</li>
+        <li>תכנית פיתוח</li>
+        <li>הדמיות, אם קיימות</li>
+        <li>חלופות תכנון קודמות, אם יש משהו שרלוונטי להתלבטות</li>
+      </ul>
+
+      <div class="q" data-q="קבצים">
+        <div class="drop" id="drop" role="button" tabindex="0" aria-label="העלאת קבצים">
+          <p class="drop__t">גררו לכאן קבצים או לחצו לבחירה</p>
+          <p class="drop__s">PDF, JPG או PNG · עד <span id="maxMb"></span>MB לקובץ</p>
+          <input type="file" id="files" multiple accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png" />
+        </div>
+        <div class="flist" id="flist"></div>
+        <p class="flist-note" id="fnote"></p>
+        <p class="err" id="fileErr"></p>
+      </div>
+    </section>
+
+  </form>
+
+  <!-- ===== DONE ===== -->
+  <section class="done" id="done">
+    <img class="done__mark" src="/assets/mark.png" alt="" />
+    <h2>תודה! עכשיו אני כבר מכירה אתכם קצת יותר :)</h2>
+    <p>אעבור על התשובות ועל התכניות שצירפתם לפני הפגישה ואגיע עם הנקודות שארצה לבדוק יחד אתכם.</p>
+    <p>נתראה בקרוב,</p>
+    <div class="done__sig">שרון שגיא<span>תכנון ועיצוב פנים</span></div>
+  </section>
+</main>
+
+<footer class="q-foot" id="foot">
+  <div class="q-foot__in">
+    <button type="button" class="btn btn--ghost btn--hidden" id="backBtn">חזרה</button>
+    <button type="button" class="btn btn--primary" id="nextBtn">מתחילים</button>
+  </div>
+  <div class="q-foot__in sending" id="sending" style="margin-top:12px"><span class="spin"></span><span id="sendMsg">שולח…</span></div>
+  <div class="q-foot__in"><div class="fail" id="fail"></div></div>
+</footer>
+
+<script define:vars={{ ENDPOINT, MAX_FILE_MB, MAX_TOTAL_MB }}>
+  const form = document.getElementById('qForm');
+  const steps = [...form.querySelectorAll('.step')];
+  const last = steps.length - 1;
+  const barFill = document.getElementById('barFill');
+  const pct = document.getElementById('pct');
+  const stepLabel = document.getElementById('stepLabel');
+  const backBtn = document.getElementById('backBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const doneEl = document.getElementById('done');
+  const footEl = document.getElementById('foot');
+  const sending = document.getElementById('sending');
+  const failEl = document.getElementById('fail');
+  const STORE = 'ss_questionnaire_v1';
+  let i = 0;
+  let picked = [];
+
+  document.getElementById('maxMb').textContent = MAX_FILE_MB;
+
+  /* ---------- restore / persist ---------- */
+  const save = () => {
+    try {
+      const d = {};
+      form.querySelectorAll('input,textarea').forEach((el) => {
+        if (el.type === 'file') return;
+        if (el.type === 'checkbox' || el.type === 'radio') { if (el.checked) (d[el.name] = d[el.name] || []).push(el.value); }
+        else if (el.value) d[el.name] = el.value;
+      });
+      localStorage.setItem(STORE, JSON.stringify({ d, i }));
+    } catch (e) {}
+  };
+  const restore = () => {
+    try {
+      const raw = localStorage.getItem(STORE); if (!raw) return;
+      const { d, i: si } = JSON.parse(raw);
+      form.querySelectorAll('input,textarea').forEach((el) => {
+        if (el.type === 'file') return;
+        const v = d[el.name]; if (v === undefined) return;
+        if (el.type === 'checkbox' || el.type === 'radio') { if (Array.isArray(v) && v.includes(el.value)) el.checked = true; }
+        else el.value = v;
+      });
+      if (typeof si === 'number' && si > 0 && si <= last) i = si;
+      form.querySelectorAll('[data-reveal]').forEach(syncReveal);
+      updateTop5();
+    } catch (e) {}
+  };
+
+  /* ---------- reveal "אחר" ---------- */
+  function syncReveal(el) {
+    const box = document.getElementById(el.dataset.reveal); if (!box) return;
+    let on = el.checked;
+    if (el.type === 'radio') on = form.querySelector('input[name="' + CSS.escape(el.name) + '"][data-reveal="' + el.dataset.reveal + '"]:checked') !== null;
+    box.classList.toggle('on', !!on);
+  }
+  form.addEventListener('change', (e) => {
+    const t = e.target;
+    if (t.type === 'radio') form.querySelectorAll('input[type=radio][name="' + CSS.escape(t.name) + '"][data-reveal]').forEach(syncReveal);
+    if (t.dataset && t.dataset.reveal) syncReveal(t);
+    updateTop5();
+    save();
+  });
+  form.addEventListener('input', save);
+
+  /* ---------- max 5 ---------- */
+  const top5 = [...form.querySelectorAll('input[name="5 הדברים החשובים"]')];
+  const counter = document.getElementById('top5Counter');
+  function updateTop5() {
+    if (!top5.length) return;
+    const n = top5.filter((c) => c.checked).length;
+    counter.querySelector('b').textContent = n;
+    counter.classList.toggle('full', n >= 5);
+    top5.forEach((c) => { c.disabled = !c.checked && n >= 5; });
+  }
+
+  /* ---------- files ---------- */
+  const drop = document.getElementById('drop');
+  const fileInput = document.getElementById('files');
+  const flist = document.getElementById('flist');
+  const fnote = document.getElementById('fnote');
+  const fileErr = document.getElementById('fileErr');
+  let files = [];
+  const fmt = (b) => b < 1048576 ? Math.max(1, Math.round(b / 1024)) + ' KB' : (b / 1048576).toFixed(1) + ' MB';
+
+  function renderFiles() {
+    flist.innerHTML = '';
+    files.forEach((f, idx) => {
+      const row = document.createElement('div');
+      row.className = 'frow';
+      const n = document.createElement('span'); n.className = 'frow__n'; n.textContent = f.name;
+      const s = document.createElement('span'); s.className = 'frow__s'; s.textContent = fmt(f.size);
+      const x = document.createElement('button'); x.type = 'button'; x.className = 'frow__x';
+      x.setAttribute('aria-label', 'הסרה'); x.textContent = '×';
+      x.addEventListener('click', () => { files.splice(idx, 1); renderFiles(); });
+      row.append(n, s, x); flist.appendChild(row);
+    });
+    const total = files.reduce((a, f) => a + f.size, 0);
+    fnote.textContent = files.length ? files.length + ' קבצים · ' + fmt(total) + ' סה״כ' : '';
+  }
+  function addFiles(list) {
+    fileErr.classList.remove('on'); fileErr.textContent = '';
+    const ok = ['application/pdf', 'image/jpeg', 'image/png'];
+    const msgs = [];
+    [...list].forEach((f) => {
+      if (!ok.includes(f.type)) { msgs.push('"' + f.name + '" – פורמט לא נתמך'); return; }
+      if (f.size > MAX_FILE_MB * 1048576) { msgs.push('"' + f.name + '" – גדול מ־' + MAX_FILE_MB + 'MB'); return; }
+      const total = files.reduce((a, x) => a + x.size, 0);
+      if (total + f.size > MAX_TOTAL_MB * 1048576) { msgs.push('"' + f.name + '" – חורג מהמקסימום הכולל'); return; }
+      if (files.some((x) => x.name === f.name && x.size === f.size)) return;
+      files.push(f);
+    });
+    if (msgs.length) { fileErr.textContent = msgs.join(' · ') + '. אפשר לשלוח אותו בנפרד למייל sharonsa.design@gmail.com'; fileErr.classList.add('on'); }
+    renderFiles();
+  }
+  drop.addEventListener('click', () => fileInput.click());
+  drop.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput.click(); } });
+  fileInput.addEventListener('change', () => { addFiles(fileInput.files); fileInput.value = ''; });
+  ['dragenter', 'dragover'].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.add('over'); }));
+  ['dragleave', 'drop'].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.remove('over'); }));
+  drop.addEventListener('drop', (e) => addFiles(e.dataTransfer.files));
+
+  /* ---------- validation ---------- */
+  function validate(stepEl) {
+    let ok = true;
+    stepEl.querySelectorAll('.q[data-required="1"]').forEach((q) => {
+      const err = q.querySelector('.err');
+      let filled;
+      const radios = q.querySelectorAll('input[type=radio]');
+      if (radios.length) filled = [...radios].some((r) => r.checked);
+      else filled = [...q.querySelectorAll('input[type=text],textarea')].some((f) => f.value.trim() !== '');
+      q.classList.toggle('invalid', !filled);
+      if (err) err.classList.toggle('on', !filled);
+      if (!filled && ok) { ok = false; q.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+    });
+    return ok;
+  }
+
+  /* ---------- navigation ---------- */
+  function show(n) {
+    steps[i].classList.remove('on');
+    i = n;
+    steps[i].classList.add('on');
+    const p = Math.round((i / last) * 100);
+    barFill.style.width = p + '%';
+    pct.textContent = p + '%';
+    stepLabel.textContent = steps[i].dataset.title || '';
+    backBtn.classList.toggle('btn--hidden', i === 0);
+    nextBtn.textContent = i === 0 ? 'מתחילים' : (i === last ? 'סיימנו, אפשר לשלוח' : 'הבא');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    save();
+  }
+  backBtn.addEventListener('click', () => { if (i > 0) show(i - 1); });
+  nextBtn.addEventListener('click', () => {
+    if (!validate(steps[i])) return;
+    if (i < last) show(i + 1); else submit();
+  });
+
+  /* ---------- submit ---------- */
+  const readAsB64 = (file) => new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload = () => res(String(r.result).split(',')[1]);
+    r.onerror = rej;
+    r.readAsDataURL(file);
+  });
+
+  function collect() {
+    const out = [];
+    form.querySelectorAll('.step').forEach((st) => {
+      st.querySelectorAll('.q').forEach((q) => {
+        const label = q.dataset.q; if (!label) return;
+        const vals = [];
+        q.querySelectorAll('input[type=checkbox],input[type=radio]').forEach((c) => { if (c.checked) vals.push(c.value); });
+        q.querySelectorAll('input[type=text],textarea').forEach((f) => { if (f.value.trim()) vals.push(f.value.trim()); });
+        if (vals.length) out.push({ part: st.dataset.part || '', q: label, a: vals.join(' · ') });
+      });
+    });
+    return out;
+  }
+
+  async function post(payload) {
+    const r = await fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload),
+    });
+    const t = await r.text();
+    let j; try { j = JSON.parse(t); } catch (e) { throw new Error('bad response'); }
+    if (!j.ok) throw new Error(j.error || 'server error');
+    return j;
+  }
+
+  async function submit() {
+    if (!ENDPOINT || ENDPOINT.indexOf('PASTE_') === 0) {
+      failEl.innerHTML = 'הטופס עדיין לא חובר לשליחה. אנא צרו קשר עם שרון.';
+      failEl.classList.add('on');
+      return;
+    }
+    failEl.classList.remove('on');
+    nextBtn.disabled = true; backBtn.disabled = true;
+    sending.classList.add('on');
+    const msg = document.getElementById('sendMsg');
+    const answers = collect();
+    const name = (form.querySelector('#f_names') || {}).value || 'ללא שם';
+
+    try {
+      msg.textContent = 'שולח את התשובות…';
+      const first = await post({ type: 'answers', name: name, answers: answers, files: files.length });
+      const token = first.token;
+
+      for (let k = 0; k < files.length; k++) {
+        msg.textContent = 'מעלה קובץ ' + (k + 1) + ' מתוך ' + files.length + '…';
+        const b64 = await readAsB64(files[k]);
+        await post({ type: 'file', token: token, name: name, filename: files[k].name, mime: files[k].type, data: b64 });
+      }
+
+      msg.textContent = 'מסיים…';
+      await post({ type: 'finish', token: token, name: name });
+
+      try { localStorage.removeItem(STORE); } catch (e) {}
+      sending.classList.remove('on');
+      form.style.display = 'none';
+      footEl.style.display = 'none';
+      document.querySelector('.q-top').style.display = 'none';
+      doneEl.classList.add('on');
+      window.scrollTo({ top: 0 });
+    } catch (err) {
+      sending.classList.remove('on');
+      nextBtn.disabled = false; backBtn.disabled = false;
+      failEl.innerHTML = 'משהו השתבש בשליחה. התשובות שלכם נשמרו בדפדפן – אפשר לנסות שוב בעוד רגע, או לשלוח אותן ישירות למייל <a href="mailto:sharonsa.design@gmail.com">sharonsa.design@gmail.com</a>';
+      failEl.classList.add('on');
+    }
+  }
+
+  /* ---------- init ---------- */
+  restore();
+  show(i);
+  renderFiles();
+</script>
+
+</body>
+</html>
