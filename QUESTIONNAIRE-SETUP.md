@@ -50,6 +50,8 @@
  */
 
 const SHARON_EMAIL = 'sharonsa.design@gmail.com';
+/* מזהה הגיליון. לא נשמר כאן כי ה-repo ציבורי — הערך האמיתי נמצא בסקריפט עצמו. */
+const SHEET_ID     = '__SHEET_ID__';
 const SHEET_NAME   = 'שאלונים';
 const DRIVE_FOLDER = 'שאלוני ייעוץ תכנוני';
 
@@ -78,7 +80,14 @@ function doGet() {
 }
 
 function safeUser_() {
-  try { return Session.getEffectiveUser().getEmail(); } catch (err) { return 'unknown'; }
+  try {
+    const u = Session.getEffectiveUser().getEmail();
+    if (u) return u;
+  } catch (err) {}
+  try {
+    return DriveApp.getRootFolder().getOwner().getEmail();
+  } catch (err) {}
+  return 'unknown';
 }
 
 function json(obj) {
@@ -137,7 +146,7 @@ function finish_(body) {
   const link = folder.getUrl();
 
   /* ---------- שורה בגיליון ---------- */
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const ss = SpreadsheetApp.openById(SHEET_ID);
   let sh = ss.getSheetByName(SHEET_NAME);
   const headers = ['תאריך', 'שמות', 'מספר קבצים', 'תיקיית תכניות'];
 
@@ -201,7 +210,7 @@ function finish_(body) {
             '</span><br><span style="font-size:15px">' + esc_(a.a).replace(/\n/g, '<br>') + '</span></p>';
   });
 
-  html += '<p style="margin-top:26px;font-size:11px;color:#9A9186">נשלח אוטומטית מהשאלון באתר · הסקריפט רץ תחת ' + esc_(safeUser_()) + '</p>';
+  html += '<p style="margin-top:26px;font-size:11px;color:#9A9186">נשלח אוטומטית מהשאלון באתר</p>';
   html += '</div>';
 
   MailApp.sendEmail({
