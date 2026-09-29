@@ -39,6 +39,12 @@ const notForWho = [
   'למי שכבר סגורים על הכול ולא פתוחים לבחון אפשרויות',
   'למי שמחפשים פתרון עיצובי נקודתי בלבד ללא הסתכלות רחבה',
 ];
+const layers = [
+  ['תנועה וזרימה בבית', 'האם העמדת הריהוט והפונקציות נכונה מבחינת הנדסת אנוש ותקנים.'],
+  ['התאמה לחיים שלכם', 'בהתאם לשאלון המקדים שמילאתם, אבחן האם התכנית מתאימה להרכב המשפחתי (הנוכחי והעתידי), ההרגלים ואורח החיים שלכם.'],
+  ['אילוצים מבניים', 'זיהוי אלמנטים מבניים שעשויים להשפיע על אפשרויות התכנון, וסימונם לצורך בדיקה מקצועית לפני שמקבלים החלטה.'],
+  ['הזדמנויות לשיפור', 'הצעת שינויים אפשריים שיכולים לשפר את התכנית – העמדה אחרת, חלוקה מיטבית יותר של החללים או פתרונות אחסון שלא באים לידי ביטוי בתכנית הקיימת.'],
+];
 const faq = [
   ['האם שעתיים יספיקו?', 'כן! אני מגיעה לפגישה לאחר שעברתי לעומק על התכניות והשאלון שמילאתם.'],
   ['האם נקבל תכנית מתוקנת?', 'בפגישה אצביע על בעיות, פוטנציאל וכיוונים לשיפור, ובסופה תקבלו סיכום מסודר. תכנון מפורט ושרטוטים מלאים נעשים במסגרת ליווי מלא.'],
@@ -142,7 +148,15 @@ const faq = [
 
   <!-- WHAT I SPOT -->
   <section class="mr-sec wrap">
-    <h2 class="mr-h">אז מה אני מזהה תוך דקה בתכניות?</h2>
+    <h2 class="mr-h">אבחון תכנית ב"שיטת 4 השכבות" שלי</h2>
+    <div class="mr-layers reveal">
+      {layers.map(([t, d], i) => (
+        <div class="mr-layer">
+          <span class="mr-layer__n">{i + 1}</span>
+          <div><h3>{t}</h3><p>{d}</p></div>
+        </div>
+      ))}
+    </div>
     <div class="mr-gallery reveal">
       {img.plans.map((s) => (<img src={s} alt="ניתוח תכנית" loading="lazy" />))}
     </div>
@@ -286,6 +300,11 @@ const faq = [
     .mr-testi{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:32px}
     .mr-testi img{width:100%;border-radius:6px;display:block}
 
+    .mr-layers{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin:38px auto 0;max-width:960px}
+    .mr-layer{display:flex;gap:18px;align-items:flex-start;background:#fff;border:1px solid #E8D7CD;border-radius:10px;padding:26px 24px}
+    .mr-layer__n{flex:0 0 auto;width:42px;height:42px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:1.25rem;font-weight:600}
+    .mr-layer h3{font-family:var(--serif);font-weight:600;font-size:1.2rem;color:var(--accent-deep);margin:0 0 8px}
+    .mr-layer p{margin:0;color:var(--ink-soft);line-height:1.75}
     .mr-gallery{display:grid;grid-template-columns:1fr;gap:28px;margin:38px auto 0;max-width:760px}
     .mr-gallery img{width:100%;height:auto;border-radius:8px;display:block;box-shadow:0 14px 34px rgba(38,32,25,.12)}
 
@@ -334,7 +353,7 @@ const faq = [
       .mr-hero{padding-top:5vh}
       .mr-pain,.mr-inc,.mr-fit,.mr-about__in{grid-template-columns:1fr}
       .mr-pain__img{order:-1}
-      .mr-testi{grid-template-columns:1fr}
+      .mr-testi,.mr-layers{grid-template-columns:1fr}
       
       .mr-row{grid-template-columns:1fr}
     }
