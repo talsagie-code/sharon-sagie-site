@@ -51,33 +51,13 @@ const faq = [
   <!-- HERO -->
   <header class="mr-hero">
     <div class="mr-hero__in">
-      <h1>Make it Right<br>פגישת ייעוץ תכנוני לפני רכישה או שיפוץ</h1>
+      <h1>ייעוץ תכנוני לפני קנייה או שיפוץ דירה:<br>לפני שמתחייבים להשקעה גדולה, בואו נבדוק אם התכנית באמת מתאימה לכם.</h1>
       <p class="mr-hero__lead">אתם מתרגשים לקראת קניית דירה או שיפוץ גדול, משקיעים זמן, כסף ואנרגיה – אבל עמוק בפנים יש סימן שאלה קטן: האם התכנון באמת מתאים לחיים שלנו? האם השינויים שאנחנו רוצים לעשות בכלל אפשריים ונכונים?</p>
       <p class="mr-hero__sub">כי טעויות תכנוניות לא תמיד רואים על הנייר, אבל מרגישים אותן כל יום אח"כ.</p>
       <p class="mr-hero__sub mr-hero__sub--2"><b>רגע לפני שאתם מתחייבים להחלטה גדולה ומשמעותית כזו</b> – תנו לעין מקצועית לבחון את התוכנית שלכם לעומק, כדי שתוכלו להתקדם בביטחון ובשקט נפשי.</p>
       <a href="#lead" class="mr-btn">מרגישים שזה השלב לעצור ולבדוק? אשמח לדבר</a>
     </div>
   </header>
-
-  <!-- LEAD FORM 1 -->
-  <section class="mr-lead" id="lead">
-    <div class="wrap">
-      <h2 class="mr-h">השאירו פרטים לתיאום שיחת היכרות</h2>
-      <form class="mr-form" action={FORM} method="POST" target="mir_sink">
-        <div class="mr-row">
-          <label>שם פרטי<input type="text" name={E.first} required autocomplete="given-name" /></label>
-          <label>שם משפחה<input type="text" name={E.last} required autocomplete="family-name" /></label>
-        </div>
-        <div class="mr-row">
-          <label>מייל<input type="email" name={E.email} required autocomplete="email" dir="ltr" /></label>
-          <label>נייד<input type="tel" name={E.phone} required autocomplete="tel" dir="ltr" /></label>
-        </div>
-        <button type="submit" class="mr-btn mr-form__btn">לתיאום שיחת היכרות</button>
-        <p class="mr-form__legal">מסירת הפרטים היא מרצון ותשמש ליצירת קשר בלבד. הפרטים נשמרים אצל שרון שגיא ואינם מועברים לצדדים שלישיים לצורכי שיווק. פרטים מלאים ב<a href="/privacy">מדיניות הפרטיות</a>.</p>
-        <p class="mr-form__msg" hidden></p>
-      </form>
-    </div>
-  </section>
 
   <!-- PAIN -->
   <section class="mr-sec wrap">
@@ -115,7 +95,7 @@ const faq = [
       <div class="mr-inc__col reveal">
         <div class="mr-inc__img"><img src={img.card1} alt="פגישת ייעוץ תכנוני" loading="lazy" /></div>
         <div class="mr-inc__body">
-          <h3>פגישת ייעוץ של שעתיים בביתך / אונליין <span>(ללקוחות מחוץ לאזור העבודה שלי)</span></h3>
+          <h3>פגישת ייעוץ ממוקדת של שעתיים (בביתכם או באונליין)</h3>
           <ul>{includeMeeting.map((x) => (<li>{x}</li>))}</ul>
         </div>
       </div>
@@ -162,26 +142,7 @@ const faq = [
       </div>
       <p class="mr-big">השקעה קטנה לפני החלטה גדולה ומשמעותית!</p>
       <p>אני מקבלת רק 4 לקוחות בחודש במסלול הזה, כדי שאוכל לעשות הכנה רצינית ומעמיקה לפני כל פגישה. לכן אם חשוב לכם לא לבזבז זמן יקר ולקבל החלטה חכמה – השאירו פרטים לתיאום שיחת היכרות קצרה.</p>
-      <a href="#lead2" class="mr-btn mr-btn--light">לתיאום שיחת היכרות</a>
-    </div>
-  </section>
-
-  <!-- LEAD FORM 2 -->
-  <section class="mr-lead" id="lead2">
-    <div class="wrap">
-      <form class="mr-form" action={FORM} method="POST" target="mir_sink">
-        <div class="mr-row">
-          <label>שם פרטי<input type="text" name={E.first} required autocomplete="given-name" /></label>
-          <label>שם משפחה<input type="text" name={E.last} required autocomplete="family-name" /></label>
-        </div>
-        <div class="mr-row">
-          <label>מייל<input type="email" name={E.email} required autocomplete="email" dir="ltr" /></label>
-          <label>נייד<input type="tel" name={E.phone} required autocomplete="tel" dir="ltr" /></label>
-        </div>
-        <button type="submit" class="mr-btn mr-form__btn">לתיאום שיחת היכרות</button>
-        <p class="mr-form__legal">מסירת הפרטים היא מרצון ותשמש ליצירת קשר בלבד. הפרטים נשמרים אצל שרון שגיא ואינם מועברים לצדדים שלישיים לצורכי שיווק. פרטים מלאים ב<a href="/privacy">מדיניות הפרטיות</a>.</p>
-        <p class="mr-form__msg" hidden></p>
-      </form>
+      <a href="#lead" class="mr-btn mr-btn--light">לתיאום שיחת היכרות</a>
     </div>
   </section>
 
@@ -212,21 +173,20 @@ const faq = [
     </div>
   </section>
 
-  <!-- FINAL CTA + FORM 3 -->
-  <section class="mr-final">
+  <!-- FINAL CTA + LEAD FORM (the only form; all CTAs link to #lead) -->
+  <section class="mr-final" id="lead">
     <div class="wrap reveal">
       <h2 class="mr-h mr-h--light">אז אם אתם רוצים לעשות החלטה נכונה, בואו נעשה אותה יחד</h2>
       <p class="mr-lets">let's <span class="mr-lets__name">Make it Right</span></p>
       <p>השאירו פרטים ונקבע שיחה קצרה כדי להבין באיזה שלב אתם ומה הכי נכון עבורכם.</p>
       <form class="mr-form mr-form--light" action={FORM} method="POST" target="mir_sink">
         <div class="mr-row">
-          <label>שם פרטי<input type="text" name={E.first} required autocomplete="given-name" /></label>
-          <label>שם משפחה<input type="text" name={E.last} required autocomplete="family-name" /></label>
+          <label>שם מלא<input type="text" name={E.first} required autocomplete="name" /></label>
+          <label>טלפון נייד<input type="tel" name={E.phone} required autocomplete="tel" dir="ltr" /></label>
         </div>
-        <div class="mr-row">
-          <label>מייל<input type="email" name={E.email} required autocomplete="email" dir="ltr" /></label>
-          <label>נייד<input type="tel" name={E.phone} required autocomplete="tel" dir="ltr" /></label>
-        </div>
+        <!-- The Google Form still requires last name + email; send placeholders so submissions aren't rejected -->
+        <input type="hidden" name={E.last} value="-" />
+        <input type="hidden" name={E.email} value="not-provided@sharonsagie.design" />
         <button type="submit" class="mr-btn mr-form__btn">לתיאום שיחת היכרות</button>
         <p class="mr-form__legal">מסירת הפרטים היא מרצון ותשמש ליצירת קשר בלבד. הפרטים נשמרים אצל שרון שגיא ואינם מועברים לצדדים שלישיים לצורכי שיווק. פרטים מלאים ב<a href="/privacy">מדיניות הפרטיות</a>.</p>
         <p class="mr-form__msg" hidden></p>
